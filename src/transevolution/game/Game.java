@@ -1,9 +1,7 @@
 package transevolution.game;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
 
 /**
  * Hauptklasse des Spiels
@@ -25,22 +23,21 @@ public class Game extends StateBasedGame
 	public void initStatesList(GameContainer container) throws SlickException 
 	{
 		
-	    this.addState(new Menu()); 
+	    this.addState(new Menu());
+	    this.addState(new Credits());
 	    
 	}
 
-	public static void main(String[] args)
+	public static void main(String[] argsv)
 	{
 		AppGameContainer appgc;
 		
 		try
 		{
-			// Frame 850 *550 und Icon hinzufügen
+			// Frame 850*550 und Icon hinzufügen
 			appgc = new AppGameContainer(new Game(name), 850, 550, false);
 			appgc.setIcon("res/pictures/icon.png");
-			
 			appgc.start();
-			
 		}catch(SlickException ex){
 			ex.printStackTrace();
 		}

@@ -16,22 +16,25 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class Credits extends BasicGameState
+public class Einstellungen extends BasicGameState
 {
-	// stateID für die Credits gleich 2
-	public static final int stateID = 2;
+	// stateID für die Einstellungen gleich 1
+	public static final int stateID = 1;
 	
 	Image hintergrund =null;
 	TrueTypeFont font;
 	private StateBasedGame game;
+
+	//zur Auswahl
+	private int wahl =0;
 	
-	//Text zum anzeigen + Zurück"Button"
-	private String creditstext1= "a dungeon crawler game"; 
-	private String creditstext2= "by Team International";
-	private String back= "Zurück"; 
+	private String[][]auswahl = new String[][]{{"Musik aus", "Musik an"},{ "FPS ausblenden", "FPS einblenden"},{"Zurück","Zurück"}};
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
+		//damit das oberste element auch bei wiederkehr gewählt ist
+		wahl = 0;
+		
 		//Hintergrund laden
 		hintergrund = new Image("res/pictures/background.png");
 		
@@ -57,15 +60,73 @@ public class Credits extends BasicGameState
 		hintergrund.draw(0,0);
 		
 		g.setFont(font);
-
-		g.setColor(Color.white);
-		g.drawString(creditstext1, 260, 200);
-		g.drawString(creditstext2, 280, 250);
-		
 		g.setColor(Color.orange);
-		g.drawString(back, 350, 450);
+
+		//Musik an/aus
+		g.drawString(auswahl[0][0], 280, 200);
+		g.setColor(Color.white);
+		if(wahl == 0)
+		{
+			g.setColor(Color.orange);
+			g.drawString(auswahl[0][0], 280, 200);
+		}else{
+			g.setColor(Color.white);
+			g.drawString(auswahl[0][0], 280, 200);
+		}
+		if(wahl == 1)
+		{
+			g.setColor(Color.orange);
+			g.drawString(auswahl[1][0], 280, 270);
+		}else{
+			g.setColor(Color.white);
+			g.drawString(auswahl[1][0], 280, 270);
+		}
+		if(wahl == 2)
+		{
+			g.setColor(Color.orange);
+			g.drawString(auswahl[2][0], 280, 450);
+		}else{
+			g.setColor(Color.white);
+			g.drawString(auswahl[2][0], 280, 450);
+		}
+
 
 		
+	}
+	//Bewegen im Menü mit Pfeiltasten
+	public void keyReleased(int taste, char c)
+	{
+		if(taste == Input.KEY_DOWN)
+		{
+			wahl++;
+			wahl= wahl%3;
+		}
+		if(taste == Input.KEY_UP)
+		{
+			wahl--;
+			if(wahl <0)
+			{
+				wahl =2;
+			}
+		}
+		// Auswählen mit Enter oder Leertaste
+		if(taste == Input.KEY_ENTER || taste == Input.KEY_SPACE)
+		{
+			switch(wahl)
+			{
+				case 0:
+					
+					break;
+				case 1:
+					
+					break;
+				case 2:
+					enterStateAndreinit(Menu.stateID);
+					break;
+				default:
+					System.out.println("Fehler bei der Auswahl");
+			}	
+		}
 	}
 
 	public void update(GameContainer container, StateBasedGame sbg, int delta)throws SlickException 
@@ -73,18 +134,7 @@ public class Credits extends BasicGameState
 		
 		
 	}
-	//Bewegen im Menü mit Pfeiltasten
-	public void keyReleased(int taste, char c)
-	{
-		
-	// Zurück ins Menü mit Enter oder Leertaste	
-	if(taste == Input.KEY_ENTER || taste == Input.KEY_SPACE)
-		{
-			enterStateAndreinit(Menu.stateID);
 
-			
-		}
-	}
 	
 	//State wechseln
 	  private void enterStateAndreinit(int stateID) 

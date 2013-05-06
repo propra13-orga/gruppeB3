@@ -28,9 +28,11 @@ public class Menu extends BasicGameState
 	TrueTypeFont font;
 	
 	//zur Auswahl aus dem Menü
-	private int wahl =0;
+	private int wahl = 0;
 	
 	//Auwahlmöglichkeiten im Menü
+	
+	
 	private String[]auswahl = new String[]{"Spiel starten", "Einstellungen", "Credits", "Spiel beenden"};
 	
 	private StateBasedGame game;
@@ -101,6 +103,9 @@ public class Menu extends BasicGameState
 		{
 			switch(wahl)
 			{
+				case 1:
+					enterStateAndreinit(Einstellungen.stateID);
+					break;
 				case 2:
 					enterStateAndreinit(Credits.stateID);
 					break;

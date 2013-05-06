@@ -5,9 +5,15 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Hauptklasse des Spiels
+ * Hier wird das Frame gestartet, sowie die States übergeben
+ */
+
+
 public class Game extends StateBasedGame
 {
-	public static final String name = "Slick2D Test";
+	public static final String name = "TRANS EVOLUTION";
 	public static int menu = 0;
 	public static int options = 1;
 	public static int credits = 2;
@@ -25,7 +31,7 @@ public class Game extends StateBasedGame
 		*/
 	}
 
-	@Override
+	//hinzufügen der States
 	public void initStatesList(GameContainer container) throws SlickException 
 	{
 		/*
@@ -43,7 +49,7 @@ public class Game extends StateBasedGame
 		
 		try
 		{
-			appgc = new AppGameContainer(new Game(name), 900, 600, false);
+			appgc = new AppGameContainer(new Game(name), 850, 550, false);
 		
 			
 			appgc.start();

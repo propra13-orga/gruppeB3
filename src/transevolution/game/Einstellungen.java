@@ -18,8 +18,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class Einstellungen extends BasicGameState
 {
-	// stateID für die Einstellungen gleich 1
-	public static final int stateID = 1;
+	// stateID für die Einstellungen gleich 2
+	public static final int stateID = 2;
 	
 	Image hintergrund =null;
 	TrueTypeFont font;
@@ -27,6 +27,9 @@ public class Einstellungen extends BasicGameState
 
 	//zur Auswahl
 	private int wahl =0;
+	
+	private int a = 0;
+	private int b = 0;
 	
 	private String[][]auswahl = new String[][]{{"Musik aus", "Musik an"},{ "FPS ausblenden", "FPS einblenden"},{"Zurück","Zurück"}};
 
@@ -60,26 +63,24 @@ public class Einstellungen extends BasicGameState
 		hintergrund.draw(0,0);
 		
 		g.setFont(font);
-		g.setColor(Color.orange);
 
 		//Musik an/aus
-		g.drawString(auswahl[0][0], 280, 200);
 		g.setColor(Color.white);
 		if(wahl == 0)
 		{
 			g.setColor(Color.orange);
-			g.drawString(auswahl[0][0], 280, 200);
+			g.drawString(auswahl[0][a], 280, 200);
 		}else{
 			g.setColor(Color.white);
-			g.drawString(auswahl[0][0], 280, 200);
+			g.drawString(auswahl[0][a], 280, 200);
 		}
 		if(wahl == 1)
 		{
 			g.setColor(Color.orange);
-			g.drawString(auswahl[1][0], 280, 270);
+			g.drawString(auswahl[1][b], 280, 270);
 		}else{
 			g.setColor(Color.white);
-			g.drawString(auswahl[1][0], 280, 270);
+			g.drawString(auswahl[1][b], 280, 270);
 		}
 		if(wahl == 2)
 		{
@@ -115,10 +116,24 @@ public class Einstellungen extends BasicGameState
 			switch(wahl)
 			{
 				case 0:
-					
+					if(a == 0)
+					{
+						a=1;
+					}
+					else
+					{
+						a=0;
+					}
 					break;
 				case 1:
-					
+					if(b == 0)
+					{
+						b=1;
+					}
+					else
+					{
+						b=0;
+					}
 					break;
 				case 2:
 					enterStateAndreinit(Menu.stateID);
@@ -126,6 +141,11 @@ public class Einstellungen extends BasicGameState
 				default:
 					System.out.println("Fehler bei der Auswahl");
 			}	
+
+		}
+		if(taste == Input.KEY_ESCAPE)
+		{
+			enterStateAndreinit(Menu.stateID);
 		}
 	}
 

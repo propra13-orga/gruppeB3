@@ -26,6 +26,7 @@ public class Game extends StateBasedGame
 	    this.addState(new Menu());
 	    this.addState(new Credits());
 	    this.addState(new Einstellungen());
+	    this.addState(new StartGame());
 	}
 
 	public static void main(String[] argsv)

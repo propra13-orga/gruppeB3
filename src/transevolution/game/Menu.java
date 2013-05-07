@@ -103,6 +103,9 @@ public class Menu extends BasicGameState
 		{
 			switch(wahl)
 			{
+				case 0:
+					enterStateAndreinit(StartGame.stateID);
+					break;
 				case 1:
 					enterStateAndreinit(Einstellungen.stateID);
 					break;
@@ -118,8 +121,10 @@ public class Menu extends BasicGameState
 		}
 	}
 	
-	  private void enterStateAndreinit(int stateID) {
-		    try {
+	  private void enterStateAndreinit(int stateID) 
+	  {
+		    try 
+		    {
 		      game.getState(stateID).init(game.getContainer(), game);
 		    } catch (SlickException e) {
 		      
@@ -130,8 +135,9 @@ public class Menu extends BasicGameState
 		  }
 
 
-	public int getID() {
-		// TODO Auto-generated method stub
+	public int getID() 
+	{
+
 		return stateID;
 	}
 

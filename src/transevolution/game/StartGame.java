@@ -16,24 +16,19 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class Credits extends BasicGameState
+public class StartGame extends BasicGameState
 {
-	// stateID für die Credits gleich 3
-	public static final int stateID = 3;
+	// stateID für die Credits gleich 1
+	public static final int stateID = 1;
 	
 	Image hintergrund =null;
 	TrueTypeFont font;
 	private StateBasedGame game;
 	
-	//Text zum anzeigen + Zurück"Button"
-	private String creditstext1= "a dungeon crawler game"; 
-	private String creditstext2= "by Team International";
-	private String back= "Zurück"; 
+
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
-		//Hintergrund laden
-		hintergrund = new Image("res/pictures/background.png");
 		
 		this.game =sbg;
 		
@@ -54,16 +49,14 @@ public class Credits extends BasicGameState
 	//zeichnen
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)throws SlickException 
 	{
-		hintergrund.draw(0,0);
 		
 		g.setFont(font);
 
 		g.setColor(Color.white);
-		g.drawString(creditstext1, 260, 200);
-		g.drawString(creditstext2, 280, 250);
+
 		
 		g.setColor(Color.orange);
-		g.drawString(back, 350, 450);
+
 
 		
 	}
@@ -78,13 +71,13 @@ public class Credits extends BasicGameState
 	{
 		
 	// Zurück ins Menü mit Enter oder Leertaste	
-		if(taste == Input.KEY_ENTER || taste == Input.KEY_SPACE || taste == Input.KEY_ESCAPE)
+	if(taste == Input.KEY_ESCAPE)
 		{
 			enterStateAndreinit(Menu.stateID);
-		}	
+
+			
+		}
 	}
-
-
 	
 	//State wechseln
 	  private void enterStateAndreinit(int stateID) 

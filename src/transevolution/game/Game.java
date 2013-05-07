@@ -36,7 +36,7 @@ public class Game extends StateBasedGame
 		try
 		{
 			// Frame 850*550 und Icon hinzufügen
-			appgc = new AppGameContainer(new Game(name), 850, 550, false);
+			appgc = new AppGameContainer(new Game(name), 840, 550, false);
 			appgc.setIcon("res/pictures/icon.png");
 			appgc.start();
 		}catch(SlickException ex){

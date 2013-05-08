@@ -82,6 +82,8 @@ public class StartGame extends BasicGameState
 		g.setFont(font);
 
 		g.setColor(Color.white);
+		
+
 
 		
 		g.setColor(Color.orange);

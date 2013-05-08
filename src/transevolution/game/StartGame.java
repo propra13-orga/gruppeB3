@@ -17,9 +17,10 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
+
 public class StartGame extends BasicGameState
 {
-	// stateID für die Credits gleich 1
+	// stateID für das StartGame gleich 1
 	public static final int stateID = 1;
 	
 	Image hintergrund =null;
@@ -28,6 +29,8 @@ public class StartGame extends BasicGameState
 	
 	//map
 	protected TiledMap map;
+	// SpielObjekt: Spieler
+	
 	
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
@@ -59,7 +62,7 @@ public class StartGame extends BasicGameState
 		{
 			for(int y=0; y < map.getHeight(); y++)
 			{
-				final int tileID = map.getTileId(x, y, 0);
+		//		final int tileID = map.getTileId(x, y, 0);
 			}
 		}
 	}

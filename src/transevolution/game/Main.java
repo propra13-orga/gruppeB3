@@ -9,11 +9,11 @@ import org.newdawn.slick.state.*;
  */
 
 
-public class Game extends StateBasedGame
+public class Main extends StateBasedGame
 {
 	public static final String name = "TRANS EVOLUTION";
 	
-	public Game(String name) 
+	public Main(String name) 
 	{
 		
 		super(name);
@@ -36,7 +36,7 @@ public class Game extends StateBasedGame
 		try
 		{
 			// Frame 832*544 und Icon hinzufügen
-			appgc = new AppGameContainer(new Game(name), 832, 544, false);
+			appgc = new AppGameContainer(new Main(name), 832, 544, false);
 			appgc.setIcon("res/pictures/icon.png");
 			appgc.start();
 		}catch(SlickException ex){

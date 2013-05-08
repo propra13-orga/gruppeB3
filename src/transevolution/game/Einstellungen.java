@@ -24,6 +24,7 @@ public class Einstellungen extends BasicGameState
 	Image hintergrund =null;
 	TrueTypeFont font;
 	private StateBasedGame game;
+	private GameContainer container;
 
 	//zur Auswahl
 	private int wahl =0;
@@ -42,6 +43,7 @@ public class Einstellungen extends BasicGameState
 		hintergrund = new Image("res/pictures/background.png");
 		
 		this.game =sbg;
+		this.container = container;
 		
 		//eigenes Font laden
 		try {
@@ -116,23 +118,29 @@ public class Einstellungen extends BasicGameState
 			switch(wahl)
 			{
 				case 0:
+					//musik betreffend
 					if(a == 0)
 					{
 						a=1;
+						container.setMusicOn(false);
 					}
 					else
 					{
 						a=0;
+			            container.setMusicOn(true);
 					}
 					break;
 				case 1:
+					//fps betreffend
 					if(b == 0)
 					{
 						b=1;
+			            container.setShowFPS(false);
 					}
 					else
 					{
 						b=0;
+			            container.setShowFPS(true);
 					}
 					break;
 				case 2:

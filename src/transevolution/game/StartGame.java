@@ -14,6 +14,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class StartGame extends BasicGameState
@@ -25,7 +26,9 @@ public class StartGame extends BasicGameState
 	TrueTypeFont font;
 	private StateBasedGame game;
 	
-
+	//map
+	protected TiledMap map;
+	
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
@@ -44,11 +47,34 @@ public class StartGame extends BasicGameState
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		mapladen("res/maps/map1.tmx");
+	}
+	
+	public void mapladen(String aktmap) throws SlickException
+	{
+		map = new TiledMap(aktmap, "res/maps");
+		
+		for(int x=0; x < map.getWidth(); x++)
+		{
+			for(int y=0; y < map.getHeight(); y++)
+			{
+				final int tileID = map.getTileId(x, y, 0);
+			}
+		}
 	}
 
 	//zeichnen
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)throws SlickException 
 	{
+		container.setVSync(true);
+
+		float xwert =(float) (float) container.getWidth() / (float) (map.getWidth() * map.getTileWidth()+32); 
+		float ywert =(float) (float) container.getHeight() / (float) (map.getHeight() * map.getTileHeight()); 
+
+		
+		g.scale(xwert, ywert);
+		map.render(0,0);
 		
 		g.setFont(font);
 

@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -25,13 +26,26 @@ public class Credits extends BasicGameState
 	TrueTypeFont font;
 	private StateBasedGame game;
 	
+	
 	//Text zum anzeigen + Zurück"Button"
 	private String creditstext1= "a dungeon crawler game"; 
 	private String creditstext2= "by Team International";
+	
+	private String p1 = "Milo Ziolkowski";
+	private String p2 = "Xin Liu";
+	private String p3 = "Marilyn Awad";
+	private String p4 = "Melissa Eken";
+	private String p5 = "Aycan Aytan";
+	
 	private String back= "Zurück"; 
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
+		//Hintergrundmusik
+//		Sound credits = new Sound("res/sounds/credits.wav");
+//		credits.play();
+//		credits.loop();
+		
 		//Hintergrund laden
 		hintergrund = new Image("res/pictures/background.png");
 		
@@ -61,6 +75,13 @@ public class Credits extends BasicGameState
 		g.setColor(Color.white);
 		g.drawString(creditstext1, 260, 200);
 		g.drawString(creditstext2, 280, 250);
+		
+		g.drawString(p1, 340, 300);
+		g.drawString(p2, 340, 325);
+		g.drawString(p3, 340, 350);
+		g.drawString(p4, 340, 375);
+		g.drawString(p5, 340, 400);
+		
 		
 		g.setColor(Color.orange);
 		g.drawString(back, 350, 450);

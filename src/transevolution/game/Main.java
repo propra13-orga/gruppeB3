@@ -22,6 +22,11 @@ public class Main extends StateBasedGame
 	//hinzufügen der States
 	public void initStatesList(GameContainer container) throws SlickException 
 	{
+		//
+		Sound intro = new Sound("res/sounds/intro.wav");
+//		intro.play();
+		intro.loop();
+		//
 		
 	    this.addState(new Menu());
 	    this.addState(new Credits());

@@ -2,7 +2,8 @@ package transevolution.game;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
 //Hier werden Kollisionen überprüft, indem alle Objekte in Arrays gespeichert werden

@@ -29,7 +29,8 @@ public class StartGame extends BasicGameState
 	Image hintergrund =null;
 	TrueTypeFont font;
 	private StateBasedGame game;
-	
+	//sound
+//	Sound bg = 
 	//map
 	protected TiledMap map;
 	// Kollisionsobjekte

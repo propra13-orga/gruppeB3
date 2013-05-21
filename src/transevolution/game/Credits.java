@@ -31,9 +31,8 @@ public class Credits extends BasicGameState
 	private String creditstext1= "a dungeon crawler game"; 
 	private String creditstext2= "by Team International";
 	
-	private String p1 = "Milo Ziolkowski";
+	private String p1 = "Milos Ziolkowski";
 	private String p2 = "Xin Liu";
-	private String p3 = "Marilyn Awad";
 	private String p4 = "Melissa Eken";
 	private String p5 = "Aycan Aytan";
 	
@@ -78,9 +77,8 @@ public class Credits extends BasicGameState
 		
 		g.drawString(p1, 340, 300);
 		g.drawString(p2, 340, 325);
-		g.drawString(p3, 340, 350);
-		g.drawString(p4, 340, 375);
-		g.drawString(p5, 340, 400);
+		g.drawString(p4, 340, 350);
+		g.drawString(p5, 340, 375);
 		
 		
 		g.setColor(Color.orange);

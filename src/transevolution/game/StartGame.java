@@ -30,8 +30,14 @@ public class StartGame extends BasicGameState
 	Image hintergrund =null;
 	TrueTypeFont font;
 	private StateBasedGame game;
-	//sound
-//	Sound bg = 
+
+	public int exit_x;
+	public int exit_y;
+	
+	public int blub;
+	
+	public int mapcounter =1;
+	
 	//map
 	protected TiledMap map;
 	// Kollisionsobjekte
@@ -60,16 +66,30 @@ public class StartGame extends BasicGameState
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		initMap("res/maps/map1.tmx");
+		blub =0;
 		
-	//	Mauer.add(0,new Jack(250, 320));
-		//Jack aufs Spielfeld setzen
-	    jackobj.add(0, new Jack(320, 320));
-	    //Steuerkeys definieren
-	    ((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+		if(mapcounter ==1)
+		{
+			initMap("res/maps/map1.tmx");
 		
-	    // Map laden
-		mapladen("res/maps/map1.tmx");
+			//Jack aufs Spielfeld setzen
+			jackobj.add(0, new Jack(320, 320));
+			//Steuerkeys definieren
+			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/map1.tmx");
+		}
+		if(mapcounter ==2)
+		{
+			initMap("res/maps/map2.tmx");
+		
+			//Jack aufs Spielfeld setzen
+			jackobj.add(0, new Jack(288, 512));
+			//Steuerkeys definieren
+			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/map2.tmx");
+		}
 		
 	}
 	
@@ -110,9 +130,6 @@ public class StartGame extends BasicGameState
 
 		g.setColor(Color.white);
 		
-
-
-		
 		g.setColor(Color.orange);
 
 
@@ -128,6 +145,18 @@ public class StartGame extends BasicGameState
 	          Jack ja = (Jack) jackobj.get(i);
 	          
 	          ja.update(delta, Mauer);
+	          
+	          //neue Map
+	          if(((ja.getX()) == exit_x*32 && (ja.getY()) == exit_y*32) || (blub == 1))
+	          {
+
+	  			mapcounter++;
+				//Jack löschen
+			    jackobj.clear();
+			    Mauer.clear();
+			    init(container, sbg);
+	          }
+	          
 	          
 	          // Bewegung nach links
 	          if (container.getInput().isKeyDown(ja.blinks())) 
@@ -175,15 +204,25 @@ public class StartGame extends BasicGameState
 	public void keyReleased(int taste, char c)
 	{
 		
-	// Exit aus dem Spiel mit Escape	
-	if(taste == Input.KEY_ESCAPE)
+		// Exit aus dem Spiel mit Escape	
+		if(taste == Input.KEY_ESCAPE)
 		{
 			enterStateAndreinit(Menu.stateID);
 			//Jack löschen
-		    jackobj.clear();
+			jackobj.clear();
+			
+			mapcounter =1;
 			
 		}
+	
+        
+		if(taste == Input.KEY_M)
+		{
+			blub =1;			
+		}
 	}
+	
+	
 	
 	//State wechseln
 	  private void enterStateAndreinit(int stateID) 
@@ -207,14 +246,21 @@ public class StartGame extends BasicGameState
 	    
 	    map = new TiledMap(ref, "res/maps");
 	    
-	    for (int x = 0; x < map.getWidth(); x++) {
-	      for (int y = 0; y < map.getHeight(); y++) {
+	    for (int x = 0; x < map.getWidth(); x++) 
+	    {
+	      for (int y = 0; y < map.getHeight(); y++) 
+	      {
 	        final int tileID = map.getTileId(x, y, 0);
-	        switch (tileID) {
+	        switch (tileID) 
+	        {
 	          case 1:
 	    	    Mauer.add(0, new Wand(x * 32, y * 32));
 	            break;
-
+	          case 3:
+	        	  exit_x= x;
+	        	  exit_y= y;
+	        	  System.out.println("exit_x = "+exit_x);
+	        	break;
 	          default:
 	            break;
 	        }

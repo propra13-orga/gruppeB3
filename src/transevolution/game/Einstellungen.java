@@ -32,7 +32,7 @@ public class Einstellungen extends BasicGameState
 	private int a = 0;
 	private int b = 0;
 	
-	private String[][]auswahl = new String[][]{{"Musik aus", "Musik an"},{ "FPS ausblenden", "FPS einblenden"},{"Zurück","Zurück"}};
+	private String[][]auswahl = new String[][]{{"Musik aus", "Musik an"},{ "FPS ausblenden", "FPS einblenden"},{"Zurueck","Zurueck"}};
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{

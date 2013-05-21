@@ -38,6 +38,9 @@ public class StartGame extends BasicGameState
 	
 	public int mapcounter =1;
 	
+	private String p1 = "WIN";
+	private String p2 = "Zurueck ins Menue mit Esc";
+	
 	//map
 	protected TiledMap map;
 	// Kollisionsobjekte
@@ -60,7 +63,7 @@ public class StartGame extends BasicGameState
 			
 			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			//Font Größe
-			awtFont = awtFont.deriveFont(24f); 
+			awtFont = awtFont.deriveFont(50f); 
 			font = new TrueTypeFont(awtFont, false);
 	 
 		} catch (Exception e) {
@@ -89,6 +92,17 @@ public class StartGame extends BasicGameState
 			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
 			mapladen("res/maps/map2.tmx");
+		}
+		if(mapcounter ==3)
+		{
+			initMap("res/maps/map3.tmx");
+		
+			//Jack aufs Spielfeld setzen
+			jackobj.add(0, new Jack(0, 256));
+			//Steuerkeys definieren
+			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/map3.tmx");
 		}
 		
 	}
@@ -125,15 +139,17 @@ public class StartGame extends BasicGameState
 	    {
 	        ja.draw(g);
 	    }
+	    
+	   
 		
 		g.setFont(font);
+		if(mapcounter > 3)
+		{
+			g.setColor(Color.orange);
+			g.drawString(p1, 340, 200);
 
-		g.setColor(Color.white);
-		
-		g.setColor(Color.orange);
-
-
-		
+			g.drawString(p2, 20, 325);
+		}
 	}
 
 	public void update(GameContainer container, StateBasedGame sbg, int delta)throws SlickException 
@@ -210,6 +226,7 @@ public class StartGame extends BasicGameState
 			enterStateAndreinit(Menu.stateID);
 			//Jack löschen
 			jackobj.clear();
+		    Mauer.clear();
 			
 			mapcounter =1;
 			

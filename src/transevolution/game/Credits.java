@@ -32,10 +32,11 @@ public class Credits extends BasicGameState
 	
 	private String p1 = "Milos Ziolkowski";
 	private String p2 = "Xin Liu";
+	private String p3 = "Marlen Awad";
 	private String p4 = "Melissa Eken";
 	private String p5 = "Aycan Aytan";
 	
-	private String back= "Zurück"; 
+	private String back= "Zurueck"; 
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
@@ -76,8 +77,9 @@ public class Credits extends BasicGameState
 		
 		g.drawString(p1, 340, 300);
 		g.drawString(p2, 340, 325);
-		g.drawString(p4, 340, 350);
-		g.drawString(p5, 340, 375);
+		g.drawString(p3, 340, 350);	
+		g.drawString(p4, 340, 375);
+		g.drawString(p5, 340, 400);
 		
 		
 		g.setColor(Color.orange);

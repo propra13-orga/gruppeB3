@@ -6,9 +6,12 @@
  <tileset firstgid="2" name="boden" tilewidth="32" tileheight="32">
   <image source="boden.png" width="32" height="32"/>
  </tileset>
+ <tileset firstgid="3" name="exit" tilewidth="32" tileheight="32">
+  <image source="exit.png" width="32" height="32"/>
+ </tileset>
  <layer name="Kachelebene 1" width="25" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKQCZiJCnlZ4IOwgNkxIUT9Y7aAkTQyHOKdluNDTDlx+JEUcl/xwswPZLlzhiy/syY2P0fyBiQFSJAKJ
+   eJxjZGBgYKQCZiYgz0RDPBB2EBMm2PSTom+w2EEuHi5xTstwoacduPxIijgu+eFmB7JduMIXX9iTGx+j+QMTAwBYgAKK
   </data>
  </layer>
 </map>

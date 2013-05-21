@@ -21,6 +21,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 
 
+
 public class StartGame extends BasicGameState
 {
 	// stateID für das StartGame gleich 1
@@ -59,6 +60,9 @@ public class StartGame extends BasicGameState
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		initMap("res/maps/map1.tmx");
+		
+	//	Mauer.add(0,new Jack(250, 320));
 		//Jack aufs Spielfeld setzen
 	    jackobj.add(0, new Jack(320, 320));
 	    //Steuerkeys definieren
@@ -197,7 +201,25 @@ public class StartGame extends BasicGameState
 	public int getID() 
 	{
 		return stateID;
-	}	
+	}
 	
+	public void initMap(String ref) throws SlickException {
+	    
+	    map = new TiledMap(ref, "res/maps");
+	    
+	    for (int x = 0; x < map.getWidth(); x++) {
+	      for (int y = 0; y < map.getHeight(); y++) {
+	        final int tileID = map.getTileId(x, y, 0);
+	        switch (tileID) {
+	          case 1:
+	    	    Mauer.add(0, new Wand(x * 32, y * 32));
+	            break;
+
+	          default:
+	            break;
+	        }
+	      }
+	    }
 	
+	}
 }

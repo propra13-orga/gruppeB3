@@ -10,7 +10,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -31,8 +30,6 @@ public class Menu extends BasicGameState
 	
 	//zur Auswahl aus dem Menü
 	private int wahl = 0;
-	
-	private Sound fx = null;
 	
 	//Auwahlmöglichkeiten im Menü
 	

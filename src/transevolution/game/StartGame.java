@@ -49,14 +49,24 @@ public class StartGame extends BasicGameState
 	protected TiledMap map;
 	// Kollisionsobjekte
 		//Jack
-	protected ArrayList<Checkkoll> jackobj = new ArrayList<Checkkoll>();
+	protected ArrayList<Checkkoll> objFigures = new ArrayList<Checkkoll>();
 		//Mauer
-	protected ArrayList<Checkkoll> Mauer = new ArrayList<Checkkoll>();
-	
+	protected ArrayList<Checkkoll> objWalls = new ArrayList<Checkkoll>();
+	// ENEMIES
+		protected ArrayList<Checkkoll> objEnemies = new ArrayList<Checkkoll>();
+
+		public void resetStateBasedGame(){
+			objFigures.clear();
+			objWalls.clear();
+			objEnemies.clear();
+			hintergrund = null;
+			game = null;
+			
+		}
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
-		
+		resetStateBasedGame();
 		this.game =sbg;
 		
 		//eigenes Font laden
@@ -82,9 +92,11 @@ public class StartGame extends BasicGameState
 			initMap("res/maps/map1.tmx");
 		
 			//Jack aufs Spielfeld setzen
-			jackobj.add(0, new Jack(start_x*32, start_y*32));
+			objFigures.add(0, new Jack(start_x*32, start_y*32));
+			// enemy erstellen
+			objEnemies.add(0, new enemies(2*32, 2*32));
 			//Steuerkeys definieren
-			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
 			mapladen("res/maps/map1.tmx");
 		}
@@ -93,9 +105,11 @@ public class StartGame extends BasicGameState
 			initMap("res/maps/map2.tmx");
 		
 			//Jack aufs Spielfeld setzen
-			jackobj.add(0, new Jack(start_x*32, start_y*32));
+			objFigures.add(0, new Jack(start_x*32, start_y*32));
+			// enemy erstellen
+			objEnemies.add(0, new enemies(2*32, 6*32));
 			//Steuerkeys definieren
-			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
 			mapladen("res/maps/map2.tmx");
 		}
@@ -104,9 +118,23 @@ public class StartGame extends BasicGameState
 			initMap("res/maps/map3.tmx");
 		
 			//Jack aufs Spielfeld setzen
-			jackobj.add(0, new Jack(start_x*32, start_y*32));
+			objFigures.add(0, new Jack(start_x*32, start_y*32));
+			// enemy erstellen
+			objEnemies.add(0, new enemies(9*32, 10*32));
+			objEnemies.add(0, new enemies(6*32, 7*32));
+			objEnemies.add(0, new enemies(8*32, 5*32));
+			objEnemies.add(0, new enemies(15*32, 9*32));
+			objEnemies.add(0, new enemies(18*32, 6*32));
+			objEnemies.add(0, new enemies(4*32, 6*32));
+			objEnemies.add(0, new enemies(5*32, 3*32));
+			objEnemies.add(0, new enemies(13*32, 4*32));
+			objEnemies.add(0, new enemies(15*32, 14*32));
+			objEnemies.add(0, new enemies(18*32, 13*32));
+			objEnemies.add(0, new enemies(13*32, 12*32));
+			objEnemies.add(0, new enemies(14*32, 11*32));
+			objEnemies.add(0, new enemies(9*32, 8*32));
 			//Steuerkeys definieren
-			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
 			mapladen("res/maps/map3.tmx");
 		}
@@ -140,8 +168,14 @@ public class StartGame extends BasicGameState
 		// Map zeichnen
 		map.render(0,0);
 		
+		//Enemies zeichnen
+	    for (Checkkoll en : objEnemies) 
+	    {
+	        en.draw(g);
+	    }
+		
 		//Jack zeichnen
-	    for (Checkkoll ja : jackobj) 
+	    for (Checkkoll ja : objFigures) 
 	    {
 	        ja.draw(g);
 	    }
@@ -162,11 +196,11 @@ public class StartGame extends BasicGameState
 	{
 		
 		//Jacks Bewegung
-	      for (int i = 0; i < jackobj.size(); i++) 
+	      for (int i = 0; i < objFigures.size(); i++) 
 	      {
-	          Jack ja = (Jack) jackobj.get(i);
+	          Jack ja = (Jack) objFigures.get(i);
 	          
-	          ja.update(delta, Mauer);
+	          ja.update(delta, objWalls);
 	          
 	          //neue Map vor
 	          if(((ja.getX()) == exit_x*32 && (ja.getY()) == exit_y*32) || (blub == 1))
@@ -174,8 +208,9 @@ public class StartGame extends BasicGameState
 
 	  			mapcounter++;
 				//Jack löschen
-			    jackobj.clear();
-			    Mauer.clear();
+			    objFigures.clear();
+			    objWalls.clear();
+			    objEnemies.clear();
 			    init(container, sbg);
 	          }
 	          //neue map zurueck
@@ -186,11 +221,15 @@ public class StartGame extends BasicGameState
 
 	        		  mapcounter--;
 	        		  //Jack löschen
-	        		  jackobj.clear();
-	        		  Mauer.clear();
+	        		  objFigures.clear();
+	        		  objWalls.clear();
 	        		  init(container, sbg);
 	        	  }
 	          }
+	          
+	          ArrayList<Checkkoll> objCks = new ArrayList<Checkkoll>();
+	          objCks.clear();
+	          objCks.addAll(objWalls);
 	          
 	          // Bewegung nach links
 	          if (container.getInput().isKeyDown(ja.blinks())) 
@@ -198,7 +237,7 @@ public class StartGame extends BasicGameState
 	        	  ja.setPosX(false);
 	        	  if ((ja.getX() % 32) == 0) 
 	        	  {
-	        		  ja.bewegung(-1, 0, Mauer);
+	        		  ja.bewegung(-1, 0, objCks);
 	        		  bewegungerfolgt = 1;
 	        	  }
 	          }
@@ -209,7 +248,7 @@ public class StartGame extends BasicGameState
 	        	  ja.setPosX(true);
 	        	  if ((ja.getX() % 32) == 0) 
 	        	  {
-	        		  ja.bewegung(1, 0, Mauer);
+	        		  ja.bewegung(1, 0, objCks);
 	        		  bewegungerfolgt = 1;
 	        	  }
 	          }
@@ -219,7 +258,7 @@ public class StartGame extends BasicGameState
 	        	  ja.setPosY(false);
 	        	  if ((ja.getY() % 32) == 0) 
 	        	  {
-	        		  ja.bewegung(0, -1, Mauer);
+	        		  ja.bewegung(0, -1, objCks);
 	        		  bewegungerfolgt = 1;
 	        	  }
 	        	  
@@ -231,9 +270,12 @@ public class StartGame extends BasicGameState
             
 	        	  if ((ja.getY() % 32) == 0) 
 	        	  {
-	        		  ja.bewegung(0, 1, Mauer);
+	        		  ja.bewegung(0, 1, objCks);
 	        		  bewegungerfolgt = 1;
 	        	  }
+	          }
+	          if (!ja.pruefeKollsion(objEnemies).isEmpty()) {
+	        	  enterStateAndreinit(Menu.stateID);
 	          }
 	      }
 		
@@ -248,8 +290,8 @@ public class StartGame extends BasicGameState
 		{
 			enterStateAndreinit(Menu.stateID);
 			//Jack löschen
-			jackobj.clear();
-		    Mauer.clear();
+			objFigures.clear();
+		    objWalls.clear();
 			
 			mapcounter =1;
 			
@@ -294,7 +336,7 @@ public class StartGame extends BasicGameState
 	        switch (tileID) 
 	        {
 	          case 5:
-	    	    Mauer.add(0, new Wand(x * 32, y * 32));
+	    	    objWalls.add(0, new Wand(x * 32, y * 32));
 	            break;
 	            
 	          case 2:

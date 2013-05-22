@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="17" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="wand" tilewidth="32" tileheight="32">
-  <image source="wand.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="2" name="boden" tilewidth="32" tileheight="32">
-  <image source="boden.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="3" name="exit" tilewidth="32" tileheight="32">
-  <image source="exit.png" width="32" height="32"/>
- </tileset>
- <tileset firstgid="4" name="start" tilewidth="32" tileheight="32">
-  <image source="start.png" width="32" height="32"/>
+ <tileset firstgid="1" name="mapelemente1" tilewidth="32" tileheight="32">
+  <image source="mapelemente1.png" width="320" height="320"/>
  </tileset>
  <layer name="Kachelebene 1" width="25" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYBzmmIkETEuzSbWLErOJsYua5uOyh9Z20MJ8ZHtYaGwHM538MZzinF75g175nJ7l1VDEAMcgAqI=
+   eJxjZWBgYB3mmJEETEuzSbWLErOJsYua5uOyh9Z20MJ8ZHuYaWwHE538MZzinF75g175nJ7l1VDEAPRWBH0=
   </data>
  </layer>
 </map>

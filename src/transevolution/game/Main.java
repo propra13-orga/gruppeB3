@@ -43,6 +43,8 @@ public class Main extends StateBasedGame
 			// Frame 832*544 und Icon hinzufügen
 			appgc = new AppGameContainer(new Main(name), 832, 544, false);
 			appgc.setIcon("res/pictures/icon.png");
+			appgc.setTargetFrameRate(120);
+			appgc.setVSync(true);
 			appgc.start();
 		}catch(SlickException ex){
 			ex.printStackTrace();

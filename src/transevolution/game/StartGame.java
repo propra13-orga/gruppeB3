@@ -33,8 +33,12 @@ public class StartGame extends BasicGameState
 
 	public int exit_x;
 	public int exit_y;
+	public int start_x;
+	public int start_y;
 	
 	public int blub;
+	
+	public int bewegungerfolgt = 0;
 	
 	public int mapcounter =1;
 	
@@ -71,12 +75,14 @@ public class StartGame extends BasicGameState
 		}
 		blub =0;
 		
+		bewegungerfolgt = 0;
+		
 		if(mapcounter ==1)
 		{
 			initMap("res/maps/map1.tmx");
 		
 			//Jack aufs Spielfeld setzen
-			jackobj.add(0, new Jack(320, 320));
+			jackobj.add(0, new Jack(start_x*32, start_y*32));
 			//Steuerkeys definieren
 			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -87,7 +93,7 @@ public class StartGame extends BasicGameState
 			initMap("res/maps/map2.tmx");
 		
 			//Jack aufs Spielfeld setzen
-			jackobj.add(0, new Jack(288, 512));
+			jackobj.add(0, new Jack(start_x*32, start_y*32));
 			//Steuerkeys definieren
 			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -98,7 +104,7 @@ public class StartGame extends BasicGameState
 			initMap("res/maps/map3.tmx");
 		
 			//Jack aufs Spielfeld setzen
-			jackobj.add(0, new Jack(0, 256));
+			jackobj.add(0, new Jack(start_x*32, start_y*32));
 			//Steuerkeys definieren
 			((Jack) jackobj.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -162,7 +168,7 @@ public class StartGame extends BasicGameState
 	          
 	          ja.update(delta, Mauer);
 	          
-	          //neue Map
+	          //neue Map vor
 	          if(((ja.getX()) == exit_x*32 && (ja.getY()) == exit_y*32) || (blub == 1))
 	          {
 
@@ -172,7 +178,19 @@ public class StartGame extends BasicGameState
 			    Mauer.clear();
 			    init(container, sbg);
 	          }
-	          
+	          //neue map zurueck
+	          if(mapcounter>1)
+	          {
+	        	  if(((ja.getX()) == start_x*32 && (ja.getY()) == start_y*32) && (bewegungerfolgt==1) )
+	        	  {
+
+	        		  mapcounter--;
+	        		  //Jack löschen
+	        		  jackobj.clear();
+	        		  Mauer.clear();
+	        		  init(container, sbg);
+	        	  }
+	          }
 	          
 	          // Bewegung nach links
 	          if (container.getInput().isKeyDown(ja.blinks())) 
@@ -181,6 +199,7 @@ public class StartGame extends BasicGameState
 	        	  if ((ja.getX() % 32) == 0) 
 	        	  {
 	        		  ja.bewegung(-1, 0, Mauer);
+	        		  bewegungerfolgt = 1;
 	        	  }
 	          }
           
@@ -191,6 +210,7 @@ public class StartGame extends BasicGameState
 	        	  if ((ja.getX() % 32) == 0) 
 	        	  {
 	        		  ja.bewegung(1, 0, Mauer);
+	        		  bewegungerfolgt = 1;
 	        	  }
 	          }
 	          // Bewegung nach oben
@@ -200,7 +220,9 @@ public class StartGame extends BasicGameState
 	        	  if ((ja.getY() % 32) == 0) 
 	        	  {
 	        		  ja.bewegung(0, -1, Mauer);
+	        		  bewegungerfolgt = 1;
 	        	  }
+	        	  
 	          }
 	          // Bewegung nach unten
 	          if (container.getInput().isKeyDown(ja.brunter())) 
@@ -210,6 +232,7 @@ public class StartGame extends BasicGameState
 	        	  if ((ja.getY() % 32) == 0) 
 	        	  {
 	        		  ja.bewegung(0, 1, Mauer);
+	        		  bewegungerfolgt = 1;
 	        	  }
 	          }
 	      }
@@ -270,14 +293,23 @@ public class StartGame extends BasicGameState
 	        final int tileID = map.getTileId(x, y, 0);
 	        switch (tileID) 
 	        {
-	          case 1:
+	          case 5:
 	    	    Mauer.add(0, new Wand(x * 32, y * 32));
 	            break;
-	          case 3:
+	            
+	          case 2:
 	        	  exit_x= x;
 	        	  exit_y= y;
-	        	  System.out.println("exit_x = "+exit_x);
+	        	 // System.out.println("exit_x = "+exit_x);
 	        	break;
+	          case 3: 
+	        	  start_x= x;
+	        	  start_y= y;
+	          break;
+	          case 4: 
+	        	  start_x= x;
+	        	  start_y= y;
+	          break;
 	          default:
 	            break;
 	        }

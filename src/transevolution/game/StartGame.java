@@ -107,7 +107,7 @@ public class StartGame extends BasicGameState
 			
 			
 			// enemy erstellen
-			objEnemies.add(0, new Enemies(2*32, 2*32));
+			objEnemies.add(0, new Gegner(2*32, 2*32));
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -127,7 +127,7 @@ public class StartGame extends BasicGameState
 				objFigures.add(0, new Jack(exit_x*32, exit_y*32));
 			}
 			// enemy erstellen
-			objEnemies.add(0, new Enemies(2*32, 6*32));
+			objEnemies.add(0, new Gegner(2*32, 6*32));
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -147,19 +147,19 @@ public class StartGame extends BasicGameState
 				objFigures.add(0, new Jack(exit_x*32, exit_y*32));
 			}
 			// enemy erstellen
-			objEnemies.add(0, new Enemies(9*32, 10*32));
-			objEnemies.add(0, new Enemies(6*32, 7*32));
-			objEnemies.add(0, new Enemies(8*32, 5*32));
-			objEnemies.add(0, new Enemies(15*32, 9*32));
-			objEnemies.add(0, new Enemies(18*32, 6*32));
-			objEnemies.add(0, new Enemies(4*32, 6*32));
-			objEnemies.add(0, new Enemies(5*32, 3*32));
-			objEnemies.add(0, new Enemies(13*32, 4*32));
-			objEnemies.add(0, new Enemies(15*32, 14*32));
-			objEnemies.add(0, new Enemies(18*32, 13*32));
-			objEnemies.add(0, new Enemies(13*32, 12*32));
-			objEnemies.add(0, new Enemies(14*32, 11*32));
-			objEnemies.add(0, new Enemies(9*32, 8*32));
+			objEnemies.add(0, new Gegner(9*32, 10*32));
+			objEnemies.add(0, new Gegner(6*32, 7*32));
+			objEnemies.add(0, new Gegner(8*32, 5*32));
+			objEnemies.add(0, new Gegner(15*32, 9*32));
+			objEnemies.add(0, new Gegner(18*32, 6*32));
+			objEnemies.add(0, new Gegner(4*32, 6*32));
+			objEnemies.add(0, new Gegner(5*32, 3*32));
+			objEnemies.add(0, new Gegner(13*32, 4*32));
+			objEnemies.add(0, new Gegner(15*32, 14*32));
+			objEnemies.add(0, new Gegner(18*32, 13*32));
+			objEnemies.add(0, new Gegner(13*32, 12*32));
+			objEnemies.add(0, new Gegner(14*32, 11*32));
+			objEnemies.add(0, new Gegner(9*32, 8*32));
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden

@@ -4,12 +4,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Enemies extends Checkkoll {
+public class Gegner extends Checkkoll {
 
 	// Bild von Enemy
 	  protected Image enemybild;
 
-	public Enemies(int x, int y) throws SlickException {
+	public Gegner(int x, int y) throws SlickException {
 		super(x, y);
 		enemybild = new Image("res/pictures/enemy.png");
 		

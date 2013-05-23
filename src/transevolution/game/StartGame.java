@@ -37,6 +37,7 @@ public class StartGame extends BasicGameState
 	public int start_y;
 	
 	public int blub;
+	public int blab;
 	
 	public int nextmap = 1;
 	
@@ -88,6 +89,7 @@ public class StartGame extends BasicGameState
 			e.printStackTrace();
 		}
 		blub =0;
+		blab =0;
 		
 		
 		
@@ -243,7 +245,7 @@ public class StartGame extends BasicGameState
 	          ja.update(delta, objWalls);
 	          
 	          //gucken ob jack nicht im start oder exit feld steht
-        	  if(((ja.getX()/32) != start_x || (ja.getY()/32) != start_y) && ((ja.getX()/32) != exit_x || (ja.getY()/32) != exit_y) )
+        	  if(((ja.getX()/32) != start_x || (ja.getY()/32) != start_y) && ((ja.getX()/32) != exit_x || (ja.getY()/32) != exit_y))
         	  {
         		  nextmap = 0;
         		  System.out.println("nextmap = "+nextmap);
@@ -264,7 +266,7 @@ public class StartGame extends BasicGameState
 	          //neue map zurueck
 	          if(mapcounter>1)
 	          {
-	        	  if(((ja.getX()) == start_x*32 && (ja.getY()) == start_y*32) && nextmap == 0)
+	        	  if((((ja.getX()) == start_x*32 && (ja.getY()) == start_y*32) && nextmap == 0) || blab ==1)
 	        	  {
 
 	        		  mapcounter--;	 
@@ -348,6 +350,10 @@ public class StartGame extends BasicGameState
 		if(taste == Input.KEY_M)
 		{
 			blub =1;			
+		}
+		if(taste == Input.KEY_N)
+		{
+			blab =1;			
 		}
 	}
 	

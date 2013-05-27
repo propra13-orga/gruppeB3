@@ -14,6 +14,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -51,11 +52,14 @@ public class StartGame extends BasicGameState
 	
 	public int mapcounter =1;
 	
-	public int tot = 0;
+	public int leben = 5;
+	public int hp = 100;
 	
 	private String p1 = "WIN";
 	private String p2 = "Zurueck ins Menue mit Esc";
 	private String p3 = "GAME OVER";
+	
+	protected SpriteSheet lebensherzensheet;
 	
 	//map
 	protected TiledMap map;
@@ -67,15 +71,18 @@ public class StartGame extends BasicGameState
 	// ENEMIES
 		protected ArrayList<Checkkoll> objEnemies = new ArrayList<Checkkoll>();
 
-		public void resetStateBasedGame(){
+		public void resetStateBasedGame()
+		{
 			objFigures.clear();
 			objWalls.clear();
 			objEnemies.clear();
 			hintergrund = null;
 			game = null;
-			tot =0;
 			
 		}
+		
+
+
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
@@ -221,6 +228,9 @@ public class StartGame extends BasicGameState
 		
 	}
 	
+
+
+	
 	public void mapladen(String aktmap) throws SlickException
 	{
 		map = new TiledMap(aktmap, "res/maps/tmxmaps");
@@ -268,7 +278,12 @@ public class StartGame extends BasicGameState
 		      }
 		    }
 		}
-		      
+		
+
+        lebensherzensheet = new SpriteSheet("res/pictures/lebensherzen.png", 32, 32);
+		//lebensanzeige
+		g.drawImage(lebensherzensheet.getSprite(leben, 0), 25*32 , 0);
+		
 		
 		if(mapcounter != 1)
 		{
@@ -293,7 +308,7 @@ public class StartGame extends BasicGameState
 		//Jack zeichnen
 	    for (Checkkoll ja : objFigures) 
 	    {
-	    	if(tot != 1)
+	    	if(leben > 0)
 	    	{
 	    		ja.draw(g);
 	    	}
@@ -310,7 +325,7 @@ public class StartGame extends BasicGameState
 			g.drawString(p2, 20, 325);
 		}
 		
-		if(tot == 1)
+		if(leben <= 0)
 		{
 			g.setColor(Color.red);
 			g.drawString(p3, 240, 200);
@@ -331,12 +346,16 @@ public class StartGame extends BasicGameState
 	          
 	          ja.update(delta, objWalls);
 	          
+	          
+	          
 	          //gucken ob jack nicht im start oder exit feld steht
         	  if(((ja.getX()/32) != start_x || (ja.getY()/32) != start_y) && ((ja.getX()/32) != exit_x || (ja.getY()/32) != exit_y))
         	  {
         		  nextmap = 0;
         		  // System.out.println("nextmap = "+nextmap);
         	  }
+
+        	  
 	          
 	          //neue Map vor
 	          if(((ja.getX()) == exit_x*32 && (ja.getY()) == exit_y*32) && nextmap == 0 || (blub == 1))
@@ -365,6 +384,20 @@ public class StartGame extends BasicGameState
 	        		  init(container, sbg);
 	        	  }
 	          }
+	          
+	      	if(hp<1)
+	    	{
+	    		leben--;
+	    		hp = 100;
+	    		mapcounter =1;
+	    		System.out.println("Leben: "+leben);
+	    	    objFigures.clear();
+	    	    objWalls.clear();
+	    	    objEnemies.clear();
+	    	    nextmap = 1;
+	    	    init(container, sbg);
+	    		
+	    	}
 	          
 	          ArrayList<Checkkoll> objCks = new ArrayList<Checkkoll>();
 	          objCks.clear();
@@ -409,8 +442,9 @@ public class StartGame extends BasicGameState
 	        		  ja.bewegung(0, 1, objCks);
 	        	  }
 	          }
-	          if (!ja.pruefeKollsion(objEnemies).isEmpty()) {
-	        	  tot =1;
+	          if (!ja.pruefeKollsion(objEnemies).isEmpty()) 
+	          {
+	        	  hp = 0;
 	          }
 	      }
 		
@@ -427,6 +461,7 @@ public class StartGame extends BasicGameState
 			//Jack löschen
 			objFigures.clear();
 		    objWalls.clear();
+		    leben =5;
 			
 			mapcounter =1;
 			nextmap =1;

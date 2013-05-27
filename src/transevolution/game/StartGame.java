@@ -164,7 +164,7 @@ public class StartGame extends BasicGameState
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
-			mapladen("res/maps/tmxmaps/map1.tmx");
+		//	txtmapladen("res/maps/tmxmaps/map1.tmx");
 		}
 		if(mapcounter ==2)
 		{
@@ -225,20 +225,53 @@ public class StartGame extends BasicGameState
 	{
 		map = new TiledMap(aktmap, "res/maps/tmxmaps");
 		
-		for(int x=0; x < map.getWidth(); x++)
-		{
-			for(int y=0; y < map.getHeight(); y++)
-			{
-		//		final int tileID = map.getTileId(x, y, 0);
-			}
-		}
 	}
+	
 
 	//zeichnen
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)throws SlickException 
 	{
 		container.setVSync(true);
 
+		if(mapcounter == 1)
+		{
+			char kachel;
+			
+			Image boden = new Image("res/maps/txtmap/boden.png");
+			Image exit = new Image("res/maps/txtmap/exit.png");
+			Image start = new Image("res/maps/txtmap/start.png");
+			Image wand = new Image("res/maps/txtmap/wand.png");
+			
+		    for (int x = 0; x < 25; x++) 
+		    {
+		      for (int y = 0; y < 17; y++) 
+		      {
+		        kachel = maparray[x][y];
+		        switch (kachel) 
+		        {
+		          case '#':
+		        	  g.drawImage(wand, x*32, y*32);
+		            break;
+		          case 'A':
+		        	  g.drawImage(exit, x*32, y*32);
+		        	break;
+		          case 'E': 
+		        	  g.drawImage(start, x*32, y*32);
+		          break;
+		          case ' ':
+		        	  g.drawImage(boden, x*32, y*32);
+		            break;
+		          default:
+		            break;
+		        
+		        }
+		      }
+		    }
+		}
+		      
+		
+		if(mapcounter != 1)
+		{
 		//Spielfeldgröße definieren
 		float xwert =(float) (float) container.getWidth() / (float) (map.getWidth() * map.getTileWidth()+32); 
 		float ywert =(float) (float) container.getHeight() / (float) (map.getHeight() * map.getTileHeight()); 
@@ -247,6 +280,9 @@ public class StartGame extends BasicGameState
 		g.scale(xwert, ywert);
 		// Map zeichnen
 		map.render(0,0);
+		}
+		
+		
 		
 		//Enemies zeichnen
 	    for (Checkkoll en : objEnemies) 

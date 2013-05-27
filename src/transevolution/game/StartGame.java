@@ -1,8 +1,12 @@
 package transevolution.game;
 
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -35,6 +39,10 @@ public class StartGame extends BasicGameState
 	public int exit_y;
 	public int start_x;
 	public int start_y;
+	
+	//maparray
+	public char[] maparraybuffer = new char [25];
+	public char[][] maparray = new char [25][17];
 	
 	public int blub;
 	public int blab;
@@ -95,7 +103,50 @@ public class StartGame extends BasicGameState
 		
 		if(mapcounter ==1)
 		{
-			initMap("res/maps/map1.tmx");
+			//map einlesen (txt9
+			FileReader fr;
+			BufferedReader br;
+			try {
+				fr = new FileReader("res/maps/txtmap/map1.txt");
+				br = new BufferedReader(fr);
+
+				String zeile;
+
+				zeile = br.readLine();
+				Scanner parser = new Scanner(zeile);
+				int bufferint = 0;
+				while (zeile != null)
+				{
+							
+					maparraybuffer = zeile.toCharArray();
+					
+					for (int i=0; i<25; i++)
+					{
+						maparray[i][bufferint] = maparraybuffer[i];
+					}
+
+
+					zeile = br.readLine();
+					bufferint++;
+				}
+									
+				parser.close();
+				fr.close();
+				
+				for (int a=0; a<17; a++)
+				{
+					for (int i=0; i<25; i++)
+					{
+						System.out.print(""+maparray[i][a]);
+					}
+					System.out.println();
+				}
+				
+			} catch (IOException e) {
+				System.out.println("Fehler beim einlesen von map1.txt");
+				e.printStackTrace();
+			}
+			txtinitMap("res/maps/txtmap/map1.txt");
 		
 			//Jack aufs Spielfeld setzen
 			if(nextmap ==1)
@@ -113,11 +164,11 @@ public class StartGame extends BasicGameState
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
-			mapladen("res/maps/map1.tmx");
+			mapladen("res/maps/tmxmaps/map1.tmx");
 		}
 		if(mapcounter ==2)
 		{
-			initMap("res/maps/map2.tmx");
+			initMap("res/maps/tmxmaps/map2.tmx");
 		
 			//Jack aufs Spielfeld setzen
 			if(nextmap ==1)
@@ -133,11 +184,11 @@ public class StartGame extends BasicGameState
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
-			mapladen("res/maps/map2.tmx");
+			mapladen("res/maps/tmxmaps/map2.tmx");
 		}
 		if(mapcounter ==3)
 		{
-			initMap("res/maps/map3.tmx");
+			initMap("res/maps/tmxmaps/map3.tmx");
 		
 			//Jack aufs Spielfeld setzen
 			if(nextmap ==1)
@@ -165,14 +216,14 @@ public class StartGame extends BasicGameState
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
-			mapladen("res/maps/map3.tmx");
+			mapladen("res/maps/tmxmaps/map3.tmx");
 		}
 		
 	}
 	
 	public void mapladen(String aktmap) throws SlickException
 	{
-		map = new TiledMap(aktmap, "res/maps");
+		map = new TiledMap(aktmap, "res/maps/tmxmaps");
 		
 		for(int x=0; x < map.getWidth(); x++)
 		{
@@ -248,7 +299,7 @@ public class StartGame extends BasicGameState
         	  if(((ja.getX()/32) != start_x || (ja.getY()/32) != start_y) && ((ja.getX()/32) != exit_x || (ja.getY()/32) != exit_y))
         	  {
         		  nextmap = 0;
-        		  System.out.println("nextmap = "+nextmap);
+        		  // System.out.println("nextmap = "+nextmap);
         	  }
 	          
 	          //neue Map vor
@@ -377,9 +428,10 @@ public class StartGame extends BasicGameState
 		return stateID;
 	}
 	
-	public void initMap(String ref) throws SlickException {
+	public void initMap(String ref) throws SlickException 
+	{
 	    
-	    map = new TiledMap(ref, "res/maps");
+	    map = new TiledMap(ref, "res/maps/tmxmaps");
 	    
 	    for (int x = 0; x < map.getWidth(); x++) 
 	    {
@@ -411,5 +463,36 @@ public class StartGame extends BasicGameState
 	      }
 	    }
 	
+	}
+	public void txtinitMap(String ref) throws SlickException 
+	{
+	    char kachel;
+	    
+	    for (int x = 0; x < 25; x++) 
+	    {
+	      for (int y = 0; y < 17; y++) 
+	      {
+	        kachel = maparray[x][y];
+	        switch (kachel) 
+	        {
+	          case '#':
+	    	    objWalls.add(0, new Wand(x * 32, y * 32));
+	            break;
+	            
+	          case 'A':
+	        	  exit_x= x;
+	        	  exit_y= y;
+	        	 // System.out.println("exit_x = "+exit_x);
+	        	break;
+	          case 'E': 
+	        	  start_x= x;
+	        	  start_y= y;
+	          break;
+	          default:
+	            break;
+	        }
+	       }
+	  }
+	 
 	}
 }

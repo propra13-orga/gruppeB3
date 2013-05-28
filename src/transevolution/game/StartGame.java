@@ -53,6 +53,7 @@ public class StartGame extends BasicGameState
 	
 	public int leben = 3;
 	public int hp = 100;
+	public int mana = 100;
 	
 	private String p1 = "WIN";
 	private String p2 = "Zurueck ins Menue mit Esc";
@@ -203,7 +204,7 @@ public class StartGame extends BasicGameState
 			{
 				objFigures.add(0, new Jack(exit_x*32, exit_y*32));
 			}
-			// enemy erstellen
+			// feuer erstellen
 			objFeuer.add(0, new Feuer(9*32, 10*32));
 			objFeuer.add(0, new Feuer(6*32, 7*32));
 			objFeuer.add(0, new Feuer(8*32, 5*32));
@@ -287,6 +288,10 @@ public class StartGame extends BasicGameState
 		g.setColor(Color.red);
 		Lebenspunkteanzeige.Lebenspunkte(hp);
 		Lebenspunkteanzeige.draw(g);
+		g.setColor(Color.blue);
+		Manaanzeige.Manapunkte(mana);
+		Manaanzeige.draw(g);
+		
 		
 		if(mapcounter != 1)
 		{

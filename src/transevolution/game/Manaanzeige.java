@@ -3,16 +3,16 @@ package transevolution.game;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Lebenspunkteanzeige 
+public class Manaanzeige 
 {	
 	public static int hoehe;
-	public static void Lebenspunkte(int hp)
+	public static void Manapunkte(int mana)
 	{
-		System.out.println("hp: " +hp);
+		
 		
 			
 		
-		hoehe = hp*2;
+		hoehe = mana*2;
 			
 		
 	}
@@ -21,7 +21,7 @@ public class Lebenspunkteanzeige
 	public static void draw(Graphics g) throws SlickException
 	{
 
-		g.fillRect(805, 40, 8, hoehe);
+		g.fillRect(820, 40, 8, hoehe);
 		
 	}
 }

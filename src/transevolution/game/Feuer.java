@@ -7,7 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Feuer extends Checkkoll {
 
-	// Bild von Enemy
+	// Bild von Feuer
 	  protected SpriteSheet feuer;
 
 	public Feuer(int x, int y) throws SlickException 
@@ -20,7 +20,7 @@ public class Feuer extends Checkkoll {
 	@Override
 	public void draw(Graphics g) throws SlickException
 	{
-		  //Enemy Zeichnen zeichnen
+		  //Feuer zeichnen
 
 		for(int a=0; a<2; a++)
 		{

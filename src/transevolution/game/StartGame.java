@@ -52,7 +52,7 @@ public class StartGame extends BasicGameState
 	
 	public int mapcounter =1;
 	
-	public int leben = 5;
+	public int leben = 3;
 	public int hp = 100;
 	
 	private String p1 = "WIN";
@@ -68,14 +68,14 @@ public class StartGame extends BasicGameState
 	protected ArrayList<Checkkoll> objFigures = new ArrayList<Checkkoll>();
 		//Mauer
 	protected ArrayList<Checkkoll> objWalls = new ArrayList<Checkkoll>();
-	// ENEMIES
-		protected ArrayList<Checkkoll> objEnemies = new ArrayList<Checkkoll>();
+	// Feuer
+		protected ArrayList<Checkkoll> objFeuer = new ArrayList<Checkkoll>();
 
 		public void resetStateBasedGame()
 		{
 			objFigures.clear();
 			objWalls.clear();
-			objEnemies.clear();
+			objFeuer.clear();
 			hintergrund = null;
 			game = null;
 			
@@ -167,7 +167,7 @@ public class StartGame extends BasicGameState
 			
 			
 			// enemy erstellen
-			objEnemies.add(0, new Feuer(2*32, 2*32));
+			objFeuer.add(0, new Feuer(2*32, 2*32));
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -187,7 +187,7 @@ public class StartGame extends BasicGameState
 				objFigures.add(0, new Jack(exit_x*32, exit_y*32));
 			}
 			// enemy erstellen
-			objEnemies.add(0, new Feuer(2*32, 6*32));
+			objFeuer.add(0, new Feuer(2*32, 6*32));
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -207,19 +207,19 @@ public class StartGame extends BasicGameState
 				objFigures.add(0, new Jack(exit_x*32, exit_y*32));
 			}
 			// enemy erstellen
-			objEnemies.add(0, new Feuer(9*32, 10*32));
-			objEnemies.add(0, new Feuer(6*32, 7*32));
-			objEnemies.add(0, new Feuer(8*32, 5*32));
-			objEnemies.add(0, new Feuer(15*32, 9*32));
-			objEnemies.add(0, new Feuer(18*32, 6*32));
-			objEnemies.add(0, new Feuer(4*32, 6*32));
-			objEnemies.add(0, new Feuer(5*32, 3*32));
-			objEnemies.add(0, new Feuer(13*32, 4*32));
-			objEnemies.add(0, new Feuer(15*32, 14*32));
-			objEnemies.add(0, new Feuer(18*32, 13*32));
-			objEnemies.add(0, new Feuer(13*32, 12*32));
-			objEnemies.add(0, new Feuer(14*32, 11*32));
-			objEnemies.add(0, new Feuer(9*32, 8*32));
+			objFeuer.add(0, new Feuer(9*32, 10*32));
+			objFeuer.add(0, new Feuer(6*32, 7*32));
+			objFeuer.add(0, new Feuer(8*32, 5*32));
+			objFeuer.add(0, new Feuer(15*32, 9*32));
+			objFeuer.add(0, new Feuer(18*32, 6*32));
+			objFeuer.add(0, new Feuer(4*32, 6*32));
+			objFeuer.add(0, new Feuer(5*32, 3*32));
+			objFeuer.add(0, new Feuer(13*32, 4*32));
+			objFeuer.add(0, new Feuer(15*32, 14*32));
+			objFeuer.add(0, new Feuer(18*32, 13*32));
+			objFeuer.add(0, new Feuer(13*32, 12*32));
+			objFeuer.add(0, new Feuer(14*32, 11*32));
+			objFeuer.add(0, new Feuer(9*32, 8*32));
 			//Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -282,7 +282,11 @@ public class StartGame extends BasicGameState
 
         lebensherzensheet = new SpriteSheet("res/pictures/lebensherzen.png", 32, 32);
 		//lebensanzeige
-		g.drawImage(lebensherzensheet.getSprite(leben, 0), 25*32 , 0);
+        if(0 <= leben && leben <=5)
+        {
+    		g.drawImage(lebensherzensheet.getSprite(leben, 0), 25*32 , 0);
+        }
+
 		
 		
 		if(mapcounter != 1)
@@ -299,8 +303,8 @@ public class StartGame extends BasicGameState
 		
 		
 		
-		//Enemies zeichnen
-	    for (Checkkoll en : objEnemies) 
+		//Feuer zeichnen
+	    for (Checkkoll en : objFeuer) 
 	    {
 	        en.draw(g);
 	    }
@@ -365,7 +369,7 @@ public class StartGame extends BasicGameState
 				//Jack löschen
 			    objFigures.clear();
 			    objWalls.clear();
-			    objEnemies.clear();
+			    objFeuer.clear();
 			    nextmap = 1;
 			    init(container, sbg);
 	          }
@@ -393,7 +397,7 @@ public class StartGame extends BasicGameState
 	    		System.out.println("Leben: "+leben);
 	    	    objFigures.clear();
 	    	    objWalls.clear();
-	    	    objEnemies.clear();
+	    	    objFeuer.clear();
 	    	    nextmap = 1;
 	    	    init(container, sbg);
 	    		
@@ -442,7 +446,7 @@ public class StartGame extends BasicGameState
 	        		  ja.bewegung(0, 1, objCks);
 	        	  }
 	          }
-	          if (!ja.pruefeKollsion(objEnemies).isEmpty()) 
+	          if (!ja.pruefeKollsion(objFeuer).isEmpty()) 
 	          {
 	        	  hp--;
 	          }

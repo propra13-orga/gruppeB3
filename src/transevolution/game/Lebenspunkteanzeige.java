@@ -8,7 +8,6 @@ public class Lebenspunkteanzeige
 	public static int hoehe;
 	public static void Lebenspunkte(int hp)
 	{
-		System.out.println("hp: " +hp);
 		
 			
 		

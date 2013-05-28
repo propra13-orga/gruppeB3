@@ -470,6 +470,8 @@ public class StartGame extends BasicGameState
 			objFigures.clear();
 		    objWalls.clear();
 		    leben =3;
+		    hp = 100;
+		    mana = 100;
 			
 			mapcounter =1;
 			nextmap =1;

@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -120,7 +119,6 @@ public class StartGame extends BasicGameState
 				String zeile;
 
 				zeile = br.readLine();
-				Scanner parser = new Scanner(zeile);
 				int bufferint = 0;
 				while (zeile != null)
 				{
@@ -137,7 +135,6 @@ public class StartGame extends BasicGameState
 					bufferint++;
 				}
 									
-				parser.close();
 				fr.close();
 				
 				for (int a=0; a<17; a++)
@@ -287,7 +284,9 @@ public class StartGame extends BasicGameState
     		g.drawImage(lebensherzensheet.getSprite(leben, 0), 25*32 , 0);
         }
 
-		
+		g.setColor(Color.red);
+		Lebenspunkteanzeige.Lebenspunkte(hp);
+		Lebenspunkteanzeige.draw(g);
 		
 		if(mapcounter != 1)
 		{
@@ -465,7 +464,7 @@ public class StartGame extends BasicGameState
 			//Jack löschen
 			objFigures.clear();
 		    objWalls.clear();
-		    leben =5;
+		    leben =3;
 			
 			mapcounter =1;
 			nextmap =1;

@@ -212,6 +212,102 @@ public class StartGame extends BasicGameState {
 			// Map laden
 			mapladen("res/maps/tmxmaps/map3.tmx");
 		}
+		if (mapcounter == 4) {
+			initMap("res/maps/tmxmaps/map4.tmx");
+			objGegner.clear();
+
+			// Jack aufs Spielfeld setzen
+			if (nextmap == 1) {
+				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == -1) {
+				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
+			}
+			// Steuerkeys definieren
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/tmxmaps/map4.tmx");
+		}
+		if (mapcounter == 5) {
+			initMap("res/maps/tmxmaps/map5.tmx");
+			objGegner.clear();
+
+			// Jack aufs Spielfeld setzen
+			if (nextmap == 1) {
+				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == -1) {
+				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
+			}
+			// Steuerkeys definieren
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/tmxmaps/map5.tmx");
+		}
+		if (mapcounter == 6) {
+			initMap("res/maps/tmxmaps/map6.tmx");
+			objGegner.clear();
+
+			// Jack aufs Spielfeld setzen
+			if (nextmap == 1) {
+				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == -1) {
+				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
+			}
+			// Steuerkeys definieren
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/tmxmaps/map6.tmx");
+		}
+		if (mapcounter == 7) {
+			initMap("res/maps/tmxmaps/map7.tmx");
+			objGegner.clear();
+
+			// Jack aufs Spielfeld setzen
+			if (nextmap == 1) {
+				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == -1) {
+				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
+			}
+			// Steuerkeys definieren
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/tmxmaps/map7.tmx");
+		}
+		if (mapcounter == 8) {
+			initMap("res/maps/tmxmaps/map8.tmx");
+			objGegner.clear();
+
+			// Jack aufs Spielfeld setzen
+			if (nextmap == 1) {
+				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == -1) {
+				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
+			}
+			// Steuerkeys definieren
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/tmxmaps/map8.tmx");
+		}
+		if (mapcounter == 9) {
+			initMap("res/maps/tmxmaps/map9.tmx");
+			objGegner.clear();
+
+			// Jack aufs Spielfeld setzen
+			if (nextmap == 1) {
+				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == -1) {
+				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
+			}
+			// Steuerkeys definieren
+			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+			// Map laden
+			mapladen("res/maps/tmxmaps/map9.tmx");
+		}
 
 	}
 
@@ -232,6 +328,7 @@ public class StartGame extends BasicGameState {
 			Image exit = new Image("res/maps/txtmap/exit.png");
 			Image start = new Image("res/maps/txtmap/checkpointstart.png");
 			Image wand = new Image("res/maps/txtmap/wand.png");
+			Image ebene = new Image("res/maps/txtmap/ebene1.png");
 
 			for (int x = 0; x < 25; x++) {
 				for (int y = 0; y < 17; y++) {
@@ -248,6 +345,9 @@ public class StartGame extends BasicGameState {
 						break;
 					case ' ':
 						g.drawImage(boden, x * 32, y * 32);
+						break;
+					case '0':
+						g.drawImage(ebene, x * 32, y * 32);
 						break;
 					default:
 						break;
@@ -301,7 +401,7 @@ public class StartGame extends BasicGameState {
 		}
 
 		g.setFont(font);
-		if (mapcounter > 3) {
+		if (mapcounter > 9) {
 			g.setColor(Color.orange);
 			g.drawString(p1, 340, 200);
 
@@ -488,17 +588,32 @@ public class StartGame extends BasicGameState {
 				case 5:
 					objWalls.add(0, new Wand(x * 32, y * 32));
 					break;
-
+				case 10:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
+				case 8:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
+				case 11:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
+				case 13:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
+				case 14:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
 				case 2:
 					exit_x = x;
 					exit_y = y;
 					// System.out.println("exit_x = "+exit_x);
 					break;
-				case 3:
+			/*	case 4:
 					start_x = x;
 					start_y = y;
 					break;
-				case 4:
+					*/
+				case 3:
 					start_x = x;
 					start_y = y;
 					break;
@@ -518,6 +633,9 @@ public class StartGame extends BasicGameState {
 				kachel = maparray[x][y];
 				switch (kachel) {
 				case '#':
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
+				case '0':
 					objWalls.add(0, new Wand(x * 32, y * 32));
 					break;
 

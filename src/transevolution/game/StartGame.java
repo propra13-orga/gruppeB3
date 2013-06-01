@@ -264,10 +264,10 @@ public class StartGame extends BasicGameState {
 			g.drawImage(lebensherzensheet.getSprite(leben, 0), 25 * 32, 0);
 		}
 
-		g.setColor(Color.red);
+
 		Lebenspunkteanzeige.Lebenspunkte(hp);
 		Lebenspunkteanzeige.draw(g);
-		g.setColor(Color.blue);
+
 		Manaanzeige.Manapunkte(mana);
 		Manaanzeige.draw(g);
 

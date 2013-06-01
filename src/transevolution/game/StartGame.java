@@ -228,7 +228,7 @@ public class StartGame extends BasicGameState {
 
 			Image boden = new Image("res/maps/txtmap/boden.png");
 			Image exit = new Image("res/maps/txtmap/exit.png");
-			Image start = new Image("res/maps/txtmap/start.png");
+			Image start = new Image("res/maps/txtmap/checkpointstart.png");
 			Image wand = new Image("res/maps/txtmap/wand.png");
 
 			for (int x = 0; x < 25; x++) {

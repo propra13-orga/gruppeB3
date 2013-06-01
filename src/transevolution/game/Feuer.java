@@ -1,6 +1,7 @@
 package transevolution.game;
 
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -8,24 +9,21 @@ import org.newdawn.slick.SpriteSheet;
 public class Feuer extends Checkkoll {
 
 	// Bild von Feuer
-	  protected SpriteSheet feuer;
+	  private SpriteSheet feuerSpriteSheet;
+	  private Animation feuerAnimation;
 
 	public Feuer(int x, int y) throws SlickException 
 	{
 		super(x, y);
-		feuer = new SpriteSheet("res/pictures/feuer.png", 32, 32);
-		
+		feuerSpriteSheet = new SpriteSheet("res/pictures/feuer.png", 32, 32);
+		feuerAnimation = new Animation(feuerSpriteSheet, 100);
 	}
 	
 	@Override
 	public void draw(Graphics g) throws SlickException
 	{
 		  //Feuer zeichnen
-
-		for(int a=0; a<2; a++)
-		{
-			g.drawImage(feuer.getSprite(a, 0), x , y);
-		}
+			feuerAnimation.draw(x,y);		
 	}
 
 

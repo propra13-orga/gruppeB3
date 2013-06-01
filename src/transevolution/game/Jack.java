@@ -11,7 +11,9 @@ public class Jack extends Checkkoll {
 
 	private boolean PosX, PosY;
 
+	private Animation JackAnimation;
 	// Bild von Jack
+	private SpriteSheet jackSpriteSheet;
 	protected Image jackbild;
 	// Steuerungen des Spielers werden als Variablen gesetzt
 	private int rechts, links, oben, unten;
@@ -20,7 +22,7 @@ public class Jack extends Checkkoll {
 	public Jack(int x, int y) throws SlickException {
 		super(x, y);
 
-		jackbild = new Image("res/pictures/spieler.png");
+		jackSpriteSheet = new SpriteSheet("res/pictures/jack.png", 32 ,32);
 
 	}
 
@@ -72,7 +74,7 @@ public class Jack extends Checkkoll {
 
 	public void draw(Graphics g) {
 		// Jack zeichnen
-		g.drawImage(jackbild, x, y);
+		g.drawImage(jackSpriteSheet.getSprite(1, 0), x, y);
 
 		// zum testen: Kollisionfläche
 		// g.draw(kollisionsFlaeche);

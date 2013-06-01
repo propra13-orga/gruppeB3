@@ -72,6 +72,7 @@ public class StartGame extends BasicGameState {
 		objFigures.clear();
 		objWalls.clear();
 		objFeuer.clear();
+		objGegner.clear();
 		hintergrund = null;
 		game = null;
 
@@ -97,6 +98,7 @@ public class StartGame extends BasicGameState {
 		}
 		blub = 0;
 		blab = 0;
+
 
 		if (mapcounter == 1) {
 			// map einlesen (txt9

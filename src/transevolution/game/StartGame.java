@@ -601,6 +601,7 @@ public class StartGame extends BasicGameState {
 			leben = 3;
 			hp = 100;
 			mana = 100;
+			speicherpunktgesetzt = 0;
 
 			mapcounter = 1;
 			nextmap = 1;

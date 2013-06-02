@@ -40,6 +40,8 @@ public class StartGame extends BasicGameState {
 	public int checkpoint_y;
 	public int jack_x;
 	public int jack_y;
+	public int hausmeister_x;
+	public int hausmeister_y;
 	
 	
 	// maparray
@@ -52,6 +54,8 @@ public class StartGame extends BasicGameState {
 	public int nextmap = 1;
 
 	public int mapcounter = 1;
+	
+	public int sprechen = 0;
 	
 	public int speicherpunktgesetzt = 0;
 
@@ -66,6 +70,7 @@ public class StartGame extends BasicGameState {
 	protected SpriteSheet lebensherzensheet;
 	protected Image speicherpunkt2;
 	protected Image speicherpunkt3;
+	protected Image hausmeister;
 	
 	// map
 	protected TiledMap map;
@@ -394,6 +399,8 @@ public class StartGame extends BasicGameState {
 
 		Manaanzeige.Manapunkte(mana);
 		Manaanzeige.draw(g);
+		
+
 
 		if (mapcounter != 1) {
 			// Spielfeldgröße definieren
@@ -422,6 +429,12 @@ public class StartGame extends BasicGameState {
 			speicherpunkt3 = new Image("res/pictures/speicherpunktgesetzt3.png");
 			g.drawImage(speicherpunkt3, table2_x*32, table2_y*32);
 		}
+		
+		if(hausmeister_x >0)
+		{
+			hausmeister = new Image("res/pictures/hausmeister.png");
+			g.drawImage(hausmeister, hausmeister_x*32, hausmeister_y*32);
+		}
 
 		// Jack zeichnen
 		for (Checkkoll ja : objFigures) {
@@ -435,6 +448,11 @@ public class StartGame extends BasicGameState {
 			ge.draw(g);
 		}
 		
+		if(sprechen == 1)
+		{
+			Sprechblase.Sprechblasezeigen(hausmeister_x*32, hausmeister_y*32, 1);
+			Sprechblase.draw(g);
+		}
 
 
 		g.setFont(font);
@@ -453,6 +471,7 @@ public class StartGame extends BasicGameState {
 
 		}
 	}
+
 
 	public void update(GameContainer container, StateBasedGame sbg, int delta)
 			throws SlickException {
@@ -473,6 +492,12 @@ public class StartGame extends BasicGameState {
 		for (Checkkoll ja : objFigures) {
 			ja = (Jack) ja;
 			((Jack) ja).update(container, delta, objCks);
+		}
+		
+		//Sprechblase verlassen
+		if((hausmeister_x*32 < jack_x-32 || hausmeister_x*32 > jack_x+32) || (hausmeister_y*32 > jack_y+32 || hausmeister_y*32 < jack_y-32 ))
+		{
+			sprechen =0;
 		}
 		
 
@@ -522,6 +547,8 @@ public class StartGame extends BasicGameState {
 				}
 			}
 
+
+			//sterben 
 			if (hp < 1) {
 				leben--;
 				hp = 100;
@@ -627,6 +654,16 @@ public class StartGame extends BasicGameState {
 			System.out.println("Checkpoint 2 setzen");
 			speicherpunktgesetzt =2;
 		}
+		if(sprechen != 0)
+		{
+			sprechen = 0;
+		}
+		else if(hausmeister_x*32 >= jack_x-32 && hausmeister_x*32 <= jack_x+32 && hausmeister_y*32 <= jack_y+32 && hausmeister_y*32 >= jack_y-32 )
+		{
+			sprechen =1;
+		}
+
+	
 	
 	}
 
@@ -656,6 +693,8 @@ public class StartGame extends BasicGameState {
 		table_y = -50;
 		table2_x = -50;
 		table2_y = -50;
+		hausmeister_x = -50;
+		hausmeister_y = -50;
 		
 		for (int x = 0; x < map.getWidth(); x++) {
 			for (int y = 0; y < map.getHeight(); y++) {
@@ -678,6 +717,11 @@ public class StartGame extends BasicGameState {
 					break;
 				case 14:
 					objWalls.add(0, new Wand(x * 32, y * 32));
+					break;
+				case 16:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					hausmeister_x = x;
+					hausmeister_y = y;
 					break;
 				case 2:
 					exit_x = x;

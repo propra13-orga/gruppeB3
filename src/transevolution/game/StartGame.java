@@ -34,7 +34,14 @@ public class StartGame extends BasicGameState {
 	public int exit_y;
 	public int start_x;
 	public int start_y;
-
+	public int table_x, table2_x;
+	public int table_y, table2_y;
+	public int checkpoint_x;
+	public int checkpoint_y;
+	public int jack_x;
+	public int jack_y;
+	
+	
 	// maparray
 	public char[] maparraybuffer = new char[25];
 	public char[][] maparray = new char[25][17];
@@ -45,6 +52,8 @@ public class StartGame extends BasicGameState {
 	public int nextmap = 1;
 
 	public int mapcounter = 1;
+	
+	public int speicherpunktgesetzt = 0;
 
 	public int leben = 3;
 	public int hp = 100;
@@ -55,7 +64,9 @@ public class StartGame extends BasicGameState {
 	private String p3 = "GAME OVER";
 
 	protected SpriteSheet lebensherzensheet;
-
+	protected Image speicherpunkt2;
+	protected Image speicherpunkt3;
+	
 	// map
 	protected TiledMap map;
 	// Kollisionsobjekte
@@ -147,6 +158,9 @@ public class StartGame extends BasicGameState {
 			if (nextmap == -1) {
 				objFigures.add(0, new Jack(exit_x * 32, exit_y * 32));
 			}
+			if (nextmap == 3) {
+				objFigures.add(0, new Jack(start_x * 32, start_y * 32));
+			}
 
 			// enemy erstellen
 			objFeuer.add(new Feuer(2 * 32, 2 * 32));
@@ -218,7 +232,10 @@ public class StartGame extends BasicGameState {
 
 			// Jack aufs Spielfeld setzen
 			if (nextmap == 1) {
-				objFigures.add(new Jack(start_x * 32, start_y * 32));
+					objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == 3) {
+				objFigures.add(new Jack(checkpoint_x * 32, checkpoint_y * 32));
 			}
 			if (nextmap == -1) {
 				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
@@ -251,10 +268,14 @@ public class StartGame extends BasicGameState {
 			// Jack aufs Spielfeld setzen
 			if (nextmap == 1) {
 				objFigures.add(new Jack(start_x * 32, start_y * 32));
+
 			}
 			if (nextmap == -1) {
 				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
 			}
+			//Feuer
+			objFeuer.add(new Feuer(704, 32));
+			objFeuer.add(new Feuer(704, 480));
 			// Steuerkeys definieren
 			((Jack) objFigures.get(0)).tasteneinstellen(Input.KEY_LEFT,	Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -267,6 +288,9 @@ public class StartGame extends BasicGameState {
 			// Jack aufs Spielfeld setzen
 			if (nextmap == 1) {
 				objFigures.add(new Jack(start_x * 32, start_y * 32));
+			}
+			if (nextmap == 3) {
+				objFigures.add(new Jack(checkpoint_x * 32, checkpoint_y * 32));
 			}
 			if (nextmap == -1) {
 				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
@@ -387,6 +411,17 @@ public class StartGame extends BasicGameState {
 		for (Checkkoll en : objFeuer) {
 			en.draw(g);
 		}
+		
+		if(speicherpunktgesetzt ==1 && mapcounter ==4)
+		{
+			speicherpunkt2 = new Image("res/pictures/speicherpunktgesetzt2.png");
+			g.drawImage(speicherpunkt2, table_x*32, table_y*32);
+		}
+		if(speicherpunktgesetzt ==2 && mapcounter ==7)
+		{
+			speicherpunkt3 = new Image("res/pictures/speicherpunktgesetzt3.png");
+			g.drawImage(speicherpunkt3, table2_x*32, table2_y*32);
+		}
 
 		// Jack zeichnen
 		for (Checkkoll ja : objFigures) {
@@ -399,6 +434,8 @@ public class StartGame extends BasicGameState {
 		for (Checkkoll ge : objGegner) {
 			ge.draw(g);
 		}
+		
+
 
 		g.setFont(font);
 		if (mapcounter > 9) {
@@ -429,6 +466,7 @@ public class StartGame extends BasicGameState {
 			((Wachmann) ge).update(container, delta, objCks);
 		}
 
+
 		// Jacks Bewegung mit Kollisionsüberprüfung
 		objCks.clear();
 		objCks.addAll(objWalls);
@@ -436,10 +474,15 @@ public class StartGame extends BasicGameState {
 			ja = (Jack) ja;
 			((Jack) ja).update(container, delta, objCks);
 		}
+		
+
 
 		// Jacks Bewegung
 		for (int i = 0; i < objFigures.size(); i++) {
 			Jack ja = (Jack) objFigures.get(i);
+			
+			jack_x = ja.getX();
+			jack_y = ja.getY();
 
 			// gucken ob jack nicht im start oder exit feld steht
 			if (((ja.getX() / 32) != start_x || (ja.getY() / 32) != start_y)
@@ -482,13 +525,25 @@ public class StartGame extends BasicGameState {
 			if (hp < 1) {
 				leben--;
 				hp = 100;
-				mapcounter = 1;
+				nextmap =3;
+				if(speicherpunktgesetzt ==0)
+				{
+					mapcounter = 1;
+				}
+				else if(speicherpunktgesetzt ==1)
+				{
+					mapcounter = 4;
+				}
+				else if(speicherpunktgesetzt ==2)
+				{
+					mapcounter = 7;
+				}
+				
 				System.out.println("Leben: " + leben);
 				objFigures.clear();
 				objWalls.clear();
 				objFeuer.clear();
 				objGegner.clear();
-				nextmap = 1;
 				init(container, sbg);
 
 			}
@@ -537,7 +592,6 @@ public class StartGame extends BasicGameState {
 	}
 
 	public void keyReleased(int taste, char c) {
-
 		// Exit aus dem Spiel mit Escape
 		if (taste == Input.KEY_ESCAPE) {
 			enterStateAndreinit(Menu.stateID);
@@ -559,7 +613,23 @@ public class StartGame extends BasicGameState {
 		if (taste == Input.KEY_N) {
 			blab = 1;
 		}
+	
+		//Checkpointabfrage
+	if (taste == Input.KEY_E) {
+		if(table_x*32 >= jack_x-32 && table_x*32 <= jack_x+32 && table_y*32 <= jack_y+32 && table_y*32 >= jack_y-32 )
+		{
+			System.out.println("Checkpoint 1 setzen");
+			speicherpunktgesetzt =1;
+		}
+		if(table2_x*32 >= jack_x-32 && table2_x*32 <= jack_x+32 && table2_y*32 <= jack_y+32 && table2_y*32 >= jack_y-32 )
+		{
+			System.out.println("Checkpoint 2 setzen");
+			speicherpunktgesetzt =2;
+		}
+	
 	}
+
+}
 
 	// State wechseln
 	private void enterStateAndreinit(int stateID) {
@@ -581,6 +651,11 @@ public class StartGame extends BasicGameState {
 
 		map = new TiledMap(ref, "res/maps/tmxmaps");
 
+		table_x = -50;
+		table_y = -50;
+		table2_x = -50;
+		table2_y = -50;
+		
 		for (int x = 0; x < map.getWidth(); x++) {
 			for (int y = 0; y < map.getHeight(); y++) {
 				final int tileID = map.getTileId(x, y, 0);
@@ -608,14 +683,21 @@ public class StartGame extends BasicGameState {
 					exit_y = y;
 					// System.out.println("exit_x = "+exit_x);
 					break;
-			/*	case 4:
-					start_x = x;
-					start_y = y;
+				case 4:
+					checkpoint_x = x;
+					checkpoint_y = y;
 					break;
-					*/
 				case 3:
 					start_x = x;
 					start_y = y;
+					break;
+				case 9:
+					table_x = x;
+					table_y = y;
+					break;
+				case 15:
+					table2_x = x;
+					table2_y = y;
 					break;
 				default:
 					break;
@@ -647,6 +729,8 @@ public class StartGame extends BasicGameState {
 				case 'E':
 					start_x = x;
 					start_y = y;
+					checkpoint_x = x;
+					checkpoint_y = y;
 					break;
 				default:
 					break;

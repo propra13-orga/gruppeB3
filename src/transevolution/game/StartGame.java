@@ -42,6 +42,8 @@ public class StartGame extends BasicGameState {
 	public int jack_y;
 	public int hausmeister_x;
 	public int hausmeister_y;
+	public int shophaendler_x;
+	public int shophaendler_y;
 	
 	
 	// maparray
@@ -71,6 +73,7 @@ public class StartGame extends BasicGameState {
 	protected Image speicherpunkt2;
 	protected Image speicherpunkt3;
 	protected Image hausmeister;
+	protected Image shophaendler;
 	
 	// map
 	protected TiledMap map;
@@ -241,6 +244,9 @@ public class StartGame extends BasicGameState {
 			}
 			if (nextmap == 3) {
 				objFigures.add(new Jack(checkpoint_x * 32, checkpoint_y * 32));
+			}
+			if (nextmap == 4) {
+				objFigures.add(new Jack(jack_x , jack_y));
 			}
 			if (nextmap == -1) {
 				objFigures.add(new Jack(exit_x * 32, exit_y * 32));
@@ -429,11 +435,17 @@ public class StartGame extends BasicGameState {
 			speicherpunkt3 = new Image("res/pictures/speicherpunktgesetzt3.png");
 			g.drawImage(speicherpunkt3, table2_x*32, table2_y*32);
 		}
-		
+		//hausmeister zeichnen
 		if(hausmeister_x >0)
 		{
 			hausmeister = new Image("res/pictures/hausmeister.png");
 			g.drawImage(hausmeister, hausmeister_x*32, hausmeister_y*32);
+		}
+		//Shophaendler zeichnen
+		if(shophaendler_x >0)
+		{
+			shophaendler = new Image("res/pictures/shophaendler.png");
+			g.drawImage(shophaendler, shophaendler_x*32, shophaendler_y*32);
 		}
 
 		// Jack zeichnen
@@ -451,6 +463,11 @@ public class StartGame extends BasicGameState {
 		if(sprechen == 1)
 		{
 			Sprechblase.Sprechblasezeigen(hausmeister_x*32, hausmeister_y*32, 1);
+			Sprechblase.draw(g);
+		}
+		if(sprechen == 2)
+		{
+			Sprechblase.Sprechblasezeigen(shophaendler_x*32, shophaendler_y*32, 2);
 			Sprechblase.draw(g);
 		}
 
@@ -494,8 +511,12 @@ public class StartGame extends BasicGameState {
 			((Jack) ja).update(container, delta, objCks);
 		}
 		
-		//Sprechblase verlassen
-		if((hausmeister_x*32 < jack_x-32 || hausmeister_x*32 > jack_x+32) || (hausmeister_y*32 > jack_y+32 || hausmeister_y*32 < jack_y-32 ))
+		//Sprechblase verlassen durch Bewegung
+		if(((hausmeister_x*32 < jack_x-32 || hausmeister_x*32 > jack_x+32) || (hausmeister_y*32 > jack_y+32 || hausmeister_y*32 < jack_y-32 ))&& sprechen == 1)
+		{
+			sprechen =0;
+		}
+		if(((shophaendler_x*32 < jack_x-32 || shophaendler_x*32 > jack_x+32) || (shophaendler_y*32 > jack_y+32 || shophaendler_y*32 < jack_y-32 ))&& sprechen == 2)
 		{
 			sprechen =0;
 		}
@@ -641,6 +662,16 @@ public class StartGame extends BasicGameState {
 		if (taste == Input.KEY_N) {
 			blab = 1;
 		}
+		//Shop betreten
+		if (taste == Input.KEY_J &&shophaendler_x*32 >= jack_x-32 && shophaendler_x*32 <= jack_x+32 && shophaendler_y*32 <= jack_y+32 && shophaendler_y*32 >= jack_y-32 ) {
+			System.out.println("Shop betreten");
+			objFigures.clear();
+			objWalls.clear();
+			sprechen=0;
+
+			nextmap = 4;
+			enterStateAndreinit(Shop.stateID);
+		}
 	
 		//Checkpointabfrage
 	if (taste == Input.KEY_E) {
@@ -658,10 +689,16 @@ public class StartGame extends BasicGameState {
 		{
 			sprechen = 0;
 		}
+		else if(shophaendler_x*32 >= jack_x-32 && shophaendler_x*32 <= jack_x+32 && shophaendler_y*32 <= jack_y+32 && shophaendler_y*32 >= jack_y-32 )
+		{
+			sprechen =2;
+			System.out.println("Shophaendler");
+		}
 		else if(hausmeister_x*32 >= jack_x-32 && hausmeister_x*32 <= jack_x+32 && hausmeister_y*32 <= jack_y+32 && hausmeister_y*32 >= jack_y-32 )
 		{
 			sprechen =1;
-		}
+		}		
+
 
 	
 	
@@ -695,6 +732,8 @@ public class StartGame extends BasicGameState {
 		table2_y = -50;
 		hausmeister_x = -50;
 		hausmeister_y = -50;
+		shophaendler_x = -50;
+		shophaendler_y = -50;
 		
 		for (int x = 0; x < map.getWidth(); x++) {
 			for (int y = 0; y < map.getHeight(); y++) {
@@ -722,6 +761,11 @@ public class StartGame extends BasicGameState {
 					objWalls.add(0, new Wand(x * 32, y * 32));
 					hausmeister_x = x;
 					hausmeister_y = y;
+					break;
+				case 17:
+					objWalls.add(0, new Wand(x * 32, y * 32));
+					shophaendler_x = x;
+					shophaendler_y = y;
 					break;
 				case 2:
 					exit_x = x;
@@ -754,6 +798,15 @@ public class StartGame extends BasicGameState {
 
 	public void txtinitMap(String ref) throws SlickException {
 		char kachel;
+		
+		table_x = -50;
+		table_y = -50;
+		table2_x = -50;
+		table2_y = -50;
+		hausmeister_x = -50;
+		hausmeister_y = -50;
+		shophaendler_x = -50;
+		shophaendler_y = -50;
 
 		for (int x = 0; x < 25; x++) {
 			for (int y = 0; y < 17; y++) {

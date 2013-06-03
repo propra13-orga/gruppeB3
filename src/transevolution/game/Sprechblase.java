@@ -16,24 +16,31 @@ public class Sprechblase {
 	private static String p4 = "E, dann setzt du einen Speicher-";
 	private static String p5 = "punkt. Stell keine Fragen, ";
 	private static String p6 = "ich putze hier nur.";
+	private static String q1 = "Tagchen!";
+	private static String q2 = "Willst du etwas kaufen? Ich hab";
+	private static String q3 = "einiges, was sich für dich";
+	private static String q4 = "nützlich erweisen könnte.";
+	private static String jn = "             [J]Ja [E]Ignorieren";
 	
-	public static void Sprechblasezeigen(int x, int y, int text) {
+	public static void Sprechblasezeigen(int x, int y, int textnr) {
 		if(x<384)
 		{
 			sprechx = x + 50; 
 		}
 		else
 		{
-			sprechx = x - 50; 
+			sprechx = x - 330; 
 		}
 		if(y<256)
 		{
-			sprechy = y + 50; 
+			sprechy = y ; 
 		}
 		else
 		{
 			sprechy = y - 50; 
 		}
+		
+		text = textnr;
 			
 	}
 	
@@ -44,13 +51,24 @@ public class Sprechblase {
 		g.fillRoundRect(sprechx, sprechy, 300, 80, 5);
 		g.setColor(Color.black);
 		g.drawRoundRect(sprechx, sprechy, 300, 80, 5);
-		g.drawString(p1, sprechx+5, sprechy+3);
-		g.drawString(p2, sprechx+5, sprechy+15);
-		g.drawString(p3, sprechx+5, sprechy+27);
-		g.drawString(p4, sprechx+5, sprechy+39);
-		g.drawString(p5, sprechx+5, sprechy+51);
-		g.drawString(p6, sprechx+5, sprechy+63);
-
+		if(text == 1)
+		{
+			g.drawString(p1, sprechx+5, sprechy+3);
+			g.drawString(p2, sprechx+5, sprechy+15);
+			g.drawString(p3, sprechx+5, sprechy+27);
+			g.drawString(p4, sprechx+5, sprechy+39);
+			g.drawString(p5, sprechx+5, sprechy+51);
+			g.drawString(p6, sprechx+5, sprechy+63);
+		}
+		else if(text ==2)
+		{
+			g.drawString(q1, sprechx+5, sprechy+3);
+			g.drawString(q2, sprechx+5, sprechy+15);
+			g.drawString(q3, sprechx+5, sprechy+27);
+			g.drawString(q4, sprechx+5, sprechy+39);
+			g.setColor(Color.orange);
+			g.drawString(jn, sprechx+5, sprechy+63);
+		}
 		
 	}
 

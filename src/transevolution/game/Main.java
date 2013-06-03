@@ -32,6 +32,7 @@ public class Main extends StateBasedGame
 	    this.addState(new Credits());
 	    this.addState(new Einstellungen());
 	    this.addState(new StartGame());
+	    this.addState(new Shop());
 	}
 
 	public static void main(String[] argsv)

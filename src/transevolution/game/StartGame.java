@@ -1,5 +1,6 @@
 package transevolution.game;
 
+
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -405,6 +406,8 @@ public class StartGame extends BasicGameState {
 
 		Manaanzeige.Manapunkte(mana);
 		Manaanzeige.draw(g);
+		
+		Ausruestung.draw(g);
 		
 
 

@@ -161,12 +161,12 @@ public class Shop extends BasicGameState
 			{
 			case 1:		
 				waffe =1;
-				Ausruestung.gekauft(waffe, ruestung);
+				Ausruestung.gekauft(waffe, ruestung, 10);
 				break;
 
 			case 4:		
 				ruestung =1;
-				Ausruestung.gekauft(waffe, ruestung);
+				Ausruestung.gekauft(waffe, ruestung, 50);
 				break;
 			}
 		}	

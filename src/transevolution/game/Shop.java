@@ -30,15 +30,26 @@ public class Shop extends BasicGameState
 	int ruestung;
 	int wahl;
 	
+	int kauf = 0;
+	
+	int kosten;
+	
+	static int geld;
+	
 	
 	//Text zum anzeigen + Zurück"Button"
 	
-	private String p1 = "Taschenmesser";
+	private String p1 = "Brotmesser";
 	private String p2 = "Auswahl2";
 	private String p3 = "Auswahl3";
 	private String p4 = "Schutzweste Klasse B";
 	private String p5 = "Auswahl5";
 	private String p6 = "Auswahl6";
+	
+	private String a1 = "Kauf erfogreich!";
+	private String a2 = "Zu wenig Geld.";
+	
+	static String geldanzeige = "Dollar: "+geld;
 	
 	protected Image hausmeister;
 	protected Image messer, schutzweste;
@@ -74,8 +85,11 @@ public class Shop extends BasicGameState
 
 	//zeichnen
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g)throws SlickException 
-	{
+	{		
+		geld= Ausruestung.getgeld();
 		hintergrund.draw(0,0);
+		
+
 		
 		g.setFont(font);
 
@@ -95,7 +109,16 @@ public class Shop extends BasicGameState
 		g.drawImage(hausmeister, 420, 240);
 		g.drawString(back, 350, 450);
 		
-		
+		if(kauf==1)
+		{
+			g.setColor(Color.green);
+			g.drawString(a1, 300, 405);
+		}
+		if(kauf==-1)
+		{
+			g.setColor(Color.red);
+			g.drawString(a2, 300, 405);
+		}
 		g.setColor(Color.orange);
 		if(wahly==0 && wahlx ==0)
 		{
@@ -136,6 +159,9 @@ public class Shop extends BasicGameState
 			g.drawString(back, 350, 450);
 			wahl =99;
 		}
+		
+		g.setColor(Color.green);
+		g.drawString(geldanzeige, 600, 25);
 
 		
 	}
@@ -143,7 +169,7 @@ public class Shop extends BasicGameState
 	public void update(GameContainer container, StateBasedGame sbg, int delta)throws SlickException 
 	{
 		
-		
+		geldanzeige = ""+geld;
 	}
 	//Bewegen im Shop mit Pfeiltasten
 	public void keyReleased(int taste, char c)
@@ -159,14 +185,30 @@ public class Shop extends BasicGameState
 		{
 			switch(wahl)
 			{
-			case 1:		
-				waffe =1;
-				Ausruestung.gekauft(waffe, ruestung, 10);
+			case 1:
+				kosten =10;
+				if(geld-kosten>=0)
+				{
+					waffe =1;
+					Ausruestung.gekauft(waffe, ruestung, kosten);
+					kauf =1;
+				}
+				else{
+					kauf =-1;
+				}
 				break;
 
-			case 4:		
+			case 4:	
+				kosten =50;
+				if(geld-kosten>=0)
+				{
 				ruestung =1;
-				Ausruestung.gekauft(waffe, ruestung, 50);
+				Ausruestung.gekauft(waffe, ruestung, kosten);
+				kauf = 1;
+				}
+				else{
+					kauf =-1;
+				}
 				break;
 			}
 		}	
@@ -175,6 +217,7 @@ public class Shop extends BasicGameState
 		{
 			wahly++;
 			wahly %=4;
+			kauf = 0;
 		}	
 		if(taste == Input.KEY_UP)
 		{
@@ -184,11 +227,13 @@ public class Shop extends BasicGameState
 				wahly =3;
 			}
 			wahly %=4;
+			kauf =0;
 		}
 		if(taste == Input.KEY_RIGHT)
 		{
 			wahlx++;
 			wahlx %=2;
+			kauf = 0;
 		}	
 		if(taste == Input.KEY_LEFT)
 		{
@@ -197,6 +242,7 @@ public class Shop extends BasicGameState
 			{
 				wahlx=1;
 			}
+			kauf = 0;
 		}	
 	}
 
@@ -219,6 +265,8 @@ public class Shop extends BasicGameState
 	{
 		return stateID;
 	}	
+	
+
 	
 	
 }

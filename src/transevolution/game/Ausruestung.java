@@ -73,4 +73,11 @@ public class Ausruestung
 		
 	}
 	
+	public static int getgeld() 
+	{
+
+		return geld;
+	}
+
+	
 }

@@ -28,14 +28,15 @@ public class Shop extends BasicGameState
 	
 	//Text zum anzeigen + Zurück"Button"
 	
-	private String p1 = "Auswahl1";
+	private String p1 = "Taschenmesser";
 	private String p2 = "Auswahl2";
 	private String p3 = "Auswahl3";
-	private String p4 = "Auswahl4";
+	private String p4 = "Schutzweste Klasse B";
 	private String p5 = "Auswahl5";
 	private String p6 = "Auswahl6";
 	
 	protected Image hausmeister;
+	protected Image messer, schutzweste;
 	
 	private String back= "Zurueck"; 
 	int wahly =0;
@@ -51,6 +52,8 @@ public class Shop extends BasicGameState
 		//Hintergrund laden
 		hintergrund = new Image("res/pictures/shophintergrund.png");
 		hausmeister = new Image("res/pictures/hausmeister.png");
+		messer = new Image("res/pictures/messer.png");
+		schutzweste = new Image("res/pictures/schutzweste.png");
 		
 		this.game =sbg;
 		
@@ -78,13 +81,13 @@ public class Shop extends BasicGameState
 		g.setColor(Color.white);
 		
 		g.drawString(p1, 90, 80);
-		g.drawImage(hausmeister, 30, 80);
+		g.drawImage(messer, 30, 80);
 		g.drawString(p2, 90, 160);
 		g.drawImage(hausmeister, 30, 160);
 		g.drawString(p3, 90, 240);	
 		g.drawImage(hausmeister, 30, 240);
 		g.drawString(p4, 480, 80);
-		g.drawImage(hausmeister, 420, 80);
+		g.drawImage(schutzweste, 420, 80);
 		g.drawString(p5, 480, 160);
 		g.drawImage(hausmeister, 420, 160);
 		g.drawString(p6, 480, 240);

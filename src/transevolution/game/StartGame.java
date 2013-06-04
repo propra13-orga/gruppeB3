@@ -406,8 +406,6 @@ public class StartGame extends BasicGameState {
 		Manaanzeige.Manapunkte(mana);
 		Manaanzeige.draw(g);
 		
-		Ausruestung.draw(g);
-		
 
 
 		if (mapcounter != 1) {

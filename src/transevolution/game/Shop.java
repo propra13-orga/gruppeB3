@@ -25,10 +25,6 @@ public class Shop extends BasicGameState
 	TrueTypeFont font;
 	private StateBasedGame game;
 	
-	int waffe;
-	int ruestung;
-	int wahl;
-	
 	
 	//Text zum anzeigen + Zurück"Button"
 	
@@ -48,7 +44,11 @@ public class Shop extends BasicGameState
 
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
-
+		//Hintergrundmusik
+//		Sound credits = new Sound("res/sounds/credits.wav");
+//		credits.play();
+//		credits.loop();
+		
 		//Hintergrund laden
 		hintergrund = new Image("res/pictures/shophintergrund.png");
 		hausmeister = new Image("res/pictures/hausmeister.png");
@@ -99,41 +99,30 @@ public class Shop extends BasicGameState
 		if(wahly==0 && wahlx ==0)
 		{
 			g.drawString(p1, 90, 80);
-			wahl =1;
-			
 		}
 		if(wahly==1 && wahlx ==0)
 		{
 			g.drawString(p2, 90, 160);
-			
-			wahl = 2;
 		}
 		if(wahly==2 && wahlx ==0)
 		{
 			g.drawString(p3, 90, 240);	
-			wahl =3;
 		}
-		
-		
 		if(wahly==0 && wahlx ==1)
 		{
 			g.drawString(p4, 480, 80);
-			wahl = 4;
 		}
 		if(wahly==1 && wahlx ==1)
 		{
 			g.drawString(p5, 480, 160);
-			wahl = 5;
 		}
 		if(wahly==2 && wahlx ==1)
 		{
 			g.drawString(p6, 480, 240);	
-			wahl = 6;
 		}
 		if(wahly==3)
 		{
-			g.drawString(back, 350, 450);
-			wahl =99;
+		g.drawString(back, 350, 450);
 		}
 
 		
@@ -144,30 +133,14 @@ public class Shop extends BasicGameState
 		
 		
 	}
-	//Bewegen im Shop mit Pfeiltasten
+	//Bewegen im Menü mit Pfeiltasten
 	public void keyReleased(int taste, char c)
 	{
 		
-	// Zurück ins Shop mit Enter oder Leertaste	
-		if(((taste == Input.KEY_ENTER || taste == Input.KEY_SPACE )&& wahl== 99)|| taste == Input.KEY_ESCAPE) 
+	// Zurück ins Menü mit Enter oder Leertaste	
+		if(taste == Input.KEY_ENTER || taste == Input.KEY_SPACE || taste == Input.KEY_ESCAPE)
 		{
 			enterStateAndreinit(StartGame.stateID);
-		}	
-	//etwas kaufen
-		if(((taste == Input.KEY_ENTER || taste == Input.KEY_SPACE )&& wahl != 99)) 
-		{
-			switch(wahl)
-			{
-			case 1:		
-				waffe =1;
-				Ausruestung.gekauft(waffe, ruestung);
-				break;
-
-			case 4:		
-				ruestung =1;
-				Ausruestung.gekauft(waffe, ruestung);
-				break;
-			}
 		}	
 	//Navigation
 		if(taste == Input.KEY_DOWN)

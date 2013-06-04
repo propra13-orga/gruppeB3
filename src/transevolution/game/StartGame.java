@@ -653,6 +653,7 @@ public class StartGame extends BasicGameState {
 			hp = 100;
 			mana = 100;
 			speicherpunktgesetzt = 0;
+			Ausruestung.reset(0, 0, 0);
 
 			mapcounter = 1;
 			nextmap = 1;

@@ -22,6 +22,15 @@ public class Ausruestung
 	
 	static String geldanzeige = ""+geld;;
 	
+	
+	public static void reset(int a, int b, int geldbeginn)
+	{
+		waffe = a;
+		ruestung = b;
+		geld = geldbeginn;
+		geldanzeige = ""+geld;
+	}
+	
 	public static void gekauft(int a, int b, int geldabzug)
 	{
 		waffe = a;

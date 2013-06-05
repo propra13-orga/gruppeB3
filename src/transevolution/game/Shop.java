@@ -169,7 +169,7 @@ public class Shop extends BasicGameState
 	public void update(GameContainer container, StateBasedGame sbg, int delta)throws SlickException 
 	{
 		
-		geldanzeige = ""+geld;
+		geldanzeige = "Dollar: "+geld;
 	}
 	//Bewegen im Shop mit Pfeiltasten
 	public void keyReleased(int taste, char c)

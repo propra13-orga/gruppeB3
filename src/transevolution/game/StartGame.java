@@ -44,6 +44,9 @@ public class StartGame extends BasicGameState {
 	public int hausmeister_y;
 	public int shophaendler_x;
 	public int shophaendler_y;
+	
+	int hp = 100;
+	int leben =3;
 
 	// maparray
 	public char[] maparraybuffer = new char[25];
@@ -110,6 +113,8 @@ public class StartGame extends BasicGameState {
 
 		blub = 0;
 		blab = 0;
+		
+
 
 		if (mapcounter == 1) {
 			// map einlesen (txt9
@@ -331,6 +336,9 @@ public class StartGame extends BasicGameState {
 			// Map laden
 			mapladen("res/maps/tmxmaps/map9.tmx");
 		}
+		
+		objJack.setHp(hp);
+		objJack.setLeben(leben);
 
 	}
 
@@ -508,6 +516,8 @@ public class StartGame extends BasicGameState {
 			objWalls.clear();
 			objFeuer.clear();
 			objGegner.clear();
+			hp = objJack.getHp();
+			leben = objJack.getLeben();
 
 			init(container, sbg);
 		}
@@ -520,6 +530,8 @@ public class StartGame extends BasicGameState {
 				objWalls.clear();
 				objFeuer.clear();
 				objGegner.clear();
+				hp = objJack.getHp();
+				leben = objJack.getLeben();
 
 				init(container, sbg);
 			}
@@ -537,6 +549,8 @@ public class StartGame extends BasicGameState {
 			} else if (speicherpunktgesetzt == 2) {
 				mapcounter = 7;
 			}
+			leben--;
+			objJack.setLeben(leben);
 
 			System.out.println("Leben: " + objJack.getLeben());
 			objWalls.clear();
@@ -565,6 +579,7 @@ public class StartGame extends BasicGameState {
 			objJack.setMana(100);
 			speicherpunktgesetzt = 0;
 			Ausruestung.reset(0, 0, 0);
+			objJack.setLeben(3);
 
 			mapcounter = 1;
 			nextmap = 1;

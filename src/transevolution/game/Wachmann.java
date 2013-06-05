@@ -1,59 +1,50 @@
 package transevolution.game;
 
 import java.util.ArrayList;
-
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.*;
 
 public class Wachmann extends Checkkoll {
-	
+
 	private Animation wachmannAnimation;
-	private SpriteSheet left;
-	private SpriteSheet right;
-	private SpriteSheet up;
-	private SpriteSheet down;
+	private SpriteSheet wachmannSpriteSheet;
+	private Shape flaecheKampf;
 	
-	/* 1: rechts
-	 * 2: links
-	 * 3: oben
-	 * 4: unten 
+	private int leben = 2;
+
+	/*
+	 * 0: unten; 1: links; 2: rechts; 3: oben
 	 */
-	private int bewegungRichtung = 4;
+	private int bewegungRichtung = 3;
 
 	public Wachmann(int x, int y) throws SlickException {
 		super(x, y);
-		// TODO Auto-generated constructor stub
-		left = new SpriteSheet("res/pictures/wachmannlinks.png", 32, 32);
-		right = new SpriteSheet("res/pictures/wachmannrechts.png", 32, 32);
-		up = new SpriteSheet("res/pictures/wachmannhoch.png", 32, 32);
-		down = new SpriteSheet("res/pictures/wachmannrunter.png", 32, 32);
-		
-		wachmannAnimation = new Animation(down, 300);
+		wachmannSpriteSheet = new SpriteSheet("res/pictures/wachmann.png", 32, 32);
+		wachmannAnimation = new Animation(wachmannSpriteSheet, 0, bewegungRichtung, 3, bewegungRichtung, true, 300, true);
+		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1, x + 32, y + 32, x - 1, y + 32 });
 	}
 
-	public void update(GameContainer container, int delta,
-			ArrayList<Checkkoll> spObj) throws SlickException {
-		// TODO Auto-generated method stub
+	public void update(GameContainer container, int delta, ArrayList<Checkkoll> spObj) throws SlickException {
+		if (leben <= 0) return;
 		int Xwert = this.x;
 		int Ywert = this.y;
 		
-		switch(bewegungRichtung){
+//		if (isKampf(spObj)){
+//			return;
+//		}
+
+		switch (bewegungRichtung) {
 		case 0:
+			this.y += 1;
 			break;
 		case 1:
-			this.x += 1;
+			this.x -= 1;
 			break;
 		case 2:
-			this.x -= 1;
+			this.x += 1;
 			break;
 		case 3:
 			this.y -= 1;
-			break;
-		case 4:
-			this.y += 1;
 			break;
 		}
 		kollisionsFlaeche.setX(this.x);
@@ -66,31 +57,38 @@ public class Wachmann extends Checkkoll {
 			kollisionsFlaeche.setX(this.x);
 			kollisionsFlaeche.setY(this.y);
 			// suche neue Richtung
-			bewegungRichtung = (int)((Math.random()) * 4 + 1);
-			switch(bewegungRichtung){
-			case 0:
-				break;
-			case 1:
-				wachmannAnimation = new Animation(right, 100);
-				break;
-			case 2:
-				wachmannAnimation = new Animation(left, 100);
-				break;
-			case 3:
-				wachmannAnimation = new Animation(up, 100);
-				break;
-			case 4:
-				wachmannAnimation = new Animation(down, 100);
-				break;
-			}
+			bewegungRichtung = (int) ((Math.random()) * 4);
+			wachmannAnimation = new Animation(wachmannSpriteSheet, 0, bewegungRichtung, 3, bewegungRichtung, true, 300, true);
 		}
+		flaecheKampf.setX(this.x - 1);
+		flaecheKampf.setY(this.y - 1);
 	}
 
 	@Override
 	public void draw(Graphics g) throws SlickException {
-		// TODO Auto-generated method stub
+		if (leben > 0) {
 		wachmannAnimation.draw(this.x, this.y);
-
+		g.setColor(Color.black);
+		g.fillRect(this.x + 28, this.y+2, 2, 20);
+		g.setColor(Color.red);
+		g.fillRect(this.x+28, this.y+2, 2, leben*5);
+		}
 	}
 
+	public int getLeben() {
+		return leben;
+	}
+
+	public void setLeben(int leben) {
+		this.leben = leben;
+	}
+	
+	private boolean isKampf(ArrayList<Checkkoll> spObj){
+		
+		for (Checkkoll obj : spObj)
+			if (obj.kollisionsFlaeche.intersects(this.flaecheKampf) == true){
+				return true;
+			}
+		return false;
+	}
 }

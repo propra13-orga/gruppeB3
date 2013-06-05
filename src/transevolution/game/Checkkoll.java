@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.*;
 
 //Hier werden Kollisionen überprüft, indem alle Objekte in Arrays gespeichert werden
 
@@ -16,7 +16,7 @@ public abstract class Checkkoll
   private static int sizeY = 31;
   protected int x;
   protected int y;
-  protected Polygon kollisionsFlaeche;
+  protected Shape kollisionsFlaeche;
 
 
   public abstract void draw(Graphics g) throws SlickException;
@@ -45,7 +45,7 @@ public abstract class Checkkoll
     return y;
   }
 
-  public Polygon getkollFlaeche() 
+  public Shape getkollFlaeche() 
   {
     return kollisionsFlaeche;
   }

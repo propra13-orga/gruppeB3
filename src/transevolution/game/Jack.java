@@ -9,116 +9,88 @@ import org.newdawn.slick.*;
 
 public class Jack extends Checkkoll {
 
-	private boolean PosX, PosY;
-
 	private Animation jackAnimation;
-	private Animation jackAnimationunten;
-	private Animation jackAnimationoben;
-	private Animation jackAnimationrechts;
-	private Animation jackAnimationlinks;
-	int anfang = 0;
-	int bewegung = 4;
-	int letztex;
-	int letztey;
-	
+
+	private int leben = 3;
+	private int hp = 100;
+	private int mana = 100;
 
 	// Bild von Jack
 	private SpriteSheet jackSpriteSheet;
 	// Steuerungen des Spielers werden als Variablen gesetzt
-	private int rechts, links, oben, unten;
-	
-	//Richtungsbewegungsanimation
-	/* 1: rechts
-	 * 2: links
-	 * 3: oben
-	 * 4: unten 
+	private int oben, rechts, unten, links;
+
+	/*
+	 * RichtungsbewegungsAnimation (im Uhrzeigersinn) 0: oben; 1: rechts; 2:
+	 * unten; 3: links
 	 */
-	private int bewegungRichtung = 1;
+	private int bewegungKeyInput = 2;
+	private int drawAnimation = 2;
+	private boolean isPosXrechts, isPosYunten;
 
 	// Koordinaten von Jack und Bild laden
 	public Jack(int x, int y) throws SlickException {
 		super(x, y);
-		
-		jackSpriteSheet = new SpriteSheet("res/pictures/jack.png", 32 ,32);
-		
-		jackAnimation = new Animation();
-		jackAnimationunten = new Animation();
-		jackAnimationunten.setAutoUpdate(true);
-		jackAnimationoben = new Animation();
-		jackAnimationoben.setAutoUpdate(true);
-		jackAnimationrechts = new Animation();
-		jackAnimationrechts.setAutoUpdate(true);
-		jackAnimationlinks = new Animation();
-		jackAnimationlinks.setAutoUpdate(true);
-		
-		for(int i=0; i<=3; i++)
-		{
-			jackAnimationunten.addFrame(jackSpriteSheet.getSprite(i, 0), 100);
-			jackAnimationlinks.addFrame(jackSpriteSheet.getSprite(i, 1), 100);
-			jackAnimationrechts.addFrame(jackSpriteSheet.getSprite(i, 2), 100);
-			jackAnimationoben.addFrame(jackSpriteSheet.getSprite(i, 3), 100);
-		}
-
-			jackAnimation =jackAnimationunten;
-
+		jackSpriteSheet = new SpriteSheet("res/pictures/jack.png", 32, 32);
+		jackAnimation = new Animation(jackSpriteSheet, 0, bewegungKeyInput, 3, bewegungKeyInput, true, 300, true);
 	}
 
 	// Hier wird die Checkkollliste geupdatet, werden Kollisionen überprüft und
 	// gegebenfalls vehindert
-	public void update(GameContainer container, int delta, ArrayList<Checkkoll> spObj) {
+	public void update(GameContainer container, int delta, Input input, ArrayList<Checkkoll> spObj) {
 
-		if ((x % 32) != 0) {
-			if (PosX) {
-				bewegung(1, 0, spObj);
-			} else {
-				bewegung(-1, 0, spObj);
+		if (input.isKeyDown(this.oben)) {
+			this.isPosYunten = false;
+			this.bewegungKeyInput = 0;
+			if ((this.y % 32) == 0) {
+				this.updateBewegung(0, -1, spObj);
+			}
+		} else if (input.isKeyDown(this.unten)) {
+			this.isPosYunten = true;
+			this.bewegungKeyInput = 2;
+			if ((this.y % 32) == 0) {
+				this.updateBewegung(0, 1, spObj);
 			}
 		}
 
-		if ((y % 32) != 0) {
-			if (PosY) {
-				bewegung(0, 1, spObj);
-			} else {
-				bewegung(0, -1, spObj);
+		if (input.isKeyDown(this.rechts)) {
+			this.isPosXrechts = true;
+			this.bewegungKeyInput = 1;
+			if ((this.x % 32) == 0) {
+				this.updateBewegung(1, 0, spObj);
+			}
+		} else if (input.isKeyDown(this.links)) {
+			this.isPosXrechts = false;
+			this.bewegungKeyInput = 3;
+			if ((this.x % 32) == 0) {
+				this.updateBewegung(-1, 0, spObj);
 			}
 		}
-		
-		//welche richtung
-		if(letztex < x)
-		{
-			bewegungRichtung = 1;
-			bewegung =1;
+
+		if ((this.x % 32) != 0) {
+			if (this.isPosXrechts) {
+				this.updateBewegung(1, 0, spObj);
+			} else {
+				this.updateBewegung(-1, 0, spObj);
+			}
 		}
-		else if(letztex > x)
-		{
-			bewegungRichtung = 2;
-			bewegung =1;
+		if ((this.y % 32) != 0) {
+			if (this.isPosYunten) {
+				this.updateBewegung(0, 1, spObj);
+			} else {
+				this.updateBewegung(0, -1, spObj);
+			}
 		}
-		else if(letztey > y)
-		{
-			bewegungRichtung = 3;
-			bewegung =1;
+
+		// update Animation
+		if (this.bewegungKeyInput != this.drawAnimation) {
+			this.drawAnimation = this.bewegungKeyInput;
+			jackAnimation = new Animation(jackSpriteSheet, 0, this.drawAnimation, 3, this.drawAnimation, true, 300, true);
 		}
-		else if(letztey < y)
-		{
-			bewegungRichtung = 4;
-			bewegung =1;
-		}
-		else if(letztex == x && letztey == y)
-		{
-			bewegung = 0;
-		}
-		
-		letztex=x;
-		letztey=y;
-		
-		
 	}
-	
-
 
 	// Bewegung des Spielers
-	public void bewegung(int x, int y, ArrayList<Checkkoll> spObj) {
+	private void updateBewegung(int x, int y, ArrayList<Checkkoll> spObj) {
 		int Xwert = this.x;
 		int Ywert = this.y;
 
@@ -134,69 +106,25 @@ public class Jack extends Checkkoll {
 			kollisionsFlaeche.setX(this.x);
 			kollisionsFlaeche.setY(this.y);
 			if (Xwert != this.x) {
-				PosX = !PosX;
+				isPosXrechts = !isPosXrechts;
 			} else if (Ywert != this.y) {
-				PosY = !PosY;
+				isPosYunten = !isPosYunten;
 			}
-		}
-		
-		//Bewegung
-		switch(bewegungRichtung){
-		case 0:
-			break;
-		case 1:
-			jackAnimation =jackAnimationrechts;
-			break;
-		case 2:
-			jackAnimation =jackAnimationlinks;
-			break;
-		case 3:
-			jackAnimation =jackAnimationoben;
-			break;
-		case 4:
-			jackAnimation =jackAnimationunten;
-			break;
 		}
 	}
 
 	public void draw(Graphics g) {
 		// Jack zeichnen
-		if(bewegung ==1)
-		{
-			jackAnimation.draw(this.x, this.y);
-		}
-		else
-		{
-			switch(bewegungRichtung)
-			{
-				case 1:
-					g.drawImage(jackSpriteSheet.getSprite(1, 2), this.x, this.y);
-					break;
-				case 2:
-					g.drawImage(jackSpriteSheet.getSprite(1, 1), this.x, this.y);
-					break;
-				case 3:
-					g.drawImage(jackSpriteSheet.getSprite(1, 3), this.x, this.y);
-					break;
-				case 4:
-					g.drawImage(jackSpriteSheet.getSprite(1, 0), this.x, this.y);
-					break;	
+		if (leben > 0) {
+			if ((this.x % 32) != 0 || (this.y % 32) != 0) {
+				jackAnimation.draw(this.x, this.y);
+			} else {
+				jackSpriteSheet.getSprite(1, this.drawAnimation).draw(this.x, this.y);
 			}
 		}
-		// zum testen: Kollisionfläche
-		// g.draw(kollisionsFlaeche);
-
 		// aktuelle Position von Jack
 		g.setColor(Color.white);
 		g.drawString("X:" + getX() + " Y:" + getY(), 700, 520);
-	}
-
-	public void setPosX(boolean xtendenz) {
-		PosX = xtendenz;
-	}
-
-	public void setPosY(boolean ytendenz) {
-		PosY = ytendenz;
 	}
 
 	public int bhoch() {
@@ -221,5 +149,29 @@ public class Jack extends Checkkoll {
 		this.rechts = right;
 		this.oben = up;
 		this.unten = down;
+	}
+
+	public int getLeben() {
+		return leben;
+	}
+
+	public void setLeben(int leben) {
+		this.leben = leben;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public int getMana() {
+		return mana;
+	}
+
+	public void setMana(int mana) {
+		this.mana = mana;
 	}
 }

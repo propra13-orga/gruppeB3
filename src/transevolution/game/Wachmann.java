@@ -24,14 +24,14 @@ public class Wachmann extends Checkkoll {
 		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1, x + 32, y + 32, x - 1, y + 32 });
 	}
 
-	public void update(GameContainer container, int delta, ArrayList<Checkkoll> spObj) throws SlickException {
+	public void update(GameContainer container, int delta, ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
 		if (leben <= 0) return;
 		int Xwert = this.x;
 		int Ywert = this.y;
 		
-//		if (isKampf(spObj)){
-//			return;
-//		}
+		if (isKollision(objJack)){
+			return;
+		}
 
 		switch (bewegungRichtung) {
 		case 0:
@@ -81,6 +81,13 @@ public class Wachmann extends Checkkoll {
 
 	public void setLeben(int leben) {
 		this.leben = leben;
+	}
+	
+	private boolean isKollision(Checkkoll spObj){
+		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true){
+			return true;
+		}
+	return false;
 	}
 	
 	private boolean isKampf(ArrayList<Checkkoll> spObj){

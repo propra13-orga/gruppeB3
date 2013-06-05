@@ -33,6 +33,7 @@ public class Jack extends Checkkoll {
 		super(x, y);
 		jackSpriteSheet = new SpriteSheet("res/pictures/jack.png", 32, 32);
 		jackAnimation = new Animation(jackSpriteSheet, 0, bewegungKeyInput, 3, bewegungKeyInput, true, 300, true);
+	
 	}
 
 	// Hier wird die Checkkollliste geupdatet, werden Kollisionen überprüft und

@@ -471,7 +471,7 @@ public class StartGame extends BasicGameState {
 		
 		for (int i = 0; i < objGegner.size(); i++) {
 			Wachmann ge = (Wachmann)objGegner.get(i);
-			ge.update(container, delta, objCks);
+			ge.update(container, delta, objCks, objJack);
 			//if (ge.getLeben() <= 0) {
 			//	objGegner.remove(ge);
 			//}

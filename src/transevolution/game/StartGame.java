@@ -580,6 +580,7 @@ public class StartGame extends BasicGameState {
 			speicherpunktgesetzt = 0;
 			Ausruestung.reset(0, 0, 0);
 			objJack.setLeben(3);
+			leben =3;
 
 			mapcounter = 1;
 			nextmap = 1;

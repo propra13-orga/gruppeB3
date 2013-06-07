@@ -11,7 +11,7 @@ public class Ausruestung
 	public static int waffe = 0;
 	public static int ruestung = 0;
 	
-	public static int geld = 100;
+	public static int geld = 0;
 
 
 	protected static Image faust;
@@ -78,6 +78,14 @@ public class Ausruestung
 
 		return geld;
 	}
+	
+	public static void setgeld(int addgeld) 
+	{
+
+		geld += addgeld;
+		geldanzeige = ""+geld;
+	}
+
 
 	
 }

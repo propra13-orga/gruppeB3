@@ -40,6 +40,8 @@ public class Jack extends Checkkoll {
 	// gegebenfalls vehindert
 	public void update(GameContainer container, int delta, Input input, ArrayList<Checkkoll> spObj) {
 
+
+		
 		if (input.isKeyDown(this.oben)) {
 			this.isPosYunten = false;
 			this.bewegungKeyInput = 0;
@@ -123,6 +125,7 @@ public class Jack extends Checkkoll {
 				jackSpriteSheet.getSprite(1, this.drawAnimation).draw(this.x, this.y);
 			}
 		}
+
 		// aktuelle Position von Jack
 		g.setColor(Color.white);
 		g.drawString("X:" + getX() + " Y:" + getY(), 700, 520);
@@ -158,6 +161,7 @@ public class Jack extends Checkkoll {
 
 	public void setLeben(int leben) {
 		this.leben = leben;
+
 	}
 
 	public int getHp() {
@@ -165,8 +169,13 @@ public class Jack extends Checkkoll {
 	}
 
 	public void setHp(int hp) {
+		if (hp > 100)
+		{
+			hp = 100;
+		}
 		this.hp = hp;
 	}
+	
 
 	public int getMana() {
 		return mana;

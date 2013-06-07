@@ -84,11 +84,17 @@ public class StartGame extends BasicGameState {
 	protected ArrayList<Checkkoll> objFeuer = new ArrayList<Checkkoll>();
 	// Gegner
 	protected ArrayList<Checkkoll> objGegner = new ArrayList<Checkkoll>();
+	// ItemGeld
+	protected ArrayList<Checkkoll> objGeld = new ArrayList<Checkkoll>();
+	// ItemHeilung
+	protected ArrayList<Checkkoll> objHeilung = new ArrayList<Checkkoll>();
 
 	public void resetStateBasedGame() {
 		objWalls.clear();
+		objGeld.clear();
 		objFeuer.clear();
 		objGegner.clear();
+		objHeilung.clear();
 		hintergrund = null;
 		game = null;
 
@@ -167,8 +173,11 @@ public class StartGame extends BasicGameState {
 				objJack = new Jack(start_x * 32, start_y * 32);
 			}
 
-			// enemy erstellen
+			// feuer erstellen
 			objFeuer.add(new Feuer(2 * 32, 2 * 32));
+			
+			// geld erstellen
+			objGeld.add(new ItemGeld(2 * 32, 10 * 32));
 
 			// Steuerkeys definieren
 			objJack.tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
@@ -186,6 +195,14 @@ public class StartGame extends BasicGameState {
 			if (nextmap == 1) {
 				objJack = new Jack(start_x * 32, start_y * 32);
 			}
+			
+			// geld erstellen
+			objGeld.add(new ItemGeld(6 * 32, 2 * 32));
+			
+			
+			// Heilung erstellen
+			objHeilung.add(new ItemHeilung(17 * 32, 4 * 32));
+			
 			if (nextmap == -1) {
 				objJack = new Jack(exit_x * 32, exit_y * 32);
 			}
@@ -415,6 +432,16 @@ public class StartGame extends BasicGameState {
 		for (Checkkoll en : objFeuer) {
 			en.draw(g);
 		}
+		
+		// Geld zeichnen
+		for (Checkkoll ge : objGeld) {
+			ge.draw(g);
+		}
+		
+		// Geld zeichnen
+		for (Checkkoll he : objHeilung) {
+			he.draw(g);
+		}
 
 		if (speicherpunktgesetzt == 1 && mapcounter == 4) {
 			speicherpunkt2 = new Image("res/pictures/speicherpunktgesetzt2.png");
@@ -561,6 +588,14 @@ public class StartGame extends BasicGameState {
 
 		if (!objJack.pruefeKollsion(objFeuer).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
+		}
+		if (!objJack.pruefeKollsion(objGeld).isEmpty()) {
+			Ausruestung.setgeld(50);
+			objGeld.clear();
+		}
+		if (!objJack.pruefeKollsion(objHeilung).isEmpty()) {
+			objJack.setHp(objJack.getHp() +25);
+			objHeilung.clear();
 		}
 		if (!objJack.pruefeKollsion(objGegner).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);

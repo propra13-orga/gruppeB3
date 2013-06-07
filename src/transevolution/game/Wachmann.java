@@ -90,6 +90,7 @@ public class Wachmann extends Checkkoll {
 	return false;
 	}
 	
+	@SuppressWarnings("unused") // hat mich genervt, gez: mlz
 	private boolean isKampf(ArrayList<Checkkoll> spObj){
 		
 		for (Checkkoll obj : spObj)

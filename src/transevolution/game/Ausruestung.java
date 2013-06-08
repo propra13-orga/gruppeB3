@@ -19,6 +19,7 @@ public class Ausruestung
 	protected static Image messer;
 	protected static Image schutzweste;
 	protected static Image geldsack;
+	protected static Image schlagstock;
 	
 	static String geldanzeige = ""+geld;;
 	
@@ -60,6 +61,10 @@ public class Ausruestung
 			messer = new Image("res/pictures/messer.png");
 			g.drawImage(messer, 800, 288);
 		}
+		if(waffe == 2){
+			schlagstock = new Image("res/pictures/schlagstock.png");
+			g.drawImage(schlagstock, 800, 288);
+		}
 		if(ruestung == 0){
 			tshirt = new Image("res/pictures/tshirt.png");
 			g.drawImage(tshirt, 800, 320);
@@ -77,6 +82,21 @@ public class Ausruestung
 	{
 
 		return geld;
+	}
+	public static int getwaffe() 
+	{
+
+		return waffe;
+	}
+	public static int getruestung() 
+	{
+
+		return ruestung;
+	}
+	
+	public static void setWaffe(int swaffe) 
+	{
+		waffe = swaffe;
 	}
 	
 	public static void setgeld(int addgeld) 

@@ -178,10 +178,15 @@ public class Jack extends Checkkoll {
 	
 
 	public int getMana() {
+
 		return mana;
 	}
 
 	public void setMana(int mana) {
+		if (mana > 100)
+		{
+			mana = 100;
+		}
 		this.mana = mana;
 	}
 }

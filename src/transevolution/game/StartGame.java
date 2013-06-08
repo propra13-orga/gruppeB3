@@ -46,6 +46,7 @@ public class StartGame extends BasicGameState {
 	public int shophaendler_y;
 	
 	int hp = 100;
+	int mana = 100;
 	int leben =3;
 
 	// maparray
@@ -88,6 +89,10 @@ public class StartGame extends BasicGameState {
 	protected ArrayList<Checkkoll> objGeld = new ArrayList<Checkkoll>();
 	// ItemHeilung
 	protected ArrayList<Checkkoll> objHeilung = new ArrayList<Checkkoll>();
+	// ItemManatrank
+	protected ArrayList<Checkkoll> objMana = new ArrayList<Checkkoll>();
+	// ItemSchlagstock
+	protected ArrayList<Checkkoll> objSchlagstock = new ArrayList<Checkkoll>();
 
 	public void resetStateBasedGame() {
 		objWalls.clear();
@@ -95,6 +100,8 @@ public class StartGame extends BasicGameState {
 		objFeuer.clear();
 		objGegner.clear();
 		objHeilung.clear();
+		objMana.clear();
+		objSchlagstock.clear();
 		hintergrund = null;
 		game = null;
 
@@ -202,6 +209,7 @@ public class StartGame extends BasicGameState {
 			
 			// Heilung erstellen
 			objHeilung.add(new ItemHeilung(17 * 32, 4 * 32));
+
 			
 			if (nextmap == -1) {
 				objJack = new Jack(exit_x * 32, exit_y * 32);
@@ -276,7 +284,13 @@ public class StartGame extends BasicGameState {
 			}
 			if (nextmap == -1) {
 				objJack = new Jack(exit_x * 32, exit_y * 32);
-			}
+			}	
+			// Schlagstock erstellen
+			objSchlagstock.add(new ItemSchlagstock(1 * 32, 3 * 32));
+			
+			// Mana erstellen
+			objMana.add(new ItemManatrank(13 * 32, 4 * 32));
+			
 			// Steuerkeys definieren
 			objJack.tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -316,6 +330,8 @@ public class StartGame extends BasicGameState {
 			if (nextmap == -1) {
 				objJack = new Jack(exit_x * 32, exit_y * 32);
 			}
+			// Schlagstock erstellen
+			objSchlagstock.add(new ItemSchlagstock(13 * 32, 4 * 32));
 			// Steuerkeys definieren
 			objJack.tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
 			// Map laden
@@ -356,6 +372,7 @@ public class StartGame extends BasicGameState {
 		
 		objJack.setHp(hp);
 		objJack.setLeben(leben);
+		objJack.setMana(mana);
 
 	}
 
@@ -438,9 +455,19 @@ public class StartGame extends BasicGameState {
 			ge.draw(g);
 		}
 		
-		// Geld zeichnen
+		// Healthpack zeichnen
 		for (Checkkoll he : objHeilung) {
 			he.draw(g);
+		}
+		
+		// Manatrank zeichnen
+		for (Checkkoll ma : objMana) {
+			ma.draw(g);
+		}
+		
+		// Schllagstock zeichnen
+		for (Checkkoll sc : objSchlagstock) {
+			sc.draw(g);
 		}
 
 		if (speicherpunktgesetzt == 1 && mapcounter == 4) {
@@ -544,6 +571,7 @@ public class StartGame extends BasicGameState {
 			objFeuer.clear();
 			objGegner.clear();
 			hp = objJack.getHp();
+			mana = objJack.getMana();
 			leben = objJack.getLeben();
 
 			init(container, sbg);
@@ -558,6 +586,7 @@ public class StartGame extends BasicGameState {
 				objFeuer.clear();
 				objGegner.clear();
 				hp = objJack.getHp();
+				mana = objJack.getMana();
 				leben = objJack.getLeben();
 
 				init(container, sbg);
@@ -596,6 +625,15 @@ public class StartGame extends BasicGameState {
 		if (!objJack.pruefeKollsion(objHeilung).isEmpty()) {
 			objJack.setHp(objJack.getHp() +25);
 			objHeilung.clear();
+		}
+		if (!objJack.pruefeKollsion(objMana).isEmpty()) {
+			objJack.setMana(objJack.getMana() +25);
+			System.out.println("Mana: "+objJack.getMana());
+			objMana.clear();
+		}
+		if (!objJack.pruefeKollsion(objSchlagstock).isEmpty()) {
+			Ausruestung.setWaffe(2);
+			objSchlagstock.clear();
 		}
 		if (!objJack.pruefeKollsion(objGegner).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);

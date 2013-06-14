@@ -12,9 +12,9 @@ public class ItemHeilung extends Checkkoll {
 	// Bild von Geld
 	protected Image heilung;
 
-	public ItemHeilung(int x, int y) throws SlickException 
+	public ItemHeilung(int x, int y, int mapID) throws SlickException 
 	{
-		super(x, y);
+		super(x, y, mapID);
 		heilung = new Image("res/pictures/heilung.png");
 
 	}

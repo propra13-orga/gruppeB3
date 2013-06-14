@@ -23,6 +23,9 @@ public class Ausruestung
 	
 	static String geldanzeige = ""+geld;;
 	
+	public static void reset(){
+		reset(0, 0, 0);
+	}
 	
 	public static void reset(int a, int b, int geldbeginn)
 	{

@@ -17,8 +17,8 @@ public class Wachmann extends Checkkoll {
 	 */
 	private int bewegungRichtung = 3;
 
-	public Wachmann(int x, int y) throws SlickException {
-		super(x, y);
+	public Wachmann(int x, int y, int mapID) throws SlickException {
+		super(x, y, mapID);
 		wachmannSpriteSheet = new SpriteSheet("res/pictures/wachmann.png", 32, 32);
 		wachmannAnimation = new Animation(wachmannSpriteSheet, 0, bewegungRichtung, 3, bewegungRichtung, true, 300, true);
 		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1, x + 32, y + 32, x - 1, y + 32 });
@@ -51,7 +51,7 @@ public class Wachmann extends Checkkoll {
 		kollisionsFlaeche.setY(this.y);
 
 		// Kollisionspruefung
-		if (!pruefeKollsion(spObj).isEmpty()) {
+		if (!pruefeKollsion(spObj, this.getMapID()).isEmpty()) {
 			this.x = Xwert;
 			this.y = Ywert;
 			kollisionsFlaeche.setX(this.x);

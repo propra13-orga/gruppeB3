@@ -12,9 +12,9 @@ public class Feuer extends Checkkoll {
 	  private SpriteSheet feuerSpriteSheet;
 	  private Animation feuerAnimation;
 
-	public Feuer(int x, int y) throws SlickException 
+	public Feuer(int x, int y, int mapID) throws SlickException 
 	{
-		super(x, y);
+		super(x, y, mapID);
 		feuerSpriteSheet = new SpriteSheet("res/pictures/feuer.png", 32, 32);
 		feuerAnimation = new Animation(feuerSpriteSheet, 100);
 	}

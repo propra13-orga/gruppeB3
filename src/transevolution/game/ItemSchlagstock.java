@@ -12,9 +12,9 @@ public class ItemSchlagstock extends Checkkoll {
 	// Bild von schlagstock
 	protected Image schlagstock;
 
-	public ItemSchlagstock(int x, int y) throws SlickException 
+	public ItemSchlagstock(int x, int y, int mapID) throws SlickException 
 	{
-		super(x, y);
+		super(x, y, mapID);
 		schlagstock = new Image("res/pictures/itemschlagstock.png");
 
 	}

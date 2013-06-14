@@ -29,8 +29,8 @@ public class Jack extends Checkkoll {
 	private boolean isPosXrechts, isPosYunten;
 
 	// Koordinaten von Jack und Bild laden
-	public Jack(int x, int y) throws SlickException {
-		super(x, y);
+	public Jack(int x, int y, int mapID) throws SlickException {
+		super(x, y, mapID);
 		jackSpriteSheet = new SpriteSheet("res/pictures/jack.png", 32, 32);
 		jackAnimation = new Animation(jackSpriteSheet, 0, bewegungKeyInput, 3, bewegungKeyInput, true, 300, true);
 	
@@ -119,6 +119,7 @@ public class Jack extends Checkkoll {
 	public void draw(Graphics g) {
 		// Jack zeichnen
 		if (leben > 0) {
+			
 			if ((this.x % 32) != 0 || (this.y % 32) != 0) {
 				jackAnimation.draw(this.x, this.y);
 			} else {

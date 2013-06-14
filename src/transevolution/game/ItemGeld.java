@@ -12,9 +12,9 @@ public class ItemGeld extends Checkkoll {
 	// Bild von Geld
 	protected Image geld;
 
-	public ItemGeld(int x, int y) throws SlickException 
+	public ItemGeld(int x, int y, int mapID) throws SlickException 
 	{
-		super(x, y);
+		super(x, y, mapID);
 		geld = new Image("res/pictures/geldschein.png");
 
 	}

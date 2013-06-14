@@ -12,9 +12,9 @@ public class ItemManatrank extends Checkkoll {
 	// Bild von Geld
 	protected Image manatrank;
 
-	public ItemManatrank(int x, int y) throws SlickException 
+	public ItemManatrank(int x, int y, int mapID) throws SlickException 
 	{
-		super(x, y);
+		super(x, y, mapID);
 		manatrank = new Image("res/pictures/manatrank.png");
 
 	}

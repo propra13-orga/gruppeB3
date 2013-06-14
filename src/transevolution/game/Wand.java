@@ -12,9 +12,9 @@ public class Wand extends Checkkoll
 
   
   //Koordinaten von Mauer
-  public Wand(int x, int y) throws SlickException 
+  public Wand(int x, int y, int mapID) throws SlickException 
   {
-    super(x, y);
+    super(x, y, mapID);
   }
   
 

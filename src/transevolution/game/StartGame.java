@@ -129,7 +129,7 @@ public class StartGame extends BasicGameState {
 	}
 
 	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
-		if(Shop.getAusshop()  == 0)
+		if(iMapWechsel  != 4)
 		{
 			resetStateBasedGame();
 			Shop.setAusshop(0);
@@ -227,6 +227,8 @@ public class StartGame extends BasicGameState {
 		 * Map7
 		 */
 		iMapWechsel++;
+		}else{
+			iMapWechsel = 0;
 		}
 
 	}
@@ -529,6 +531,8 @@ public class StartGame extends BasicGameState {
 			System.out.println("Shop betreten");
 			//objWalls.clear();
 			sprechen = 0;
+			
+			iMapWechsel =4;
 
 			enterStateAndreinit(Shop.stateID);
 		}
@@ -622,6 +626,20 @@ public class StartGame extends BasicGameState {
 				System.out.println("Fehler beim einlesen von map1.txt");
 				e.printStackTrace();
 			}
+			
+			//Aussenmauern
+			for (int x = 0; x <17; x++)
+			{
+				objWalls.add(0, new Wand(-1* 32, x * 32, mapID));
+				objWalls.add(0, new Wand(25 * 32, x * 32, mapID));
+			}		
+			for (int x = 0; x <25; x++)
+			{
+				objWalls.add(0, new Wand(x* 32, -1 * 32, mapID));
+				objWalls.add(0, new Wand(x * 32, 17 * 32, mapID));
+			}			
+
+			
 			char kachel;
 			for (int x = 0; x < 25; x++) {
 				for (int y = 0; y < 17; y++) {
@@ -654,7 +672,21 @@ public class StartGame extends BasicGameState {
 		} else {
 
 			map = new TiledMap(sMapFullName, "res/maps/tmxmaps");
+			
+			//Aussenmauern
+			for (int x = 0; x <map.getWidth(); x++)
+			{
+				objWalls.add(0, new Wand(-1* 32, x * 32, mapID));
+				objWalls.add(0, new Wand(25 * 32, x * 32, mapID));
+			}		
+			for (int x = 0; x <map.getHeight(); x++)
+			{
+				objWalls.add(0, new Wand(x* 32, -1 * 32, mapID));
+				objWalls.add(0, new Wand(x * 32, 17 * 32, mapID));
+			}			
 
+
+			
 			for (int x = 0; x < map.getWidth(); x++) {
 				for (int y = 0; y < map.getHeight(); y++) {
 					final int tileID = map.getTileId(x, y, 0);

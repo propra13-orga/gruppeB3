@@ -26,6 +26,8 @@ public class Shop extends BasicGameState
 	TrueTypeFont font;
 	private StateBasedGame game;
 	
+	static int ausshop = 0;
+	
 	int waffe;
 	int ruestung;
 	int wahl;
@@ -178,6 +180,7 @@ public class Shop extends BasicGameState
 	// Zurück ins Shop mit Enter oder Leertaste	
 		if(((taste == Input.KEY_ENTER || taste == Input.KEY_SPACE )&& wahl== 99)|| taste == Input.KEY_ESCAPE) 
 		{
+			ausshop = 1;
 			enterStateAndreinit(StartGame.stateID);
 		}	
 	//etwas kaufen
@@ -264,6 +267,14 @@ public class Shop extends BasicGameState
 	public int getID() 
 	{
 		return stateID;
+	}
+
+	public static  int getAusshop() {
+		return ausshop;
+	}
+
+	public static void setAusshop(int gausshop) {
+		ausshop = gausshop;
 	}	
 	
 

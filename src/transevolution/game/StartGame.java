@@ -49,7 +49,7 @@ public class StartGame extends BasicGameState {
 
 	public int iMapWechsel;
 
-	public int nextmap;
+	public int bewegt;
 
 	public int mapcounter;
 
@@ -78,23 +78,14 @@ public class StartGame extends BasicGameState {
 	protected ArrayList<Checkkoll> objFeuer = new ArrayList<Checkkoll>();
 	// Gegner
 	protected ArrayList<Checkkoll> objGegner = new ArrayList<Checkkoll>();
-	// ItemGeld
-	protected ArrayList<Checkkoll> objGeld = new ArrayList<Checkkoll>();
-	// ItemHeilung
-	protected ArrayList<Checkkoll> objHeilung = new ArrayList<Checkkoll>();
-	// ItemManatrank
-	protected ArrayList<Checkkoll> objMana = new ArrayList<Checkkoll>();
-	// ItemSchlagstock
-	protected ArrayList<Checkkoll> objSchlagstock = new ArrayList<Checkkoll>();
+	// Items
+	protected ArrayList<Checkkoll> objItems = new ArrayList<Checkkoll>();
 
 	public void resetStateBasedGame() {
 		objWalls.clear();
-		objGeld.clear();
+		objItems.clear();
 		objFeuer.clear();
 		objGegner.clear();
-		objHeilung.clear();
-		objMana.clear();
-		objSchlagstock.clear();
 		hintergrund = null;
 		game = null;
 
@@ -121,11 +112,30 @@ public class StartGame extends BasicGameState {
 		Ausruestung.reset();
 
 	}
+	
+	public void resetStaticElements() {
+		table_x = -50;
+		table_y = -50;
+		table2_x = -50;
+		table2_y = -50;
+		hausmeister_x = -50;
+		hausmeister_y = -50;
+		shophaendler_x = -50;
+		shophaendler_y = -50;
+	}
 
 	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
-		resetStateBasedGame();
-		this.game = sbg;
+		if(Shop.getAusshop()  == 0)
+		{
+			resetStateBasedGame();
+			Shop.setAusshop(0);
+			
+		
+			this.game = sbg;
 
+
+		
+		
 		// eigenes Font laden
 		try {
 			InputStream inputStream = ResourceLoader.getResourceAsStream("res/fonts/Volter__28Goldfish_29.ttf");
@@ -162,8 +172,7 @@ public class StartGame extends BasicGameState {
 
 		objFeuer.add(new Feuer(2 * 32, 2 * 32, 1));
 
-		objGeld.add(new ItemGeld(2 * 32, 10 * 32, 1));
-		objHeilung.add(new ItemHeilung(17 * 32, 4 * 32, 1));
+		objItems.add(new Items(2 * 32, 10 * 32, 1, 1));
 		/*
 		 * Map2
 		 */
@@ -173,8 +182,8 @@ public class StartGame extends BasicGameState {
 
 		objFeuer.add(new Feuer(2 * 32, 6 * 32, 2));
 
-		objGeld.add(new ItemGeld(6 * 32, 2 * 32, 2));
-		objHeilung.add(new ItemHeilung(17 * 32, 4 * 32, 2));
+		objItems.add(new Items(6 * 32, 2 * 32, 2, 1));
+		objItems.add(new Items(17 * 32, 4 * 32, 2, 2));
 
 		/*
 		 * Map3
@@ -198,13 +207,12 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map4
 		 */
-		objSchlagstock.add(new ItemSchlagstock(1 * 32, 3 * 32, 4));
+		objItems.add(new Items(1 * 32, 3 * 32, 4, 4));
 
-		objMana.add(new ItemManatrank(13 * 32, 4 * 32, 4));
 		/*
 		 * Map5
 		 */
-
+		objItems.add(new Items(13 * 32, 4 * 32, 5, 3));
 		/*
 		 * Map6
 		 */
@@ -214,9 +222,9 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map7
 		 */
-		objSchlagstock.add(new ItemSchlagstock(13 * 32, 4 * 32, 7));
-		
 		iMapWechsel++;
+		}
+
 	}
 
 	// zeichnen
@@ -291,25 +299,12 @@ public class StartGame extends BasicGameState {
 			en.draw(g, mapcounter);
 		}
 
-		// Geld zeichnen
-		for (Checkkoll ge : objGeld) {
-			ge.draw(g, mapcounter);
+		
+		// Items zeichnen
+		for (Checkkoll it : objItems) {
+			it.draw(g, mapcounter);
 		}
-
-		// Healthpack zeichnen
-		for (Checkkoll he : objHeilung) {
-			he.draw(g, mapcounter);
-		}
-
-		// Manatrank zeichnen
-		for (Checkkoll ma : objMana) {
-			ma.draw(g, mapcounter);
-		}
-
-		// Schllagstock zeichnen
-		for (Checkkoll sc : objSchlagstock) {
-			sc.draw(g, mapcounter);
-		}
+	
 
 		if (speicherpunktgesetzt == 1 && mapcounter == 4) {
 			speicherpunkt2 = new Image("res/pictures/speicherpunktgesetzt2.png");
@@ -386,19 +381,41 @@ public class StartGame extends BasicGameState {
 		} else if (iMapWechsel == -1) {
 			objJack.setKoordinaten(exit_x * 32, exit_y * 32);
 		} else if (iMapWechsel == 3) {
+			System.out.println("Speicherpunkt laden");
 			objJack.setKoordinaten(checkpoint_x * 32, checkpoint_y * 32);
 		}
 	}
 
 	public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException {
 
-		if (iMapWechsel == 1 && mapcounter < 8) {
+		if (iMapWechsel == 1 && mapcounter < 9) {
 			mapcounter++;
+			bewegt = 0;
 			updateMap(mapcounter);
 		} else if (iMapWechsel == -1 && mapcounter > 1) {
 			mapcounter--;
+			bewegt = 0;
 			updateMap(mapcounter);
-		}
+		} else if (iMapWechsel == 3) {
+			switch(speicherpunktgesetzt)
+			{
+				case 0:
+					mapcounter = 1;
+					updateMap(mapcounter);
+					break;
+				case 1:
+					mapcounter = 4;
+					updateMap(mapcounter);
+					break;
+				case 2:
+					mapcounter = 7;
+					updateMap(mapcounter);
+					break;
+			}
+		} else if (iMapWechsel == 4) {
+			mapcounter = 4;
+			updateMap(mapcounter);
+	}
 		iMapWechsel = 0;
 
 		// Update Gegner mit Kollisionsüberprüfung
@@ -431,17 +448,30 @@ public class StartGame extends BasicGameState {
 
 		// gucken ob jack nicht im start oder exit feld steht
 		if (((objJack.getX() / 32) != start_x || (objJack.getY() / 32) != start_y) && ((objJack.getX() / 32) != exit_x || (objJack.getY() / 32) != exit_y)) {
-			nextmap = 0;
-
+			bewegt =1;
 		}
+		//map vor gehen
+		if ((((objJack.getX() ) == exit_x*32) && ((objJack.getY()) == exit_y*32)) && bewegt == 1) {
+			iMapWechsel =1;
+		}
+		//map zurück gehen
+		if ((((objJack.getX()) == start_x*32) && ((objJack.getY()) == start_y*32)) && bewegt ==1 ) {
+			iMapWechsel =-1;
+		}
+		
 
 		if (!objJack.pruefeKollsion(objFeuer).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
 		}
-		if (!objJack.pruefeKollsion(objGeld).isEmpty()) {
+
+		if (!objJack.pruefeKollsion(objItems).isEmpty()) {
 			Ausruestung.setgeld(50);
-			objGeld.clear();
+			objItems.clear();
+
+			
 		}
+		
+/*		
 		if (!objJack.pruefeKollsion(objHeilung).isEmpty()) {
 			objJack.setHp(objJack.getHp() + 25);
 			objHeilung.clear();
@@ -455,6 +485,7 @@ public class StartGame extends BasicGameState {
 			Ausruestung.setWaffe(2);
 			objSchlagstock.clear();
 		}
+*/
 		if (!objJack.pruefeKollsion(objGegner).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
 		}
@@ -463,7 +494,10 @@ public class StartGame extends BasicGameState {
 		if (objJack.getHp() < 1) {
 			objJack.setLeben(objJack.getLeben() - 1);
 			objJack.setHp(100);
-			objJack.setKoordinaten(start_x * 32, start_y * 32);
+			bewegt = 0;
+
+			iMapWechsel =3;
+
 			System.out.println("Leben: " + objJack.getLeben());
 		}
 
@@ -485,10 +519,9 @@ public class StartGame extends BasicGameState {
 		// Shop betreten
 		if (taste == Input.KEY_J && shophaendler_x * 32 >= objJack.getX() - 32 && shophaendler_x * 32 <= objJack.getX() + 32 && shophaendler_y * 32 <= objJack.getY() + 32 && shophaendler_y * 32 >= objJack.getY() - 32) {
 			System.out.println("Shop betreten");
-			objWalls.clear();
+			//objWalls.clear();
 			sprechen = 0;
 
-			nextmap = 4;
 			enterStateAndreinit(Shop.stateID);
 		}
 
@@ -542,6 +575,8 @@ public class StartGame extends BasicGameState {
 	}
 
 	public void initMap(String sMapFullName, int mapID) throws SlickException {
+		resetStaticElements();
+		
 		if (sMapFullName.endsWith(".txt")) {
 			// map einlesen (txt9
 			FileReader fr;

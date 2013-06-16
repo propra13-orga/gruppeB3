@@ -52,6 +52,8 @@ public class StartGame extends BasicGameState {
 	public int bewegt;
 
 	public int mapcounter;
+	
+	boolean gewonnen;
 
 	public int sprechen;
 
@@ -88,6 +90,8 @@ public class StartGame extends BasicGameState {
 		objGegner.clear();
 		hintergrund = null;
 		game = null;
+		
+		gewonnen = false;
 
 		exit_x = 0;
 		exit_y = 0;
@@ -343,7 +347,8 @@ public class StartGame extends BasicGameState {
 		}
 
 		g.setFont(font);
-		if (mapcounter > 9) {
+
+		if (gewonnen) {
 			g.setColor(Color.orange);
 			g.drawString(sPrintWin, 340, 200);
 
@@ -392,6 +397,9 @@ public class StartGame extends BasicGameState {
 			mapcounter++;
 			bewegt = 0;
 			updateMap(mapcounter);
+		} else if (iMapWechsel == 1 && mapcounter == 9)
+		{
+			gewonnen = true;
 		} else if (iMapWechsel == -1 && mapcounter > 1) {
 			mapcounter--;
 			bewegt = 0;

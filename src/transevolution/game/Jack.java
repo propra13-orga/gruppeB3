@@ -24,6 +24,10 @@ public class Jack extends Checkkoll {
 	 * RichtungsbewegungsAnimation (im Uhrzeigersinn) 0: oben; 1: rechts; 2:
 	 * unten; 3: links
 	 */
+	public static final int BEW_OBEN = 0;
+	public static final int BEW_RECHTS = 1;
+	public static final int BEW_UNTEN = 2;
+	public static final int BEW_LINKS = 3;
 	private int bewegungKeyInput = 2;
 	private int drawAnimation = 2;
 	private boolean isPosXrechts, isPosYunten;
@@ -40,17 +44,16 @@ public class Jack extends Checkkoll {
 	// gegebenfalls vehindert
 	public void update(GameContainer container, int delta, Input input, ArrayList<Checkkoll> spObj) {
 
-
 		
 		if (input.isKeyDown(this.oben)) {
 			this.isPosYunten = false;
-			this.bewegungKeyInput = 0;
+			this.bewegungKeyInput = BEW_OBEN;
 			if ((this.y % 32) == 0) {
 				this.updateBewegung(0, -1, spObj);
 			}
 		} else if (input.isKeyDown(this.unten)) {
 			this.isPosYunten = true;
-			this.bewegungKeyInput = 2;
+			this.bewegungKeyInput = BEW_UNTEN;
 			if ((this.y % 32) == 0) {
 				this.updateBewegung(0, 1, spObj);
 			}
@@ -58,13 +61,13 @@ public class Jack extends Checkkoll {
 
 		if (input.isKeyDown(this.rechts)) {
 			this.isPosXrechts = true;
-			this.bewegungKeyInput = 1;
+			this.bewegungKeyInput = BEW_RECHTS;
 			if ((this.x % 32) == 0) {
 				this.updateBewegung(1, 0, spObj);
 			}
 		} else if (input.isKeyDown(this.links)) {
 			this.isPosXrechts = false;
-			this.bewegungKeyInput = 3;
+			this.bewegungKeyInput = BEW_LINKS;
 			if ((this.x % 32) == 0) {
 				this.updateBewegung(-1, 0, spObj);
 			}

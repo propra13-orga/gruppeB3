@@ -130,7 +130,11 @@ public class StartGame extends BasicGameState {
 
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
-		if (iMapWechsel != 4) {
+		if (iMapWechsel == 4) 
+		{
+			iMapWechsel = 0;
+			return;
+		}
 			resetStateBasedGame();
 			Shop.setAusshop(0);
 
@@ -225,10 +229,8 @@ public class StartGame extends BasicGameState {
 			 * Map7
 			 */
 			iMapWechsel++;
-		} else {
-			iMapWechsel = 0;
-		}
 
+	
 	}
 
 	// zeichnen
@@ -512,15 +514,7 @@ public class StartGame extends BasicGameState {
 			}
 		}
 
-		/*
-		 * if (!objJack.pruefeKollsion(objHeilung).isEmpty()) {
-		 * objJack.setHp(objJack.getHp() + 25); objHeilung.clear(); } if
-		 * (!objJack.pruefeKollsion(objMana).isEmpty()) {
-		 * objJack.setMana(objJack.getMana() + 25); System.out.println("Mana: "
-		 * + objJack.getMana()); objMana.clear(); } if
-		 * (!objJack.pruefeKollsion(objSchlagstock).isEmpty()) {
-		 * Ausruestung.setWaffe(2); objSchlagstock.clear(); }
-		 */
+
 		if (!objJack.pruefeKollsion(objGegner).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
 		}

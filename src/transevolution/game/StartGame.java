@@ -477,7 +477,10 @@ public class StartGame extends BasicGameState {
 		if (container.getInput().isKeyPressed(Input.KEY_0)) {
 			objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL2));
 		}
-
+		if (container.getInput().isKeyPressed(Input.KEY_I)) {
+			objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_FAUST));
+		}
+		
 		ArrayList<Checkkoll> objItemsKoll = objJack.pruefeKollsion(objItems);
 		if (!objItemsKoll.isEmpty()) {
 			for (int i = objItemsKoll.size() - 1; i >= 0; i--) {

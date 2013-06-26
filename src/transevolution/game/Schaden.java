@@ -25,6 +25,7 @@ public class Schaden extends Checkkoll {
 
 	public static final int SCHADEN_NAH_EXPL1 = 1;
 	public static final int SCHADEN_NAH_EXPL2 = 2;
+	public static final int SCHADEN_FAUST = 3;
 	
 	/**
 	 * @param x Koordinate der x-Achse
@@ -39,11 +40,15 @@ public class Schaden extends Checkkoll {
 		switch (this.schadenID) {
 		case SCHADEN_NAH_EXPL1:
 			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl1.png", 32, 32);
-			schadenAnimation = new Animation(schadenSpriteSheet, 50);
+			schadenAnimation = new Animation(schadenSpriteSheet, 75);
 			break;
 		case SCHADEN_NAH_EXPL2:
 			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl2.png", 32, 32);
 			schadenAnimation = new Animation(schadenSpriteSheet, 100);
+			break;
+		case SCHADEN_FAUST:
+			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_faust.png", 32, 32);
+			schadenAnimation = new Animation(schadenSpriteSheet, 50);
 			break;
 		default:
 			break;

@@ -10,7 +10,7 @@ public class Wachmann extends Checkkoll {
 	private SpriteSheet wachmannSpriteSheet;
 	private Shape flaecheKampf;
 
-	private int leben = 100;
+	private int leben = 50;
 
 	/*
 	 * 0: unten; 1: links; 2: rechts; 3: oben
@@ -77,7 +77,7 @@ public class Wachmann extends Checkkoll {
 			g.setColor(Color.black);
 			g.fillRect(this.x + 28, this.y + 2, 2, 20);
 			g.setColor(Color.red);
-			g.fillRect(this.x + 28, this.y + 2, 2, (int)(leben/100. * 20));
+			g.fillRect(this.x + 28, this.y + 2, 2, (int)(leben/50. * 20));
 		}
 	}
 

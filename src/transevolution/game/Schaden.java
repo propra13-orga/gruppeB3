@@ -3,12 +3,9 @@
  */
 package transevolution.game;
 
-import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -21,7 +18,6 @@ public class Schaden extends Checkkoll {
 	private Animation schadenAnimation;
 	private SpriteSheet schadenSpriteSheet;
 	private int schadenID;
-	private boolean isDead = false;
 
 	public static final int SCHADEN_NAH_EXPL1 = 1;
 	public static final int SCHADEN_NAH_EXPL2 = 2;
@@ -39,18 +35,32 @@ public class Schaden extends Checkkoll {
 		
 		switch (this.schadenID) {
 		case SCHADEN_NAH_EXPL1:
-			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl1.png", 32, 32);
-			schadenAnimation = new Animation(schadenSpriteSheet, 75);
+			switch(Ausruestung.getwaffe())
+			{
+			case 0:
+				schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_faust.png", 32, 32);
+				schadenAnimation = new Animation(schadenSpriteSheet, 140);
+				break;
+			case 1:
+				schadenSpriteSheet = new SpriteSheet("res/pictures/itemmesser.png", 32, 32);
+				schadenAnimation = new Animation(schadenSpriteSheet, 160);
+				break;
+			case 2:
+				schadenSpriteSheet = new SpriteSheet("res/pictures/itemschlagstock.png", 32, 32);
+				schadenAnimation = new Animation(schadenSpriteSheet, 180);
+				break;
+			}
+
 			break;
 		case SCHADEN_NAH_EXPL2:
 			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl2.png", 32, 32);
-			schadenAnimation = new Animation(schadenSpriteSheet, 100);
+			schadenAnimation = new Animation(schadenSpriteSheet, 150);
 			break;
-		case SCHADEN_FAUST:
-			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_faust.png", 32, 32);
+/*		case SCHADEN_FAUST:
+			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl2.png", 32, 32);
 			schadenAnimation = new Animation(schadenSpriteSheet, 50);
 			break;
-		default:
+*/		default:
 			break;
 		}
 		schadenAnimation.setLooping(false);

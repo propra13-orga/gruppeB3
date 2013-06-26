@@ -474,13 +474,13 @@ public class StartGame extends BasicGameState {
 			objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL1));
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_0)) {
-			objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL2));
+		if (container.getInput().isKeyPressed(Input.KEY_3)) {
+			if (objJack.getMana() >= 20)
+			{
+				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL2));
+				objJack.setMana(objJack.getMana() -20);
+			}
 		}
-		if (container.getInput().isKeyPressed(Input.KEY_I)) {
-			objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_FAUST));
-		}
-		
 		ArrayList<Checkkoll> objItemsKoll = objJack.pruefeKollsion(objItems);
 		if (!objItemsKoll.isEmpty()) {
 			for (int i = objItemsKoll.size() - 1; i >= 0; i--) {
@@ -587,16 +587,6 @@ public class StartGame extends BasicGameState {
 
 		}
 
-		if (taste == Input.KEY_1) {
-			int waLeben = ((Wachmann) objGegner.get(0)).getLeben();
-			for (int i = 0; i < objGegner.size(); i++)
-				((Wachmann) objGegner.get(i)).setLeben(waLeben + 1);
-		}
-		if (taste == Input.KEY_2) {
-			int waLeben = ((Wachmann) objGegner.get(0)).getLeben();
-			for (int i = 0; i < objGegner.size(); i++)
-				((Wachmann) objGegner.get(i)).setLeben(waLeben - 1);
-		}
 
 	}
 

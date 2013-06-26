@@ -82,15 +82,12 @@ public class StartGame extends BasicGameState {
 	protected ArrayList<Checkkoll> objGegner = new ArrayList<Checkkoll>();
 	// Items
 	protected ArrayList<Checkkoll> objItems = new ArrayList<Checkkoll>();
-	// Boss1
-	protected ArrayList<Checkkoll> objKevin = new ArrayList<Checkkoll>();
 
 	public void resetStateBasedGame() {
 		objWalls.clear();
 		objItems.clear();
 		objFeuer.clear();
 		objGegner.clear();
-		objKevin.clear();
 		hintergrund = null;
 		game = null;
 
@@ -197,7 +194,7 @@ public class StartGame extends BasicGameState {
 			/*
 			 * Map3
 			 */
-			objKevin.add(new Boss1(10 * 32, 10 * 32, 3));
+			objGegner.add(new Wachmann(10 * 32, 10 * 32, 3));
 
 			objFeuer.add(new Feuer(9 * 32, 10 * 32, 3));
 			objFeuer.add(new Feuer(6 * 32, 7 * 32, 3));
@@ -344,11 +341,6 @@ public class StartGame extends BasicGameState {
 		for (Checkkoll ge : objGegner) {
 			ge.draw(g, mapcounter);
 		}
-		
-		// Boss, bzw. Bosse zeichnen
-		for(Checkkoll ge : objKevin) {
-			ge.draw(g, mapcounter);
-		}
 
 		if (sprechen == 1) {
 			Sprechblase.Sprechblasezeigen(hausmeister_x * 32,
@@ -455,17 +447,6 @@ public class StartGame extends BasicGameState {
 				objGegner.remove(ge);
 			}
 		}
-		
-		// Update Bosse mit Kollisionsüberprüfung
-		for(int i=0; i < objKevin.size(); i++) {
-			Boss1 ge = (Boss1) objKevin.get(i);
-			if(ge.getMapID()==mapcounter) {
-				ge.update(container, delta, objCks, objJack);
-			}
-			if(ge.getLeben()<=0) {
-				objKevin.remove(ge);
-			}
-		}
 
 		objCks.clear();
 		objCks.addAll(objWalls);
@@ -533,15 +514,9 @@ public class StartGame extends BasicGameState {
 			}
 		}
 
-	
-		// Abzug Leben bei Gegner
+
 		if (!objJack.pruefeKollsion(objGegner).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
-		}
-		
-		// Abzug Leben bei Boss (mehr Schaden)
-		if (!objJack.pruefeKollsion(objKevin).isEmpty()) {
-			objJack.setHp(objJack.getHp() - 2);
 		}
 
 		// sterben
@@ -617,7 +592,6 @@ public class StartGame extends BasicGameState {
 
 		}
 
-		// Wachmaenner
 		if (taste == Input.KEY_1) {
 			int waLeben = ((Wachmann) objGegner.get(0)).getLeben();
 			for (int i = 0; i < objGegner.size(); i++)
@@ -627,18 +601,6 @@ public class StartGame extends BasicGameState {
 			int waLeben = ((Wachmann) objGegner.get(0)).getLeben();
 			for (int i = 0; i < objGegner.size(); i++)
 				((Wachmann) objGegner.get(i)).setLeben(waLeben - 1);
-		}
-		
-		// 1.Boss
-		if (taste == Input.KEY_1) {
-			int keLeben = ((Boss1) objKevin.get(0)).getLeben();
-			for(int i = 0; i < objKevin.size(); i++)
-				((Boss1) objKevin.get(i)).setLeben(keLeben+1);
-		}
-		if (taste == Input.KEY_2) {
-			int keLeben = ((Boss1) objKevin.get(0)).getLeben();
-			for(int i = 0; i < objKevin.size(); i++)
-				((Boss1) objKevin.get(i)).setLeben(keLeben-1);
 		}
 
 	}

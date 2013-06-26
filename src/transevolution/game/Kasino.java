@@ -62,6 +62,7 @@ public class Kasino extends BasicGameState
 		papier = new Image("res/pictures/kasinopapier.png");
 		
 		nogeld = 0;
+		gewonnen = 0;
 		
 		this.game =sbg;
 		
@@ -134,21 +135,22 @@ public class Kasino extends BasicGameState
 				g.drawImage(papier, 650, 200);
 			}
 		}
-		if (gewonnen==1)
-		{		
-			g.setColor(Color.green);
-			g.drawString(a1, 550, 350);
-		}
-		if (gewonnen==-1)
-		{
-			g.setColor(Color.red);
-			g.drawString(a2, 490, 350);
-		}
 		if (nogeld==1)
 		{
 			g.setColor(Color.red);
 			g.drawString(a3, 490, 350);
 		}
+		else if (gewonnen==1)
+		{		
+			g.setColor(Color.green);
+			g.drawString(a1, 550, 350);
+		}
+		else if (gewonnen==-1)
+		{
+			g.setColor(Color.red);
+			g.drawString(a2, 490, 350);
+		}
+
 			
 		g.drawImage(schere, 150, 120);
 		g.drawImage(stein, 150, 200);

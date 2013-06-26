@@ -42,6 +42,8 @@ public class StartGame extends BasicGameState {
 	public int hausmeister_y;
 	public int shophaendler_x;
 	public int shophaendler_y;
+	public int kasino_x;
+	public int kasino_y;
 
 	// maparray
 	public char[] maparraybuffer = new char[25];
@@ -68,6 +70,7 @@ public class StartGame extends BasicGameState {
 	protected Image speicherpunkt3;
 	protected Image hausmeister;
 	protected Image shophaendler;
+	protected Image kasinokerl;
 
 	// map
 	protected TiledMap map;
@@ -114,6 +117,8 @@ public class StartGame extends BasicGameState {
 		hausmeister_y = -50;
 		shophaendler_x = -50;
 		shophaendler_y = -50;
+		kasino_x = -50;
+		kasino_y = -50;
 
 		Ausruestung.reset();
 
@@ -128,6 +133,8 @@ public class StartGame extends BasicGameState {
 		hausmeister_y = -50;
 		shophaendler_x = -50;
 		shophaendler_y = -50;
+		kasino_x = -50;
+		kasino_y = -50;
 	}
 
 	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
@@ -168,6 +175,8 @@ public class StartGame extends BasicGameState {
 		hausmeister_y = -50;
 		shophaendler_x = -50;
 		shophaendler_y = -50;
+		kasino_x = -50;
+		kasino_y = -50;
 
 		/*
 		 * Map1
@@ -325,6 +334,11 @@ public class StartGame extends BasicGameState {
 			shophaendler = new Image("res/pictures/shophaendler.png");
 			g.drawImage(shophaendler, shophaendler_x * 32, shophaendler_y * 32);
 		}
+		// Kasinokerl zeichnen
+		if (kasino_x > 0) {
+			kasinokerl = new Image("res/pictures/kasino.png");
+			g.drawImage(kasinokerl, kasino_x * 32, kasino_y * 32);
+		}
 
 		// Gegner zeichnen
 		for (Checkkoll ge : objGegner) {
@@ -345,6 +359,10 @@ public class StartGame extends BasicGameState {
 		}
 		if (sprechen == 2) {
 			Sprechblase.Sprechblasezeigen(shophaendler_x * 32, shophaendler_y * 32, 2);
+			Sprechblase.draw(g);
+		}
+		if (sprechen == 3) {
+			Sprechblase.Sprechblasezeigen(kasino_x * 32, kasino_y * 32, 3);
 			Sprechblase.draw(g);
 		}
 		
@@ -450,6 +468,9 @@ public class StartGame extends BasicGameState {
 			sprechen = 0;
 		}
 		if (((shophaendler_x * 32 < objJack.getX() - 32 || shophaendler_x * 32 > objJack.getX() + 32) || (shophaendler_y * 32 > objJack.getY() + 32 || shophaendler_y * 32 < objJack.getY() - 32)) && sprechen == 2) {
+			sprechen = 0;
+		}
+		if (((kasino_x * 32 < objJack.getX() - 32 || kasino_x * 32 > objJack.getX() + 32) || (kasino_y * 32 > objJack.getY() + 32 || kasino_y * 32 < objJack.getY() - 32)) && sprechen == 3) {
 			sprechen = 0;
 		}
 
@@ -558,12 +579,19 @@ public class StartGame extends BasicGameState {
 		// Shop betreten
 		if (taste == Input.KEY_J && shophaendler_x * 32 >= objJack.getX() - 32 && shophaendler_x * 32 <= objJack.getX() + 32 && shophaendler_y * 32 <= objJack.getY() + 32 && shophaendler_y * 32 >= objJack.getY() - 32) {
 			System.out.println("Shop betreten");
-			// objWalls.clear();
 			sprechen = 0;
 
 			iMapWechsel = 4;
 
 			enterStateAndreinit(Shop.stateID);
+		}
+		if (taste == Input.KEY_J && kasino_x * 32 >= objJack.getX() - 32 && kasino_x * 32 <= objJack.getX() + 32 && kasino_y * 32 <= objJack.getY() + 32 && kasino_y * 32 >= objJack.getY() - 32) {
+			System.out.println("Kasino betreten");
+			sprechen = 0;
+
+			iMapWechsel = 4;
+
+			enterStateAndreinit(Kasino.stateID);
 		}
 
 		// Checkpointabfrage
@@ -583,9 +611,13 @@ public class StartGame extends BasicGameState {
 				System.out.println("Shophaendler");
 			} else if (hausmeister_x * 32 >= objJack.getX() - 32 && hausmeister_x * 32 <= objJack.getX() + 32 && hausmeister_y * 32 <= objJack.getY() + 32 && hausmeister_y * 32 >= objJack.getY() - 32) {
 				sprechen = 1;
+			} else if (kasino_x * 32 >= objJack.getX() - 32 && kasino_x * 32 <= objJack.getX() + 32 && kasino_y * 32 <= objJack.getY() + 32 && kasino_y * 32 >= objJack.getY() - 32) {
+				sprechen = 3;
+				System.out.println("Kasinokerl");
 			}
-
 		}
+
+		
 
 
 	}
@@ -730,6 +762,11 @@ public class StartGame extends BasicGameState {
 						objWalls.add(0, new Wand(x * 32, y * 32, mapID));
 						shophaendler_x = x;
 						shophaendler_y = y;
+						break;
+					case 18:
+						objWalls.add(0, new Wand(x * 32, y * 32, mapID));
+						kasino_x = x;
+						kasino_y = y;
 						break;
 					case 2:
 						exit_x = x;

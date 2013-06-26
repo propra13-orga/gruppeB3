@@ -20,6 +20,10 @@ public class Sprechblase {
 	private static String q2 = "Willst du etwas kaufen? Ich hab";
 	private static String q3 = "einiges, was sich für dich";
 	private static String q4 = "nützlich erweisen könnte.";
+	private static String r1 = "Hey du!";
+	private static String r2 = "Willst du dir was dazuverdienen?";
+	private static String r3 = "Wie wärs mit ner Runde Schnick-";
+	private static String r4 = "Schack-Schnuck um 50 Dollar?";
 	private static String jn = "             [J]Ja [E]Ignorieren";
 	
 	public static void Sprechblasezeigen(int x, int y, int textnr) {
@@ -66,6 +70,15 @@ public class Sprechblase {
 			g.drawString(q2, sprechx+5, sprechy+15);
 			g.drawString(q3, sprechx+5, sprechy+27);
 			g.drawString(q4, sprechx+5, sprechy+39);
+			g.setColor(Color.orange);
+			g.drawString(jn, sprechx+5, sprechy+63);
+		}
+		else if(text ==3)
+		{
+			g.drawString(r1, sprechx+5, sprechy+3);
+			g.drawString(r2, sprechx+5, sprechy+15);
+			g.drawString(r3, sprechx+5, sprechy+27);
+			g.drawString(r4, sprechx+5, sprechy+39);
 			g.setColor(Color.orange);
 			g.drawString(jn, sprechx+5, sprechy+63);
 		}

@@ -28,6 +28,7 @@ public class Main extends StateBasedGame
 	    this.addState(new Einstellungen());
 	    this.addState(new StartGame());
 	    this.addState(new Shop());
+	    this.addState(new Kasino());
 	}
 
 	public static void main(String[] argsv)

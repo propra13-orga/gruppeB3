@@ -24,10 +24,10 @@ public class Jack extends Checkkoll {
 	 * RichtungsbewegungsAnimation (im Uhrzeigersinn) 0: oben; 1: rechts; 2:
 	 * unten; 3: links
 	 */
-	public static final int BEW_OBEN = 0;
-	public static final int BEW_RECHTS = 1;
-	public static final int BEW_UNTEN = 2;
-	public static final int BEW_LINKS = 3;
+	protected static final int BEW_OBEN = 0;
+	protected static final int BEW_RECHTS = 1;
+	protected static final int BEW_UNTEN = 2;
+	protected static final int BEW_LINKS = 3;
 	private int bewegungKeyInput = 2;
 	private int drawAnimation = 2;
 	private boolean isPosXrechts, isPosYunten;
@@ -192,5 +192,19 @@ public class Jack extends Checkkoll {
 			mana = 100;
 		}
 		this.mana = mana;
+	}
+
+	/**
+	 * @return the bewegungKeyInput
+	 */
+	public int getBewegungKeyInput() {
+		return bewegungKeyInput;
+	}
+
+	/**
+	 * @param bewegungKeyInput the bewegungKeyInput to set
+	 */
+	public void setBewegungKeyInput(int bewegungKeyInput) {
+		this.bewegungKeyInput = bewegungKeyInput;
 	}
 }

@@ -9,8 +9,8 @@ public class Wachmann extends Checkkoll {
 	private Animation wachmannAnimation;
 	private SpriteSheet wachmannSpriteSheet;
 	private Shape flaecheKampf;
-	
-	private int leben = 2;
+
+	private int leben = 100;
 
 	/*
 	 * 0: unten; 1: links; 2: rechts; 3: oben
@@ -19,17 +19,22 @@ public class Wachmann extends Checkkoll {
 
 	public Wachmann(int x, int y, int mapID) throws SlickException {
 		super(x, y, mapID);
-		wachmannSpriteSheet = new SpriteSheet("res/pictures/wachmann.png", 32, 32);
-		wachmannAnimation = new Animation(wachmannSpriteSheet, 0, bewegungRichtung, 3, bewegungRichtung, true, 300, true);
-		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1, x + 32, y + 32, x - 1, y + 32 });
+		wachmannSpriteSheet = new SpriteSheet("res/pictures/wachmann.png", 32,
+				32);
+		wachmannAnimation = new Animation(wachmannSpriteSheet, 0,
+				bewegungRichtung, 3, bewegungRichtung, true, 300, true);
+		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1,
+				x + 32, y + 32, x - 1, y + 32 });
 	}
 
-	public void update(GameContainer container, int delta, ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
-		if (leben <= 0) return;
+	public void update(GameContainer container, int delta,
+			ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
+		if (leben <= 0)
+			return;
 		int Xwert = this.x;
 		int Ywert = this.y;
-		
-		if (isKollision(objJack)){
+
+		if (isKollision(objJack)) {
 			return;
 		}
 
@@ -58,7 +63,8 @@ public class Wachmann extends Checkkoll {
 			kollisionsFlaeche.setY(this.y);
 			// suche neue Richtung
 			bewegungRichtung = (int) ((Math.random()) * 4);
-			wachmannAnimation = new Animation(wachmannSpriteSheet, 0, bewegungRichtung, 3, bewegungRichtung, true, 300, true);
+			wachmannAnimation = new Animation(wachmannSpriteSheet, 0,
+					bewegungRichtung, 3, bewegungRichtung, true, 300, true);
 		}
 		flaecheKampf.setX(this.x - 1);
 		flaecheKampf.setY(this.y - 1);
@@ -67,11 +73,11 @@ public class Wachmann extends Checkkoll {
 	@Override
 	public void draw(Graphics g) throws SlickException {
 		if (leben > 0) {
-		wachmannAnimation.draw(this.x, this.y);
-		g.setColor(Color.black);
-		g.fillRect(this.x + 28, this.y+2, 2, 20);
-		g.setColor(Color.red);
-		g.fillRect(this.x+28, this.y+2, 2, leben*5);
+			wachmannAnimation.draw(this.x, this.y);
+			g.setColor(Color.black);
+			g.fillRect(this.x + 28, this.y + 2, 2, 20);
+			g.setColor(Color.red);
+			g.fillRect(this.x + 28, this.y + 2, 2, (int)(leben/100. * 20));
 		}
 	}
 
@@ -82,19 +88,24 @@ public class Wachmann extends Checkkoll {
 	public void setLeben(int leben) {
 		this.leben = leben;
 	}
-	
-	private boolean isKollision(Checkkoll spObj){
-		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true){
+
+	private boolean isKollision(Checkkoll spObj) {
+		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
 			return true;
 		}
-	return false;
+		return false;
 	}
 	
-	@SuppressWarnings("unused") // hat mich genervt, gez: mlz
-	private boolean isKampf(ArrayList<Checkkoll> spObj){
-		
+	public void setLebenMinusEins(){
+		this.leben--;
+	}
+
+	@SuppressWarnings("unused")
+	// hat mich genervt, gez: mlz
+	private boolean isKampf(ArrayList<Checkkoll> spObj) {
+
 		for (Checkkoll obj : spObj)
-			if (obj.kollisionsFlaeche.intersects(this.flaecheKampf) == true){
+			if (obj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
 				return true;
 			}
 		return false;

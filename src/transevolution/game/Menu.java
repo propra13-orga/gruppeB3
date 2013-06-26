@@ -1,4 +1,4 @@
-package transevolution.game;
+  package transevolution.game;
 
 import java.awt.Font;
 import java.io.InputStream;
@@ -18,16 +18,16 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class Menu extends BasicGameState {
-	// stateID fürs Menü gleich 0
+	// stateID fuers Menuegleich 0
 	public static final int stateID = 0;
 
 	Image hintergrund = null;
 	TrueTypeFont font;
 
-	// zur Auswahl aus dem Menü
+	// zur Auswahl aus dem Menue
 	private int wahl = 0;
 
-	// Auwahlmöglichkeiten im Menü
+	// Auwahlmoelichkeiten im Menue
 
 	private String[] auswahl = new String[] { "Spiel starten", "Einstellungen", "Credits", "Spiel beenden" };
 
@@ -41,7 +41,7 @@ public class Menu extends BasicGameState {
 			InputStream inputStream = ResourceLoader.getResourceAsStream("res/fonts/Volter__28Goldfish_29.ttf");
 
 			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			// Font Größe
+			// Font Groesse
 			awtFont = awtFont.deriveFont(24f);
 			font = new TrueTypeFont(awtFont, false);
 
@@ -61,7 +61,7 @@ public class Menu extends BasicGameState {
 
 		g.setFont(font);
 
-		// auswählen der States
+		// auswaelen der States
 		for (int a = 0; a < 4; a++) {
 			g.setColor(Color.white);
 
@@ -76,7 +76,7 @@ public class Menu extends BasicGameState {
 
 	}
 
-	// Bewegen im Menü mit Pfeiltasten
+	// Bewegen im Menue mit Pfeiltasten
 	public void keyReleased(int taste, char c) {
 		if (taste == Input.KEY_DOWN) {
 			wahl++;
@@ -88,7 +88,7 @@ public class Menu extends BasicGameState {
 				wahl = 3;
 			}
 		}
-		// Auswählen mit Enter oder Leertaste
+		// Auswaehlen mit Enter oder Leertaste
 		if (taste == Input.KEY_ENTER || taste == Input.KEY_SPACE) {
 			switch (wahl) {
 			case 0:

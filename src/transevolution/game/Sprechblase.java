@@ -20,11 +20,22 @@ public class Sprechblase {
 	private static String q2 = "Willst du etwas kaufen? Ich hab";
 	private static String q3 = "einiges, was sich für dich";
 	private static String q4 = "nützlich erweisen könnte.";
-	private static String r1 = "Hey du!";
+	private static String r1 = "Hallöchen!";
 	private static String r2 = "Willst du dir was dazuverdienen?";
 	private static String r3 = "Wie wärs mit ner Runde Schnick-";
 	private static String r4 = "Schack-Schnuck um 50 Dollar?";
 	private static String jn = "             [J]Ja [E]Ignorieren";
+	private static String s1 = "Hey du, du musst mir helfen,";
+	private static String s2 = "bitte. Ich habe alles an meinen";
+	private static String s3 = "Zwillingsbruder verzockt. Gewinn";
+	private static String s4 = "bitte 100 Dollar für mich, damit";
+	private static String s5 = "ich mir Kleidung";
+	private static String s6 = "kaufen kann.";
+	private static String t1 = "*frier* *frier*";
+	private static String t2 = "Hast du schon 100 Dollar für";
+	private static String t3 = "mich?";
+
+
 	
 	public static void Sprechblasezeigen(int x, int y, int textnr) {
 		if(x<384)
@@ -79,6 +90,25 @@ public class Sprechblase {
 			g.drawString(r2, sprechx+5, sprechy+15);
 			g.drawString(r3, sprechx+5, sprechy+27);
 			g.drawString(r4, sprechx+5, sprechy+39);
+			g.setColor(Color.orange);
+			g.drawString(jn, sprechx+5, sprechy+63);
+		}
+		else if(text ==4)
+		{
+			g.drawString(s1, sprechx+5, sprechy+3);
+			g.drawString(s2, sprechx+5, sprechy+15);
+			g.drawString(s3, sprechx+5, sprechy+27);
+			g.drawString(s4, sprechx+5, sprechy+39);
+			g.drawString(s5, sprechx+5, sprechy+51);
+			g.drawString(s6, sprechx+5, sprechy+63);
+			g.setColor(Color.orange);
+			g.drawString(jn, sprechx+5, sprechy+63);
+		}
+		else if(text ==5)
+		{
+			g.drawString(t1, sprechx+5, sprechy+3);
+			g.drawString(t2, sprechx+5, sprechy+15);
+			g.drawString(t3, sprechx+5, sprechy+27);
 			g.setColor(Color.orange);
 			g.drawString(jn, sprechx+5, sprechy+63);
 		}

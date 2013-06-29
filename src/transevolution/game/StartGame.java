@@ -13,7 +13,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -45,6 +44,9 @@ public class StartGame extends BasicGameState {
 	public int shophaendler_y;
 	public int kasino_x;
 	public int kasino_y;
+	public int kasinozwi_x;
+	public int kasinozwi_y;
+	public int quest = 0;
 
 	// maparray
 	public char[] maparraybuffer = new char[25];
@@ -72,6 +74,7 @@ public class StartGame extends BasicGameState {
 	protected Image hausmeister;
 	protected Image shophaendler;
 	protected Image kasinokerl;
+	protected Image kasinozwi;
 
 	// map
 	protected TiledMap map;
@@ -88,17 +91,15 @@ public class StartGame extends BasicGameState {
 	protected ArrayList<Checkkoll> objItems = new ArrayList<Checkkoll>();
 	// Schlagobjekte
 	protected ArrayList<Checkkoll> objSchaden = new ArrayList<Checkkoll>();
-	// Boss1
-	protected ArrayList<Checkkoll> objKevin = new ArrayList<Checkkoll>();
 
 	public void resetStateBasedGame() {
 		objWalls.clear();
 		objItems.clear();
 		objFeuer.clear();
 		objGegner.clear();
-		objKevin.clear();
 		hintergrund = null;
 		game = null;
+		quest = 0;
 
 		gewonnen = false;
 
@@ -123,6 +124,9 @@ public class StartGame extends BasicGameState {
 		shophaendler_y = -50;
 		kasino_x = -50;
 		kasino_y = -50;
+		kasinozwi_x = -50;
+		kasinozwi_y = -50;
+		
 
 		Ausruestung.reset();
 
@@ -139,6 +143,8 @@ public class StartGame extends BasicGameState {
 		shophaendler_y = -50;
 		kasino_x = -50;
 		kasino_y = -50;
+		kasinozwi_x = -50;
+		kasinozwi_y = -50;
 	}
 
 	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
@@ -181,6 +187,8 @@ public class StartGame extends BasicGameState {
 		shophaendler_y = -50;
 		kasino_x = -50;
 		kasino_y = -50;
+		kasinozwi_x = -50;
+		kasinozwi_y = -50;
 
 		/*
 		 * Map1
@@ -205,7 +213,7 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map3
 		 */
-		objKevin.add(new Boss1(10 * 32, 10 * 32, 3));
+		objGegner.add(new Wachmann(10 * 32, 10 * 32, 3));
 
 		objFeuer.add(new Feuer(9 * 32, 10 * 32, 3));
 		objFeuer.add(new Feuer(6 * 32, 7 * 32, 3));
@@ -343,14 +351,14 @@ public class StartGame extends BasicGameState {
 			kasinokerl = new Image("res/pictures/kasino.png");
 			g.drawImage(kasinokerl, kasino_x * 32, kasino_y * 32);
 		}
+		// Kasinozwilling zeichnen
+		if (kasinozwi_x > 0) {
+			kasinozwi = new Image("res/pictures/kasinozwilling.png");
+			g.drawImage(kasinozwi, kasinozwi_x * 32, kasinozwi_y * 32);
+		}
 
 		// Gegner zeichnen
 		for (Checkkoll ge : objGegner) {
-			ge.draw(g, mapcounter);
-		}
-		
-		// Boss1 zeichnen
-		for (Checkkoll ge: objKevin) {
 			ge.draw(g, mapcounter);
 		}
 
@@ -372,6 +380,10 @@ public class StartGame extends BasicGameState {
 		}
 		if (sprechen == 3) {
 			Sprechblase.Sprechblasezeigen(kasino_x * 32, kasino_y * 32, 3);
+			Sprechblase.draw(g);
+		}
+		if (sprechen == 4) {
+			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 4);
 			Sprechblase.draw(g);
 		}
 		
@@ -463,29 +475,13 @@ public class StartGame extends BasicGameState {
 				ge.update(container, delta, objCks, objJack);
 			}
 			if (ge.getLeben() <= 0) {
-				Sound wachmann_tot = new Sound("res/sounds/scream10.wav");
-				wachmann_tot.play();
 				objGegner.remove(ge);
-			}
-		}
-		
-		// Update Boss mit Kollisionsueberpreufung
-		for(int i=0; i < objKevin.size(); i++) {
-			Boss1 ge = (Boss1) objKevin.get(i);
-			if(ge.getMapID()==mapcounter) {
-				ge.update(container, delta, objCks, objJack);
-			}
-			if(ge.getLeben()<=0) {
-				Sound kevin_defeated = new Sound("res/sounds/WilhelmScream.wav");
-				kevin_defeated.play();
-				objKevin.remove(ge);
 			}
 		}
 
 		objCks.clear();
 		objCks.addAll(objWalls);
 		objCks.addAll(objGegner);
-		objCks.addAll(objKevin);
 		objJack.update(container, delta, container.getInput(), objCks);
 
 		// Sprechblase verlassen durch Bewegung
@@ -514,8 +510,6 @@ public class StartGame extends BasicGameState {
 
 		if (!objJack.pruefeKollsion(objFeuer).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
-//			Sound brennen = new Sound("res/sounds/fire.wav");
-//			brennen.play();
 		}
 
 		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
@@ -562,8 +556,6 @@ public class StartGame extends BasicGameState {
 
 		// sterben
 		if (objJack.getHp() < 1) {
-			Sound dying = new Sound("res/sounds/9scream.wav");
-			dying.play();
 			objJack.setLeben(objJack.getLeben() - 1);
 			objJack.setHp(100);
 			bewegt = 0;
@@ -583,11 +575,6 @@ public class StartGame extends BasicGameState {
 			objCks.addAll(sh.pruefeKollsion(objGegner));
 			for(Checkkoll ge : objCks){
 				((Wachmann)ge).setLebenMinusEins();
-			}
-			objCks.clear();
-			objCks.addAll(sh.pruefeKollsion(objKevin));
-			for(Checkkoll ge: objCks) {
-				((Boss1)ge).setLebenMinusEins();
 			}
 
 			if (sh.isDead()) {
@@ -627,6 +614,13 @@ public class StartGame extends BasicGameState {
 
 			enterStateAndreinit(Kasino.stateID);
 		}
+		if (taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) {
+			System.out.println("Quest angenommen");
+			quest =1;
+			
+			sprechen =0;
+		}
+
 
 		// Checkpointabfrage
 		if (taste == Input.KEY_E) {
@@ -648,6 +642,12 @@ public class StartGame extends BasicGameState {
 			} else if (kasino_x * 32 >= objJack.getX() - 32 && kasino_x * 32 <= objJack.getX() + 32 && kasino_y * 32 <= objJack.getY() + 32 && kasino_y * 32 >= objJack.getY() - 32) {
 				sprechen = 3;
 				System.out.println("Kasinokerl");
+			} else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 0) {
+				sprechen = 4;
+				System.out.println("Kasinozwilling ohne quest");
+			}else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 1) {
+				sprechen = 5;
+				System.out.println("Kasinozwilling mit quest");
 			}
 		}
 
@@ -801,6 +801,11 @@ public class StartGame extends BasicGameState {
 						objWalls.add(0, new Wand(x * 32, y * 32, mapID));
 						kasino_x = x;
 						kasino_y = y;
+						break;
+					case 19:
+						objWalls.add(0, new Wand(x * 32, y * 32, mapID));
+						kasinozwi_x = x;
+						kasinozwi_y = y;
 						break;
 					case 2:
 						exit_x = x;

@@ -395,6 +395,14 @@ public class StartGame extends BasicGameState {
 			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 4);
 			Sprechblase.draw(g);
 		}
+		if (sprechen == 5) {
+			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 5);
+			Sprechblase.draw(g);
+		}
+		if (sprechen == 6) {
+			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 6);
+			Sprechblase.draw(g);
+		}
 		
 		if (gewonnen) {
 			g.setFont(font);
@@ -519,7 +527,15 @@ public class StartGame extends BasicGameState {
 		if (((kasino_x * 32 < objJack.getX() - 32 || kasino_x * 32 > objJack.getX() + 32) || (kasino_y * 32 > objJack.getY() + 32 || kasino_y * 32 < objJack.getY() - 32)) && sprechen == 3) {
 			sprechen = 0;
 		}
-
+		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack.getY() - 32)) && sprechen == 4) {
+			sprechen = 0;
+		}
+		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack.getY() - 32)) && sprechen == 5) {
+			sprechen = 0;
+		}
+		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack.getY() - 32)) && sprechen == 6) {
+			sprechen = 0;
+		}
 		// gucken ob jack nicht im start oder exit feld steht
 		if (((objJack.getX() / 32) != start_x || (objJack.getY() / 32) != start_y) && ((objJack.getX() / 32) != exit_x || (objJack.getY() / 32) != exit_y)) {
 			bewegt = 1;
@@ -650,9 +666,18 @@ public class StartGame extends BasicGameState {
 
 			enterStateAndreinit(Kasino.stateID);
 		}
-		if (taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) {
+		if ((taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 0) {
 			System.out.println("Quest angenommen");
 			quest =1;
+			
+			sprechen =0;
+		}
+		if ((taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest ==1 && sprechen != 0) {
+			if (Ausruestung.getgeld() < 100)
+				return;
+			System.out.println("Quest abgeschlossen");
+			quest =2;
+			Ausruestung.setgeld(-100);
 			
 			sprechen =0;
 		}
@@ -683,6 +708,9 @@ public class StartGame extends BasicGameState {
 				System.out.println("Kasinozwilling ohne quest");
 			}else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 1) {
 				sprechen = 5;
+				System.out.println("Kasinozwilling mit quest");
+			}else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 2) {
+				sprechen = 6;
 				System.out.println("Kasinozwilling mit quest");
 			}
 		}

@@ -13,6 +13,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -87,12 +88,15 @@ public class StartGame extends BasicGameState {
 	protected ArrayList<Checkkoll> objItems = new ArrayList<Checkkoll>();
 	// Schlagobjekte
 	protected ArrayList<Checkkoll> objSchaden = new ArrayList<Checkkoll>();
+	// Boss1
+	protected ArrayList<Checkkoll> objKevin = new ArrayList<Checkkoll>();
 
 	public void resetStateBasedGame() {
 		objWalls.clear();
 		objItems.clear();
 		objFeuer.clear();
 		objGegner.clear();
+		objKevin.clear();
 		hintergrund = null;
 		game = null;
 
@@ -201,7 +205,7 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map3
 		 */
-		objGegner.add(new Wachmann(10 * 32, 10 * 32, 3));
+		objKevin.add(new Boss1(10 * 32, 10 * 32, 3));
 
 		objFeuer.add(new Feuer(9 * 32, 10 * 32, 3));
 		objFeuer.add(new Feuer(6 * 32, 7 * 32, 3));
@@ -344,6 +348,11 @@ public class StartGame extends BasicGameState {
 		for (Checkkoll ge : objGegner) {
 			ge.draw(g, mapcounter);
 		}
+		
+		// Boss1 zeichnen
+		for (Checkkoll ge: objKevin) {
+			ge.draw(g, mapcounter);
+		}
 
 		// Schaden zeichnen
 		for (Checkkoll sh : objSchaden) {
@@ -454,13 +463,29 @@ public class StartGame extends BasicGameState {
 				ge.update(container, delta, objCks, objJack);
 			}
 			if (ge.getLeben() <= 0) {
+				Sound wachmann_tot = new Sound("res/sounds/scream10.wav");
+				wachmann_tot.play();
 				objGegner.remove(ge);
+			}
+		}
+		
+		// Update Boss mit Kollisionsueberpreufung
+		for(int i=0; i < objKevin.size(); i++) {
+			Boss1 ge = (Boss1) objKevin.get(i);
+			if(ge.getMapID()==mapcounter) {
+				ge.update(container, delta, objCks, objJack);
+			}
+			if(ge.getLeben()<=0) {
+				Sound kevin_defeated = new Sound("res/sounds/WilhelmScream.wav");
+				kevin_defeated.play();
+				objKevin.remove(ge);
 			}
 		}
 
 		objCks.clear();
 		objCks.addAll(objWalls);
 		objCks.addAll(objGegner);
+		objCks.addAll(objKevin);
 		objJack.update(container, delta, container.getInput(), objCks);
 
 		// Sprechblase verlassen durch Bewegung
@@ -489,6 +514,8 @@ public class StartGame extends BasicGameState {
 
 		if (!objJack.pruefeKollsion(objFeuer).isEmpty()) {
 			objJack.setHp(objJack.getHp() - 1);
+//			Sound brennen = new Sound("res/sounds/fire.wav");
+//			brennen.play();
 		}
 
 		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
@@ -535,6 +562,8 @@ public class StartGame extends BasicGameState {
 
 		// sterben
 		if (objJack.getHp() < 1) {
+			Sound dying = new Sound("res/sounds/9scream.wav");
+			dying.play();
 			objJack.setLeben(objJack.getLeben() - 1);
 			objJack.setHp(100);
 			bewegt = 0;
@@ -554,6 +583,11 @@ public class StartGame extends BasicGameState {
 			objCks.addAll(sh.pruefeKollsion(objGegner));
 			for(Checkkoll ge : objCks){
 				((Wachmann)ge).setLebenMinusEins();
+			}
+			objCks.clear();
+			objCks.addAll(sh.pruefeKollsion(objKevin));
+			for(Checkkoll ge: objCks) {
+				((Boss1)ge).setLebenMinusEins();
 			}
 
 			if (sh.isDead()) {

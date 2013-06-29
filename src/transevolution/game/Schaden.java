@@ -7,6 +7,7 @@ package transevolution.game;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -40,14 +41,20 @@ public class Schaden extends Checkkoll {
 			case 0:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_faust.png", 32, 32);
 				schadenAnimation = new Animation(schadenSpriteSheet, 140);
+				Sound faust = new Sound("res/sounds/PUNCH.wav");
+				faust.play();
 				break;
 			case 1:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/itemmesser.png", 32, 32);
 				schadenAnimation = new Animation(schadenSpriteSheet, 160);
+				Sound messer = new Sound("res/sounds/dagger.wav");
+				messer.play();
 				break;
 			case 2:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/itemschlagstock.png", 32, 32);
 				schadenAnimation = new Animation(schadenSpriteSheet, 180);
+				Sound stock = new Sound("res/sounds/baton.wav");
+				stock.play();
 				break;
 			}
 

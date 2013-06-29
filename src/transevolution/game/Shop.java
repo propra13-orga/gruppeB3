@@ -195,6 +195,14 @@ public class Shop extends BasicGameState
 					waffe =1;
 					Ausruestung.gekauft(waffe, ruestung, kosten);
 					kauf =1;
+//					Sound kasse;
+//					try {
+//						kasse = new Sound("res/sounds/kasse.wav");
+//						kasse.play();
+//					} catch (SlickException e) {
+//						e.printStackTrace();
+//					}
+					//hat nicht geklappt
 				}
 				else{
 					kauf =-1;

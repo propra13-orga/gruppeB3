@@ -29,7 +29,7 @@ public class Menu extends BasicGameState {
 
 	// Auwahlmoelichkeiten im Menue
 
-	private String[] auswahl = new String[] { "Spiel starten", "Einstellungen", "Credits", "Spiel beenden" };
+	private String[] auswahl = new String[] { "Spiel starten", "Multiplayer", "Einstellungen", "Credits", "Spiel beenden" };
 
 	private StateBasedGame game;
 
@@ -62,7 +62,7 @@ public class Menu extends BasicGameState {
 		g.setFont(font);
 
 		// auswaelen der States
-		for (int a = 0; a < 4; a++) {
+		for (int a = 0; a < 5; a++) {
 			g.setColor(Color.white);
 
 			if (a == wahl) {
@@ -80,12 +80,12 @@ public class Menu extends BasicGameState {
 	public void keyReleased(int taste, char c) {
 		if (taste == Input.KEY_DOWN) {
 			wahl++;
-			wahl = wahl % 4;
+			wahl = wahl % 5;
 		}
 		if (taste == Input.KEY_UP) {
 			wahl--;
 			if (wahl < 0) {
-				wahl = 3;
+				wahl = 4;
 			}
 		}
 		// Auswaehlen mit Enter oder Leertaste
@@ -95,12 +95,15 @@ public class Menu extends BasicGameState {
 				enterStateAndreinit(StartGame.stateID);
 				break;
 			case 1:
-				enterStateAndreinit(Einstellungen.stateID);
+				enterStateAndreinit(Mulitplayer.stateID);
 				break;
 			case 2:
-				enterStateAndreinit(Credits.stateID);
+				enterStateAndreinit(Einstellungen.stateID);
 				break;
 			case 3:
+				enterStateAndreinit(Credits.stateID);
+				break;
+			case 4:
 				System.exit(0);
 				break;
 			default:

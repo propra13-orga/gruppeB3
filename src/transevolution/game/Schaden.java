@@ -46,13 +46,13 @@ public class Schaden extends Checkkoll {
 				break;
 			case 1:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/itemmesser.png", 32, 32);
-				schadenAnimation = new Animation(schadenSpriteSheet, 160);
+				schadenAnimation = new Animation(schadenSpriteSheet, 180);
 				Sound messer = new Sound("res/sounds/dagger.wav");
 				messer.play();
 				break;
 			case 2:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/itemschlagstock.png", 32, 32);
-				schadenAnimation = new Animation(schadenSpriteSheet, 180);
+				schadenAnimation = new Animation(schadenSpriteSheet, 160);
 				Sound stock = new Sound("res/sounds/baton.wav");
 				stock.play();
 				break;

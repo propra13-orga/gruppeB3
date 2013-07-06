@@ -23,8 +23,6 @@ public class Mulitplayer extends BasicGameState{
 		Image hintergrund =null;
 		TrueTypeFont font;
 		private StateBasedGame game;
-		private GameContainer container;
-
 		//zur Auswahl
 		private int wahl =0;
 		
@@ -35,8 +33,6 @@ public class Mulitplayer extends BasicGameState{
 			wahl = 0; // Auswahl oberstes Element bei Wiederkehr
 			hintergrund = new Image("res/pictures/background.png");
 			this.game =sbg;
-			this.container = container;
-			
 			//eigenes Font laden
 			try {
 				InputStream inputStream	= ResourceLoader.getResourceAsStream("res/fonts/Volter__28Goldfish_29.ttf");

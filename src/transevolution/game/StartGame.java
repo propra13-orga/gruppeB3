@@ -56,7 +56,7 @@ public class StartGame extends BasicGameState {
 	public int iMapWechsel;
 
 	public int bewegt;
-
+	public int wrongweapon;
 	public int mapcounter;
 
 	boolean gewonnen;
@@ -68,6 +68,7 @@ public class StartGame extends BasicGameState {
 	private String sPrintWin = "WIN";
 	private String sPrintZurMenu = "Zurueck ins Menue mit Esc";
 	private String sPrintGameOver = "GAME OVER";
+	private String sPrintFalscheWaffe = "Deine Faust ist gegen diesen Gegner nicht effektiv!";
 
 	protected SpriteSheet lebensherzensheet;
 	protected Image speicherpunkt2;
@@ -218,6 +219,7 @@ public class StartGame extends BasicGameState {
 		 * Map3
 		 */
 		objKevin.add(new Boss1(10 * 32, 10 * 32, 3));
+		objItems.add(new Items(2 * 32, 5 * 32, 3, 4));
 
 		objFeuer.add(new Feuer(9 * 32, 10 * 32, 3));
 		objFeuer.add(new Feuer(6 * 32, 7 * 32, 3));
@@ -236,7 +238,7 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map4
 		 */
-		objItems.add(new Items(1 * 32, 3 * 32, 4, 4));
+
 
 		/*
 		 * Map5
@@ -417,6 +419,14 @@ public class StartGame extends BasicGameState {
 			g.drawString(sPrintGameOver, 240, 200);
 			g.drawString(sPrintZurMenu, 20, 325);
 		}
+		
+		if (wrongweapon ==1)
+		{
+			g.setColor(Color.white);
+			g.fillRect(140, 500, 465, 20);
+			g.setColor(Color.red);
+			g.drawString(sPrintFalscheWaffe, 140, 500);
+		}
 	}
 
 	public void updateMap(int mapcounter) throws SlickException {
@@ -556,9 +566,18 @@ public class StartGame extends BasicGameState {
 
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
-			objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL1));
+		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) 
+		{
+			System.out.println(Ausruestung.getWaffe()+" "+mapcounter);
+			if(Ausruestung.getWaffe() == 0 && mapcounter == 3)
+			{
+				wrongweapon =1;
+			}else{
+				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL1));
+				wrongweapon =0;
+			}
 		}
+		 
 
 		if (container.getInput().isKeyPressed(Input.KEY_3)) {
 			if (objJack.getMana() >= 20)
@@ -594,9 +613,6 @@ public class StartGame extends BasicGameState {
 			}
 		}
 
-		// if (!objJack.pruefeKollsion(objGegner).isEmpty()) {
-		// objJack.setHp(objJack.getHp() - 1);
-		// }
 
 		// sterben
 		if (objJack.getHp() < 1) {

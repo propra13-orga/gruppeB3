@@ -101,6 +101,10 @@ public class Ausruestung
 	{
 		waffe = swaffe;
 	}
+	public static int getWaffe() 
+	{
+		return waffe;
+	}
 	
 	public static void setgeld(int addgeld) 
 	{

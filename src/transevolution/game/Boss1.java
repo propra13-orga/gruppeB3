@@ -95,9 +95,9 @@ public class Boss1 extends Checkkoll {
 		if (leben > 0) {
 			kevinAnimation.draw(this.x, this.y);
 			g.setColor(Color.black);
-			g.fillRect(this.x + 28, this.y + 2, 2, 20);
+			g.fillRect(this.x + 28, this.y + 2, 2, (int) (80 / 50. * 20 / 1.2));
 			g.setColor(Color.red);
-			g.fillRect(this.x + 28, this.y + 2, 2, (int) (leben / 50. * 20));
+			g.fillRect(this.x + 28, this.y + 2, 2, (int) (leben / 50. * 20 / 1.2));
 			
 			if (angriff) {
 				switch (bewegungRichtung) {

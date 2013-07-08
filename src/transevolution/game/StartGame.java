@@ -238,21 +238,85 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map4
 		 */
-
+		objItems.add(new Items(23 * 32, 2 * 32, 4, 2));
 
 		/*
 		 * Map5
 		 */
 		objItems.add(new Items(13 * 32, 4 * 32, 5, 3));
+		objGegner.add(new Wachmann(3 * 32, 10 * 32, 5));
+		objGegner.add(new Wachmann(5 * 32, 12 * 32, 5));
+		objGegner.add(new Wachmann(23 * 32, 5 * 32, 5));
+		objGegner.add(new Wachmann(3 * 32, 2 * 32, 5));
+		objGegner.add(new Wachmann(23 * 32, 14 * 32, 5));
 		/*
 		 * Map6
 		 */
 		objFeuer.add(new Feuer(704, 32, 6));
 		objFeuer.add(new Feuer(704, 480, 6));
+		objFeuer.add(new Feuer(9 * 32, 10 * 32, 6));
+		objFeuer.add(new Feuer(6 * 32, 7 * 32, 6));
+		objFeuer.add(new Feuer(8 * 32, 5 * 32, 6));
+		objFeuer.add(new Feuer(15 * 32, 9 * 32, 6));
+		objFeuer.add(new Feuer(18 * 32, 6 * 32, 6));
+		objFeuer.add(new Feuer(4 * 32, 6 * 32, 6));
+		objFeuer.add(new Feuer(5 * 32, 3 * 32, 6));
+		objFeuer.add(new Feuer(13 * 32, 4 * 32, 6));
+		objFeuer.add(new Feuer(15 * 32, 14 * 32, 6));
+		objFeuer.add(new Feuer(18 * 32, 13 * 32, 6));
+		objFeuer.add(new Feuer(13 * 32, 12 * 32, 6));
+		objFeuer.add(new Feuer(14 * 32, 11 * 32, 6));
+		objFeuer.add(new Feuer(4 * 32, 8 * 32, 6));
+		objFeuer.add(new Feuer(3 * 32, 10 * 32, 6));
+		objFeuer.add(new Feuer(5 * 32, 7 * 32, 6));
+		objFeuer.add(new Feuer(13 * 32, 5 * 32, 6));
+		objFeuer.add(new Feuer(14 * 32, 9 * 32, 6));
+		objFeuer.add(new Feuer(18 * 32, 3 * 32, 6));
+		objFeuer.add(new Feuer(4 * 32, 4 * 32, 6));
+		objFeuer.add(new Feuer(5 * 32, 8 * 32, 6));
+		objFeuer.add(new Feuer(13 * 32, 14 * 32, 6));
+		objFeuer.add(new Feuer(15 * 32, 13 * 32, 6));
+		objFeuer.add(new Feuer(18 * 32, 13 * 32, 6));
+		objFeuer.add(new Feuer(13 * 32, 10 * 32, 6));
+		objFeuer.add(new Feuer(14 * 32, 1 * 32, 6));
+		objFeuer.add(new Feuer(9 * 32, 3 * 32, 6));
+
+		objGegner.add(new Wachmann(8 * 32, 12 * 32, 6));
+		objGegner.add(new Wachmann(23 * 32, 8 * 32, 6));
+		objGegner.add(new Wachmann(23 * 32, 14 * 32, 6));
+		objKevin.add(new Boss1(15 * 32, 8* 32, 6));
 
 		/*
 		 * Map7
 		 */
+		
+		/*
+		 * Map8
+		 */
+		objGegner.add(new Wachmann(3 * 32, 10 * 32, 8));
+		objGegner.add(new Wachmann(6 * 32, 12 * 32, 8));
+		objGegner.add(new Wachmann(23 * 32, 7 * 32, 8));
+		objGegner.add(new Wachmann(2 * 32, 2 * 32, 8));
+		objGegner.add(new Wachmann(23 * 32, 14 * 32, 8));
+		objGegner.add(new Wachmann(17 * 32, 7 * 32, 8));
+		objGegner.add(new Wachmann(9 * 32, 6 * 32, 8));
+		objGegner.add(new Wachmann(13 * 32, 5 * 32, 8));
+
+		
+		/*
+		 * Map9
+		 */
+		objGegner.add(new Wachmann(3 * 32, 10 * 32, 9));
+		objGegner.add(new Wachmann(5 * 32, 12 * 32, 9));
+		objGegner.add(new Wachmann(23 * 32, 10 * 32, 9));
+		objGegner.add(new Wachmann(8 * 32, 8 * 32, 9));
+		objGegner.add(new Wachmann(23 * 32, 11 * 32, 9));
+		objGegner.add(new Wachmann(17 * 32, 9 * 32, 9));
+		objGegner.add(new Wachmann(9 * 32, 7 * 32, 9));
+		objGegner.add(new Wachmann(13 * 32, 8 * 32, 9));
+		objKevin.add(new Boss1(15 * 32, 8* 32, 9));
+		
+		
 		iMapWechsel++;
 
 	}

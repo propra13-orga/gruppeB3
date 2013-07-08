@@ -495,6 +495,8 @@ public class StartGame extends BasicGameState {
 		objCks.clear();
 		objCks.addAll(objFeuer);
 		objCks.addAll(objWalls);
+		
+		
 
 		for (int i = 0; i < objGegner.size(); i++) {
 			Wachmann ge = (Wachmann) objGegner.get(i);
@@ -565,6 +567,7 @@ public class StartGame extends BasicGameState {
 			brennen.play();
 
 		}
+		
 
 		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) 
 		{

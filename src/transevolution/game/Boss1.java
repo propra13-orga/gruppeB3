@@ -11,67 +11,70 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 
-public class Boss1 extends Checkkoll{
-	
-//	private Feuer_Attacke attacke;
-	
+public class Boss1 extends Checkkoll {
+
+	// private Feuer_Attacke attacke;
+
 	private Animation kevinAnimation;
 	private SpriteSheet kevinSpriteSheet;
 	private Shape flaecheKampf;
 	private int leben = 80;
-	
+	boolean angriff = false;
+	private SpriteSheet angriffSpriteSheet;
+	private Animation angriffAnimation;
+
 	/**
-	 * 0 -> unten
-	 * 1 -> links
-	 * 2 -> rechts
-	 * 3 -> oben
+	 * 0 -> unten 1 -> links 2 -> rechts 3 -> oben
 	 */
-	private int bewegungRichtung =3;
-	
+	private int bewegungRichtung = 3;
+
 	public Boss1(int x, int y, int mapID) throws SlickException {
 		super(x, y, mapID);
+		angriffSpriteSheet = new SpriteSheet(
+				"res/pictures/schaden_expl1.png", 32, 32);
+		angriffAnimation = new Animation(angriffSpriteSheet, 140);
 		kevinSpriteSheet = new SpriteSheet("res/pictures/kevin.png", 32, 32);
-		kevinAnimation = new Animation(kevinSpriteSheet, 0, 
-									   bewegungRichtung, 3, 
-									   bewegungRichtung, 
-									   true, 300, true);
-		flaecheKampf = new Polygon(new float[] {
-				x - 1, y - 1, x + 32, y -1, x + 32, y + 32, x - 1, y + 32});
-		
-//		attacke = new Feuer_Attacke();
+		kevinAnimation = new Animation(kevinSpriteSheet, 0, bewegungRichtung,
+				3, bewegungRichtung, true, 300, true);
+		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1,
+				x + 32, y + 32, x - 1, y + 32 });
+
+		// attacke = new Feuer_Attacke();
 	}
-//		// Attacke erzeugen
-//	public Feuer_attacke generateAttacke() {
-//		Feuer_attacke attacke = new Feuer_attacke(x,y);
-//		return attacke;
-//	}
-//	
-	public void update(GameContainer container, int delta, ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
+
+	// // Attacke erzeugen
+	// public Feuer_attacke generateAttacke() {
+	// Feuer_attacke attacke = new Feuer_attacke(x,y);
+	// return attacke;
+	// }
+	//
+	public void update(GameContainer container, int delta,
+			ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
 		if (leben <= 0)
 			return;
 		int Xwert = this.x;
 		int Ywert = this.y;
-		
-		if (isKollision(objJack)) {
+
+		if (isKollision(objJack, objJack)) {
 			return;
 		}
-		
+
 		switch (bewegungRichtung) {
-		case 0:	//unten
+		case 0: // unten
 			this.y += 1;
 			break;
-		case 1: //links
+		case 1: // links
 			this.x -= 1;
 			break;
-		case 2: //rechts
-			this.x +=1;
-		case 3: //oben
+		case 2: // rechts
+			this.x += 1;
+		case 3: // oben
 			this.y -= 1;
 			break;
 		}
 		kollisionsFlaeche.setX(this.x);
 		kollisionsFlaeche.setY(this.y);
-		
+
 		// Koll.-pruefung
 		if (!pruefeKollsion(spObj, this.getMapID()).isEmpty()) {
 			this.x = Xwert;
@@ -79,14 +82,12 @@ public class Boss1 extends Checkkoll{
 			kollisionsFlaeche.setX(this.x);
 			kollisionsFlaeche.setY(this.y);
 			// neue Richtung suchen
-			bewegungRichtung = (int)((Math.random())*4);
+			bewegungRichtung = (int) ((Math.random()) * 4);
 			kevinAnimation = new Animation(kevinSpriteSheet, 0,
-										   bewegungRichtung, 3,
-										   bewegungRichtung,
-										   true, 300, true);
+					bewegungRichtung, 3, bewegungRichtung, true, 300, true);
 		}
-		flaecheKampf.setX(this.x-1);
-		flaecheKampf.setY(this.y-1);
+		flaecheKampf.setX(this.x - 1);
+		flaecheKampf.setY(this.y - 1);
 	}
 
 	@Override
@@ -94,38 +95,65 @@ public class Boss1 extends Checkkoll{
 		if (leben > 0) {
 			kevinAnimation.draw(this.x, this.y);
 			g.setColor(Color.black);
-			g.fillRect(this.x+28, this.y+2, 2, 20);
+			g.fillRect(this.x + 28, this.y + 2, 2, 20);
 			g.setColor(Color.red);
-			g.fillRect(this.x+28, this.y+2, 2, (int)(leben/50. * 20));
+			g.fillRect(this.x + 28, this.y + 2, 2, (int) (leben / 50. * 20));
+			
+			if (angriff) {
+				switch (bewegungRichtung) {
+				case 0:
+
+					angriffAnimation.draw(this.x, this.y + 16);
+					break;
+				case 1:
+
+					angriffAnimation.draw(this.x - 16, this.y);
+					break;
+				case 2:
+
+					angriffAnimation.draw(this.x + 16, this.y);
+					break;
+				case 3:
+
+					angriffAnimation.draw(this.x, this.y - 16);
+					break;
+
+				}
+			}
 		}
 	}
-	
+
 	public int getLeben() {
 		return leben;
 	}
-	
+
 	public void setLeben(int leben) {
 		this.leben = leben;
 	}
-	
-	private boolean isKollision(Checkkoll spObj){
-		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf)==true) {
+
+	private boolean isKollision(Checkkoll spObj, Jack objJack) {
+		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
+			objJack.setHp(objJack.getHp() - 0.6);
+			angriff = true;
 			return true;
+		}
+		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == false) {
+			angriff = false;
 		}
 		return false;
 	}
-	
-	public void setLebenMinusEins(){
+
+	public void setLebenMinusEins() {
 		this.leben--;
 	}
-	
-	@SuppressWarnings("unused") //hat Milo genervt, gez: smaycan
+
+	@SuppressWarnings("unused")
+	// hat Milo genervt, gez: smaycan
 	private boolean isKampf(ArrayList<Checkkoll> spObj) {
-		for(Checkkoll obj:spObj)
-			if(obj.kollisionsFlaeche.intersects(this.flaecheKampf)==true) {
+		for (Checkkoll obj : spObj)
+			if (obj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
 				return true;
 			}
 		return false;
 	}
 }
-

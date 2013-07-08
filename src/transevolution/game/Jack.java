@@ -12,7 +12,7 @@ public class Jack extends Checkkoll {
 	private Animation jackAnimation;
 
 	private int leben = 3;
-	private int hp = 100;
+	private float hp = 100;
 	private int mana = 100;
 
 	// Bild von Jack
@@ -168,16 +168,16 @@ public class Jack extends Checkkoll {
 
 	}
 
-	public int getHp() {
+	public float getHp() {
 		return hp;
 	}
 
-	public void setHp(int hp) {
-		if (hp > 100)
+	public void setHp(double d) {
+		if (d > 100)
 		{
-			hp = 100;
+			d = 100;
 		}
-		this.hp = hp;
+		this.hp = (float) d;
 	}
 	
 

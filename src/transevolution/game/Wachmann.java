@@ -9,6 +9,9 @@ public class Wachmann extends Checkkoll {
 	private Animation wachmannAnimation;
 	private SpriteSheet wachmannSpriteSheet;
 	private Shape flaecheKampf;
+	boolean angriff = false;
+	private SpriteSheet angriffSpriteSheet;
+	private Animation angriffAnimation;
 
 	private int leben = 50;
 
@@ -21,6 +24,10 @@ public class Wachmann extends Checkkoll {
 		super(x, y, mapID);
 		wachmannSpriteSheet = new SpriteSheet("res/pictures/wachmann.png", 32,
 				32);
+		angriffSpriteSheet = new SpriteSheet(
+				"res/pictures/angriffwachmann.png", 32, 32);
+		angriffAnimation = new Animation(angriffSpriteSheet, 140);
+
 		wachmannAnimation = new Animation(wachmannSpriteSheet, 0,
 				bewegungRichtung, 3, bewegungRichtung, true, 300, true);
 		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1,
@@ -34,7 +41,7 @@ public class Wachmann extends Checkkoll {
 		int Xwert = this.x;
 		int Ywert = this.y;
 
-		if (isKollision(objJack)) {
+		if (isKollision(objJack, objJack)) {
 			return;
 		}
 
@@ -77,7 +84,28 @@ public class Wachmann extends Checkkoll {
 			g.setColor(Color.black);
 			g.fillRect(this.x + 28, this.y + 2, 2, 20);
 			g.setColor(Color.red);
-			g.fillRect(this.x + 28, this.y + 2, 2, (int)(leben/50. * 20));
+			g.fillRect(this.x + 28, this.y + 2, 2, (int) (leben / 50. * 20));
+			if (angriff) {
+				switch (bewegungRichtung) {
+				case 0:
+
+					angriffAnimation.draw(this.x, this.y + 16);
+					break;
+				case 1:
+
+					angriffAnimation.draw(this.x - 16, this.y);
+					break;
+				case 2:
+
+					angriffAnimation.draw(this.x + 16, this.y);
+					break;
+				case 3:
+
+					angriffAnimation.draw(this.x, this.y - 16);
+					break;
+
+				}
+			}
 		}
 	}
 
@@ -89,25 +117,20 @@ public class Wachmann extends Checkkoll {
 		this.leben = leben;
 	}
 
-	private boolean isKollision(Checkkoll spObj) {
+	private boolean isKollision(Checkkoll spObj, Jack objJack) {
 		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
+			objJack.setHp(objJack.getHp() - 0.2);
+			angriff = true;
 			return true;
+		}
+		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == false) {
+			angriff = false;
 		}
 		return false;
 	}
-	
-	public void setLebenMinusEins(){
+
+	public void setLebenMinusEins() {
 		this.leben--;
 	}
 
-	@SuppressWarnings("unused")
-	// hat mich genervt, gez: mlz
-	private boolean isKampf(ArrayList<Checkkoll> spObj) {
-
-		for (Checkkoll obj : spObj)
-			if (obj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
-				return true;
-			}
-		return false;
-	}
 }

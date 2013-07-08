@@ -6,13 +6,13 @@ import org.newdawn.slick.SlickException;
 
 public class Lebenspunkteanzeige 
 {	
-	public static int hoehe;
-	public static void Lebenspunkte(int hp)
+	public static float hoehe;
+	public static void Lebenspunkte(float f)
 	{
 		
 			
 		
-		hoehe = hp*2;
+		hoehe = f*2;
 			
 		
 	}

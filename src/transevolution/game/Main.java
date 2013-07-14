@@ -29,6 +29,7 @@ public class Main extends StateBasedGame
 	    this.addState(new StartGame());
 	    this.addState(new Shop());
 	    this.addState(new Kasino());
+	    this.addState(new Erfahrung());
 	    this.addState(new Mulitplayer());
 	    this.addState(new Multi_DeathMatch());
 	    this.addState(new Multi_Coop());

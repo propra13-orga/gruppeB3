@@ -24,6 +24,9 @@ public class Schaden extends Checkkoll {
 	public static final int SCHADEN_NAH_EXPL2 = 2;
 	public static final int SCHADEN_FAUST = 3;
 	
+	 static int pluserfahrungschaden = 0;
+
+	
 	/**
 	 * @param x Koordinate der x-Achse
 	 * @param y Koordinate der y-Achse
@@ -40,19 +43,19 @@ public class Schaden extends Checkkoll {
 			{
 			case 0:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_faust.png", 32, 32);
-				schadenAnimation = new Animation(schadenSpriteSheet, 140);
+				schadenAnimation = new Animation(schadenSpriteSheet, 140 + pluserfahrungschaden);
 				Sound faust = new Sound("res/sounds/PUNCH.wav");
 				faust.play();
 				break;
 			case 1:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/itemmesser.png", 32, 32);
-				schadenAnimation = new Animation(schadenSpriteSheet, 180);
+				schadenAnimation = new Animation(schadenSpriteSheet, 180 + pluserfahrungschaden);
 				Sound messer = new Sound("res/sounds/dagger.wav");
 				messer.play();
 				break;
 			case 2:
 				schadenSpriteSheet = new SpriteSheet("res/pictures/itemschlagstock.png", 32, 32);
-				schadenAnimation = new Animation(schadenSpriteSheet, 160);
+				schadenAnimation = new Animation(schadenSpriteSheet, 160 + pluserfahrungschaden);
 				Sound stock = new Sound("res/sounds/baton.wav");
 				stock.play();
 				break;
@@ -61,7 +64,7 @@ public class Schaden extends Checkkoll {
 			break;
 		case SCHADEN_NAH_EXPL2:
 			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl2.png", 32, 32);
-			schadenAnimation = new Animation(schadenSpriteSheet, 150);
+			schadenAnimation = new Animation(schadenSpriteSheet, 150 + pluserfahrungschaden);
 			break;
 /*		case SCHADEN_FAUST:
 			schadenSpriteSheet = new SpriteSheet("res/pictures/schaden_expl2.png", 32, 32);
@@ -88,5 +91,9 @@ public class Schaden extends Checkkoll {
 	 */
 	public boolean isDead() {
 		return schadenAnimation.isStopped();
+	}
+	public static void seterfahrungschaden()
+	{
+		pluserfahrungschaden ++;
 	}
 }

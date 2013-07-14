@@ -59,6 +59,9 @@ public class StartGame extends BasicGameState {
 	public int wrongweapon;
 	public int mapcounter;
 
+	public static int erfahrung = 0;
+	static String erfahrunganzeige = ""+erfahrung;
+	
 	boolean gewonnen;
 
 	public int sprechen;
@@ -105,6 +108,8 @@ public class StartGame extends BasicGameState {
 		hintergrund = null;
 		game = null;
 		quest = 0;
+		erfahrung = 0;
+		erfahrunganzeige = ""+erfahrung;
 
 		gewonnen = false;
 
@@ -377,6 +382,11 @@ public class StartGame extends BasicGameState {
 		Manaanzeige.draw(g);
 
 		Ausruestung.draw(g);
+		
+		g.setColor(Color.white);
+		String xptext ="XP:";
+		g.drawString(xptext, 802, 352);
+		g.drawString(erfahrunganzeige, 802, 368);
 
 		if (mapcounter != 1) {
 			// Spielfeldgröße definieren
@@ -732,6 +742,12 @@ public class StartGame extends BasicGameState {
 		if (taste == Input.KEY_N) {
 			iMapWechsel = -1;
 		}
+		//erfahrungsstate
+		if (taste == Input.KEY_X) {
+			iMapWechsel = 4;
+			
+			enterStateAndreinit(Erfahrung.stateID);
+		}
 		// Shop betreten
 		if (taste == Input.KEY_J && shophaendler_x * 32 >= objJack.getX() - 32 && shophaendler_x * 32 <= objJack.getX() + 32 && shophaendler_y * 32 <= objJack.getY() + 32 && shophaendler_y * 32 >= objJack.getY() - 32) {
 			System.out.println("Shop betreten");
@@ -761,6 +777,8 @@ public class StartGame extends BasicGameState {
 			System.out.println("Quest abgeschlossen");
 			quest =2;
 			Ausruestung.setgeld(-100);
+			erfahrung += 500;
+			erfahrunganzeige = ""+erfahrung;
 			
 			sprechen =0;
 		}
@@ -1006,5 +1024,15 @@ public class StartGame extends BasicGameState {
 		}
 		
 		return sh;
+	}
+	
+	public static void seterfahrung(int plusexp) 
+	{
+		erfahrung += plusexp;
+		erfahrunganzeige = ""+erfahrung;
+	}
+	public static int geterfahrung() 
+	{
+		return erfahrung;
 	}
 }

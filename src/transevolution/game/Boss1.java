@@ -23,6 +23,8 @@ public class Boss1 extends Checkkoll {
 	private SpriteSheet angriffSpriteSheet;
 	private Animation angriffAnimation;
 
+	
+	float abzug = (float) 0.6;
 	/**
 	 * 0 -> unten 1 -> links 2 -> rechts 3 -> oben
 	 */
@@ -51,7 +53,11 @@ public class Boss1 extends Checkkoll {
 	public void update(GameContainer container, int delta,
 			ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
 		if (leben <= 0)
+		{
+			StartGame.seterfahrung(100);
+			System.out.println("boss tot");
 			return;
+		}
 		int Xwert = this.x;
 		int Ywert = this.y;
 
@@ -133,7 +139,7 @@ public class Boss1 extends Checkkoll {
 
 	private boolean isKollision(Checkkoll spObj, Jack objJack) {
 		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
-			objJack.setHp(objJack.getHp() - 0.6);
+			objJack.setHp(objJack.getHp() - abzug);
 			angriff = true;
 			return true;
 		}
@@ -155,5 +161,10 @@ public class Boss1 extends Checkkoll {
 				return true;
 			}
 		return false;
+	}
+	
+	public void setabzug()
+	{
+		abzug -= 0.01;
 	}
 }

@@ -14,6 +14,8 @@ public class Wachmann extends Checkkoll {
 	private Animation angriffAnimation;
 
 	private int leben = 50;
+	
+	float abzug = (float) 0.2;
 
 	/*
 	 * 0: unten; 1: links; 2: rechts; 3: oben
@@ -37,7 +39,10 @@ public class Wachmann extends Checkkoll {
 	public void update(GameContainer container, int delta,
 			ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
 		if (leben <= 0)
+		{
+			StartGame.seterfahrung(20);
 			return;
+		}
 		int Xwert = this.x;
 		int Ywert = this.y;
 
@@ -119,7 +124,7 @@ public class Wachmann extends Checkkoll {
 
 	private boolean isKollision(Checkkoll spObj, Jack objJack) {
 		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
-			objJack.setHp(objJack.getHp() - 0.2);
+			objJack.setHp(objJack.getHp() - abzug);
 			angriff = true;
 			return true;
 		}
@@ -131,6 +136,11 @@ public class Wachmann extends Checkkoll {
 
 	public void setLebenMinusEins() {
 		this.leben--;
+	}
+	
+	public void setabzug()
+	{
+		abzug -= 0.01;
 	}
 
 }

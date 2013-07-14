@@ -34,7 +34,9 @@ public class Sprechblase {
 	private static String t1 = "*frier* *frier*";
 	private static String t2 = "Hast du schon 100 Dollar für";
 	private static String t3 = "mich?";
-	private static String u1 = "Danke dir!";
+	private static String u1 = "Danke dir, du hast 500 XP ";
+	private static String u2 = "erhalten.";
+
 
 
 
@@ -117,6 +119,7 @@ public class Sprechblase {
 		else if(text ==6)
 		{
 			g.drawString(u1, sprechx+5, sprechy+3);
+			g.drawString(u2, sprechx+5, sprechy+15);
 		}
 		
 	}

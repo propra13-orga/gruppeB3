@@ -21,7 +21,7 @@ public class Ausruestung
 	protected static Image geldsack;
 	protected static Image schlagstock;
 	
-	static String geldanzeige = ""+geld;;
+	static String geldanzeige = ""+geld;
 	
 	public static void reset(){
 		reset(0, 0, 0);

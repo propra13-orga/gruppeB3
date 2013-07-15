@@ -799,7 +799,7 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 			FileReader fr;
 			BufferedReader br;
 			try {
-				fr = new FileReader("res/maps/txtmap/map1.txt");
+				fr = new FileReader("res/maps/usermaps/umap1.txt");
 				br = new BufferedReader(fr);
 
 				String zeile;

@@ -1,7 +1,10 @@
 package transevolution.game;
 
+
 import java.awt.Font;
+
 import java.io.InputStream;
+
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -16,9 +19,9 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class Sandkastenmodus_Menu extends BasicGameState {
-	// stateID fuers Sankasten_Menuegleich 85
-	public static final int stateID = 85;
+public class Sandkastenmodus_Mapeditieren extends BasicGameState {
+	// stateID fuers Sankasten_Menuegleich 86
+	public static final int stateID = 86;
 
 	Image hintergrund = null;
 	TrueTypeFont font;
@@ -28,12 +31,12 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 
 	// Auwahlmoelichkeiten im Menue
 
-	private String[] auswahl = new String[] { "Sandkastenmodus starten", "neue Map erstellen", "bestehende Map editieren", "Reihenfolge verändern", "Zurueck" };
+	private String[] auswahl = new String[] { "Map editieren", "xxx", "xxx", "xxx", "Zurueck" };
 
 	private StateBasedGame game;
 
 	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
-		hintergrund = new Image("res/pictures/background.png");
+		hintergrund = new Image("res/pictures/editorhintergrund.png");
 		this.game = sbg;
 		// eigenes Font laden
 		try {
@@ -48,6 +51,9 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		 
+		
 	}
 
 	// zeichnen
@@ -55,6 +61,9 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		hintergrund.draw(0, 0);
 
 		g.setFont(font);
+		
+		
+
 
 		// auswaelen der States
 		for (int a = 0; a < 5; a++) {
@@ -87,16 +96,16 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		if (taste == Input.KEY_ENTER || taste == Input.KEY_SPACE) {
 			switch (wahl) {
 			case 0:
-				enterStateAndreinit(Sandkastenmodus_StartGame.stateID);
+		        new Mapeditor();
 				break;
 			case 1:
-				
+				enterStateAndreinit(Mulitplayer.stateID);
 				break;
 			case 2:
-				enterStateAndreinit(Sandkastenmodus_Mapeditieren.stateID);
+				enterStateAndreinit(Einstellungen.stateID);
 				break;
 			case 3:
-				//enterStateAndreinit(Credits.stateID);
+				enterStateAndreinit(Credits.stateID);
 				break;
 			case 4:
 				enterStateAndreinit(Menu.stateID);

@@ -26,6 +26,7 @@ public class Main extends StateBasedGame
 	    this.addState(new Menu());
 	    this.addState(new Sandkastenmodus_Menu());
 	    this.addState(new Sandkastenmodus_StartGame());
+	    this.addState(new Sandkastenmodus_Mapeditieren());
 	    this.addState(new Credits());
 	    this.addState(new Einstellungen());
 	    this.addState(new StartGame());

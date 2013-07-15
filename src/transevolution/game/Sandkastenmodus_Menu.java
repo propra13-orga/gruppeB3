@@ -1,4 +1,4 @@
-  package transevolution.game;
+package transevolution.game;
 
 import java.awt.Font;
 import java.io.InputStream;
@@ -8,7 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
@@ -17,9 +16,9 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class Menu extends BasicGameState {
-	// stateID fuers Menuegleich 0
-	public static final int stateID = 0;
+public class Sandkastenmodus_Menu extends BasicGameState {
+	// stateID fuers Sankasten_Menuegleich 85
+	public static final int stateID = 85;
 
 	Image hintergrund = null;
 	TrueTypeFont font;
@@ -29,7 +28,7 @@ public class Menu extends BasicGameState {
 
 	// Auwahlmoelichkeiten im Menue
 
-	private String[] auswahl = new String[] { "Spiel starten", "Multiplayer", "Sandkastenmodus", "Einstellungen", "Credits", "Spiel beenden" };
+	private String[] auswahl = new String[] { "Sandkastenmodus starten", "neue Map erstellen", "bestehende Map editieren", "Reihenfolge verändern", "Zurueck" };
 
 	private StateBasedGame game;
 
@@ -45,10 +44,6 @@ public class Menu extends BasicGameState {
 			awtFont = awtFont.deriveFont(24f);
 			font = new TrueTypeFont(awtFont, false);
 
-			// Msuik
-			Music music = new Music("res/sounds/game.wav");
-
-			music.loop();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,13 +57,13 @@ public class Menu extends BasicGameState {
 		g.setFont(font);
 
 		// auswaelen der States
-		for (int a = 0; a < 6; a++) {
+		for (int a = 0; a < 5; a++) {
 			g.setColor(Color.white);
 
 			if (a == wahl) {
 				g.setColor(Color.orange);
 			}
-			g.drawString(auswahl[a], 350, 200 + (a * 60));
+			g.drawString(auswahl[a], 350, 230 + (a * 65));
 		}
 	}
 
@@ -80,34 +75,31 @@ public class Menu extends BasicGameState {
 	public void keyReleased(int taste, char c) {
 		if (taste == Input.KEY_DOWN) {
 			wahl++;
-			wahl = wahl % 6;
+			wahl = wahl % 5;
 		}
 		if (taste == Input.KEY_UP) {
 			wahl--;
 			if (wahl < 0) {
-				wahl = 5;
+				wahl = 4;
 			}
 		}
 		// Auswaehlen mit Enter oder Leertaste
 		if (taste == Input.KEY_ENTER || taste == Input.KEY_SPACE) {
 			switch (wahl) {
 			case 0:
-				enterStateAndreinit(StartGame.stateID);
+				enterStateAndreinit(Sandkastenmodus_StartGame.stateID);
 				break;
 			case 1:
 				enterStateAndreinit(Mulitplayer.stateID);
 				break;
 			case 2:
-				enterStateAndreinit(Sandkastenmodus_Menu.stateID);
-				break;
-			case 3:
 				enterStateAndreinit(Einstellungen.stateID);
 				break;
-			case 4:
+			case 3:
 				enterStateAndreinit(Credits.stateID);
 				break;
-			case 5:
-				System.exit(0);
+			case 4:
+				enterStateAndreinit(Menu.stateID);
 				break;
 			default:
 				System.out.println("Fehler bei der Auswahl");

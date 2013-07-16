@@ -28,7 +28,8 @@ public class Mapeditor extends JFrame {
         super("Mapeditor");
  
         textfeld = new JTextArea(25, 45);
-        ladenbutton = buttonerstellen("Map laden", new ActionListener() 
+        
+ /*       ladenbutton = buttonerstellen("Map laden", new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
             {
@@ -40,6 +41,13 @@ public class Mapeditor extends JFrame {
                 }
             }
         });
+   */     
+        try 
+        {
+        	textfeld.read(new FileReader(file), null);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
  
         speicherbutton = buttonerstellen("Save", new ActionListener() 
         {
@@ -55,7 +63,7 @@ public class Mapeditor extends JFrame {
         });
         
         add(textfeld,BorderLayout.NORTH);
-        add(ladenbutton,BorderLayout.CENTER);
+    //    add(ladenbutton,BorderLayout.CENTER);
         add(speicherbutton,BorderLayout.SOUTH);
         
         pack();

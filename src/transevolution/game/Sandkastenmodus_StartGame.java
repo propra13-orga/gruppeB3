@@ -294,6 +294,9 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 					case ' ':
 						g.drawImage(boden, x * 32, y * 32);
 						break;
+					case '_':
+						g.drawImage(boden, x * 32, y * 32);
+						break;
 					case '0':
 						g.drawImage(ebene, x * 32, y * 32);
 						break;

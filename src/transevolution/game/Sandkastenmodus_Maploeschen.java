@@ -1,7 +1,11 @@
 package transevolution.game;
 
+
 import java.awt.Font;
+
+import java.io.File;
 import java.io.InputStream;
+
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -16,24 +20,25 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class Sandkastenmodus_Menu extends BasicGameState {
-	// stateID fuers Sankasten_Menuegleich 85
-	public static final int stateID = 85;
+public class Sandkastenmodus_Maploeschen extends BasicGameState {
+	// stateID fuers Sankasten_loeschen gleich 88
+	public static final int stateID = 88;
 
 	Image hintergrund = null;
 	TrueTypeFont font;
 
 	// zur Auswahl aus dem Menue
-	private int wahl = 0;
+	private static int wahl = 0;
 
 	// Auwahlmoelichkeiten im Menue
 
-	private String[] auswahl = new String[] {"Sandkastenmodus starten", "Map editieren/erstellen", "Map löschen", "Reihenfolge verändern", "Zurueck" };
+	private String[] auswahl = new String[] { "Map 1 loeschen", "Map 2 loeschen", "Map 3 loeschen", "Map 4 loeschen", "Zurueck" };
+	private String warnung = new String ("Vorsicht! Nur fuer erfahrene Programmierer ;)");
 
 	private StateBasedGame game;
 
 	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
-		hintergrund = new Image("res/pictures/background.png");
+		hintergrund = new Image("res/pictures/editorhintergrund.png");
 		this.game = sbg;
 		// eigenes Font laden
 		try {
@@ -48,6 +53,9 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		 
+		
 	}
 
 	// zeichnen
@@ -55,6 +63,10 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		hintergrund.draw(0, 0);
 
 		g.setFont(font);
+		
+		g.setColor(Color.red);
+		g.drawString(warnung, 150, 150);
+
 
 		// auswaelen der States
 		for (int a = 0; a < 5; a++) {
@@ -69,6 +81,16 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 
 	public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException {
 
+	}
+	
+	public void maploeschen()
+	{
+        File file = new File("res/maps/usermaps/umap"+(wahl+1)+".txt");
+        
+        if(file.exists())
+        {
+            file.delete();
+        }
 	}
 
 	// Bewegen im Menue mit Pfeiltasten
@@ -87,19 +109,19 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		if (taste == Input.KEY_ENTER || taste == Input.KEY_SPACE) {
 			switch (wahl) {
 			case 0:
-				enterStateAndreinit(Sandkastenmodus_StartGame.stateID);
+		        maploeschen();
 				break;
 			case 1:
-				enterStateAndreinit(Sandkastenmodus_Mapeditieren.stateID);
+		        maploeschen();
 				break;
 			case 2:
-				enterStateAndreinit(Sandkastenmodus_Maploeschen.stateID);
+		        maploeschen();
 				break;
 			case 3:
-				
+		        maploeschen();
 				break;
 			case 4:
-				enterStateAndreinit(Menu.stateID);
+				enterStateAndreinit(Sandkastenmodus_Menu.stateID);
 				break;
 			default:
 				System.out.println("Fehler bei der Auswahl");
@@ -120,6 +142,11 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 	public int getID() {
 
 		return stateID;
+	}
+	
+	public static int getwahl()
+	{
+		return wahl+1;
 	}
 
 }

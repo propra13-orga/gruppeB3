@@ -27,11 +27,11 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 	TrueTypeFont font;
 
 	// zur Auswahl aus dem Menue
-	private int wahl = 0;
+	private static int wahl = 0;
 
 	// Auwahlmoelichkeiten im Menue
 
-	private String[] auswahl = new String[] { "Map editieren", "xxx", "xxx", "xxx", "Zurueck" };
+	private String[] auswahl = new String[] {"Mapbeispiel", "Map 1 editieren/erstellen", "Map 2 editieren/erstellen", "Map 3 editieren/erstellen", "Map 4 editieren/erstellen", "Zurueck" };
 
 	private StateBasedGame game;
 
@@ -99,16 +99,19 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 		        new Mapeditor();
 				break;
 			case 1:
-				enterStateAndreinit(Mulitplayer.stateID);
+		        new Mapeditor();
 				break;
 			case 2:
-				enterStateAndreinit(Einstellungen.stateID);
+		        new Mapeditor();
 				break;
 			case 3:
-				enterStateAndreinit(Credits.stateID);
+		        new Mapeditor();
 				break;
 			case 4:
-				enterStateAndreinit(Menu.stateID);
+		        new Mapeditor();
+				break;
+			case 5:
+				enterStateAndreinit(Sandkastenmodus_Menu.stateID);
 				break;
 			default:
 				System.out.println("Fehler bei der Auswahl");
@@ -129,6 +132,11 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 	public int getID() {
 
 		return stateID;
+	}
+	
+	public static int getwahl()
+	{
+		return wahl+1;
 	}
 
 }

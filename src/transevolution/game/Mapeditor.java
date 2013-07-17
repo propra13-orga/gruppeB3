@@ -19,8 +19,7 @@ public class Mapeditor extends JFrame {
 
 	JButton speicherbutton;
 
-	File file = new File(
-			"res/maps/usermaps/umap1.txt");
+	File file = new File("res/maps/usermaps/umap"+(Sandkastenmodus_Mapeditieren.getwahl()+1)+".txt");
 
 	public Mapeditor() {
 		super("Mapeditor");

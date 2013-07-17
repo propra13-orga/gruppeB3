@@ -269,7 +269,7 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 		if (mapcounter == 0)
 			return;
 
-		if (mapcounter == 1) {
+		if (mapcounter > 0) {
 			char kachel;
 
 			Image boden = new Image("res/maps/txtmap/boden.png");
@@ -691,7 +691,7 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 		// Exit aus dem Spiel mit Escape
 
 		if (taste == Input.KEY_ESCAPE) {
-			enterStateAndreinit(Menu.stateID);
+			enterStateAndreinit(Sandkastenmodus_Menu.stateID);
 		}
 
 		if (taste == Input.KEY_M) {
@@ -735,7 +735,7 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 			System.out.println("Quest abgeschlossen");
 			quest =2;
 			Ausruestung.setgeld(-100);
-			erfahrung += 500;
+			erfahrung += 300;
 			erfahrunganzeige = ""+erfahrung;
 			
 			sprechen =0;
@@ -802,7 +802,7 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 			FileReader fr;
 			BufferedReader br;
 			try {
-				fr = new FileReader("res/maps/usermaps/umap1.txt");
+				fr = new FileReader("res/maps/usermaps/umap"+mapcounter+".txt");
 				br = new BufferedReader(fr);
 
 				String zeile;

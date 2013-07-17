@@ -66,13 +66,13 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 
 
 		// auswaelen der States
-		for (int a = 0; a < 5; a++) {
+		for (int a = 0; a < 6; a++) {
 			g.setColor(Color.white);
 
 			if (a == wahl) {
 				g.setColor(Color.orange);
 			}
-			g.drawString(auswahl[a], 350, 230 + (a * 65));
+			g.drawString(auswahl[a], 350, 160 + (a * 65));
 		}
 	}
 
@@ -84,12 +84,12 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 	public void keyReleased(int taste, char c) {
 		if (taste == Input.KEY_DOWN) {
 			wahl++;
-			wahl = wahl % 5;
+			wahl = wahl % 6;
 		}
 		if (taste == Input.KEY_UP) {
 			wahl--;
 			if (wahl < 0) {
-				wahl = 4;
+				wahl = 5;
 			}
 		}
 		// Auswaehlen mit Enter oder Leertaste

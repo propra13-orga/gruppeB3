@@ -36,13 +36,15 @@ public class Erfahrung extends BasicGameState
 	
 	int kosten;
 	
+	public static boolean NOVA = false;
+	
 	static int erfahrung = StartGame.geterfahrung();
 	
 	
 	//Text zum anzeigen + Zurück"Button"
 	
 	private String p1 = "Angriff +1";
-	private String p2 = "Auswahl2";
+	private String p2 = "NOVA erlernen";
 	private String p3 = "Auswahl3";
 	private String p4 = "Verteidigung +1";
 	private String p5 = "Auswahl5";
@@ -54,7 +56,7 @@ public class Erfahrung extends BasicGameState
 	static String erfahrungsanzeigeanzeige = "Dollar: ";
 	
 	protected Image hausmeister;
-	protected Image messer, schutzweste;
+	protected Image messer, schutzweste, nova;
 	
 	private String back= "Zurueck"; 
 	int wahly =0;
@@ -68,6 +70,7 @@ public class Erfahrung extends BasicGameState
 		hausmeister = new Image("res/pictures/hausmeister.png");
 		messer = new Image("res/pictures/messer.png");
 		schutzweste = new Image("res/pictures/schutzweste.png");
+		nova = new Image("res/pictures/nova.png"); 
 		
 		this.game =sbg;
 		
@@ -100,7 +103,7 @@ public class Erfahrung extends BasicGameState
 		g.drawString(p1, 90, 80);
 		g.drawImage(messer, 30, 80);
 		g.drawString(p2, 90, 160);
-		g.drawImage(hausmeister, 30, 160);
+		g.drawImage(nova, 30, 160);
 		g.drawString(p3, 90, 240);	
 		g.drawImage(hausmeister, 30, 240);
 		g.drawString(p4, 480, 80);
@@ -202,6 +205,18 @@ public class Erfahrung extends BasicGameState
 				}
 				break;
 
+			case 2:	
+				kosten =150;
+				if(erfahrung-kosten>=0)
+				{
+					NOVA = true;
+				kauf = 1;
+				}
+				else{
+					kauf =-1;
+				}
+				break;
+			
 			case 4:	
 				kosten =50;
 				if(erfahrung-kosten>=0)

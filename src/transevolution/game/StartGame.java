@@ -656,7 +656,7 @@ public class StartGame extends BasicGameState {
 		}
 		 
 
-		if (container.getInput().isKeyPressed(Input.KEY_3)) {
+		if (container.getInput().isKeyPressed(Input.KEY_3)&& Erfahrung.NOVA == true) {
 			if (objJack.getMana() >= 20)
 			{
 				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL2));

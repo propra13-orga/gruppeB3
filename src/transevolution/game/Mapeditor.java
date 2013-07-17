@@ -19,7 +19,7 @@ public class Mapeditor extends JFrame {
 
 	JButton speicherbutton;
 
-	File file = new File("res/maps/usermaps/umap"+(Sandkastenmodus_Mapeditieren.getwahl()+1)+".txt");
+	File file = new File("res/maps/usermaps/umap"+(Sandkastenmodus_Mapeditieren.getwahl()-1)+".txt");
 
 	public Mapeditor() {
 		super("Mapeditor");
@@ -41,10 +41,14 @@ public class Mapeditor extends JFrame {
 				}
 			}
 		});
-
+		
 		add(textfeld, BorderLayout.NORTH);
-		add(speicherbutton, BorderLayout.SOUTH);
 
+		if((Sandkastenmodus_Mapeditieren.getwahl()-1) != 0)
+		{	
+			add(speicherbutton, BorderLayout.SOUTH);
+		}
+		
 		pack();
 
 		setVisible(true);

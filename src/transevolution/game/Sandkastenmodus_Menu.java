@@ -28,7 +28,7 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 
 	// Auwahlmoelichkeiten im Menue
 
-	private String[] auswahl = new String[] {"Sandkastenmodus starten", "Map editieren/erstellen", "Map löschen", "Reihenfolge verändern", "Zurueck" };
+	private String[] auswahl = new String[] {"Sandkastenmodus starten", "Map editieren/erstellen", "Map löschen", "Zurueck" };
 
 	private StateBasedGame game;
 
@@ -57,7 +57,7 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 		g.setFont(font);
 
 		// auswaelen der States
-		for (int a = 0; a < 5; a++) {
+		for (int a = 0; a < 4; a++) {
 			g.setColor(Color.white);
 
 			if (a == wahl) {
@@ -75,12 +75,12 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 	public void keyReleased(int taste, char c) {
 		if (taste == Input.KEY_DOWN) {
 			wahl++;
-			wahl = wahl % 5;
+			wahl = wahl % 4;
 		}
 		if (taste == Input.KEY_UP) {
 			wahl--;
 			if (wahl < 0) {
-				wahl = 4;
+				wahl = 3;
 			}
 		}
 		// Auswaehlen mit Enter oder Leertaste
@@ -96,10 +96,10 @@ public class Sandkastenmodus_Menu extends BasicGameState {
 				enterStateAndreinit(Sandkastenmodus_Maploeschen.stateID);
 				break;
 			case 3:
-				
+				enterStateAndreinit(Menu.stateID);
 				break;
 			case 4:
-				enterStateAndreinit(Menu.stateID);
+
 				break;
 			default:
 				System.out.println("Fehler bei der Auswahl");

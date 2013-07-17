@@ -112,6 +112,8 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 		quest = 0;
 		erfahrung = 0;
 		erfahrunganzeige = ""+erfahrung;
+		
+
 
 		gewonnen = false;
 
@@ -295,6 +297,11 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 						g.drawImage(boden, x * 32, y * 32);
 						break;
 					case '_':
+						g.drawImage(boden, x * 32, y * 32);
+						break;
+					case 'X':
+					case 'F':
+					case 'B':
 						g.drawImage(boden, x * 32, y * 32);
 						break;
 					case '0':
@@ -797,6 +804,10 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 	public void initMap(String sMapFullName, int mapID) throws SlickException {
 		resetStaticElements();
 
+		objKevin.clear();
+		objGegner.clear();
+		objFeuer.clear();
+		
 		if (sMapFullName.endsWith(".txt")) {
 			// map einlesen (txt9
 			FileReader fr;
@@ -856,7 +867,15 @@ public class Sandkastenmodus_StartGame extends BasicGameState {
 					case '0':
 						objWalls.add(0, new Wand(x * 32, y * 32, mapID));
 						break;
-
+					case 'X':
+						objGegner.add(new Wachmann(x * 32, y * 32, mapcounter));
+						break;
+					case 'F':	
+						objFeuer.add(new Feuer(x * 32, y * 32, mapcounter));
+						break;
+					case 'B':	
+						objKevin.add(new Boss1(x * 32, y * 32, mapcounter));
+						break;
 					case 'A':
 						exit_x = x;
 						exit_y = y;

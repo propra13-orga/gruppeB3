@@ -302,6 +302,8 @@ public class StartGame extends BasicGameState {
 		/*
 		 * Map7
 		 */
+		
+		objItems.add(new Items(15 * 32, 3 * 32, 7, 1));
 
 		/*
 		 * Map8

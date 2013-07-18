@@ -28,7 +28,7 @@ public class Mulitplayer extends BasicGameState{
 		//zur Auswahl
 		private int wahl =0;
 		
-		private String[] auswahl = new String[] { "Death Match", "Coop-Modus", "Menu" };
+		private String[] auswahl = new String[] { "Lobby", "Death Match", "Coop-Modus", "Menu" };
 
 		public void init(GameContainer container, StateBasedGame sbg) throws SlickException 
 		{
@@ -57,7 +57,7 @@ public class Mulitplayer extends BasicGameState{
 
 			
 			// auswaelen der States
-			for (int a = 0; a < 3; a++) {
+			for (int a = 0; a < 4; a++) {
 				g.setColor(Color.white);
 
 				if (a == wahl) {
@@ -74,14 +74,14 @@ public class Mulitplayer extends BasicGameState{
 			if(taste == Input.KEY_DOWN)
 			{
 				wahl++;
-				wahl= wahl % 3;
+				wahl= wahl % 4;
 			}
 			if(taste == Input.KEY_UP)
 			{
 				wahl--;
 				if(wahl < 0)
 				{
-					wahl = 2;
+					wahl = 3;
 				}
 			}
 			
@@ -90,12 +90,15 @@ public class Mulitplayer extends BasicGameState{
 			{
 				switch(wahl) {
 				case 0:
-					enterStateAndreinit(Multi_DeathMatch.stateID);
+					new Lobby();
 					break;
 				case 1:
-					enterStateAndreinit(Multi_Coop.stateID);
+					enterStateAndreinit(Multi_DeathMatch.stateID);
 					break;
 				case 2:
+					enterStateAndreinit(Multi_Coop.stateID);
+					break;
+				case 3:
 					enterStateAndreinit(Menu.stateID);
 					break;
 				default:

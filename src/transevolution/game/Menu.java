@@ -52,7 +52,7 @@ public class Menu extends BasicGameState {
 			font = new TrueTypeFont(awtFont, false);
 
 			// Msuik
-			Music music = new Music("res/sounds/game.wav");
+			Music music = new Music("res/sounds/intro.wav");
 
 			music.loop();
 

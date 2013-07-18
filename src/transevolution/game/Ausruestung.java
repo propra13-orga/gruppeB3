@@ -1,5 +1,9 @@
 package transevolution.game;
 
+/**
+ * Diese Klasse kümmert sich um die Ausrüstung von Jack, unserem Hauptcharakter. Sie speicher seine Items 
+ * und zeigt diese auch im Spiel an.
+ */
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -23,9 +27,20 @@ public class Ausruestung
 	
 	static String geldanzeige = ""+geld;
 	
+	/**
+	 * Setzt Jacks Ausrüstung auf Anfangszustand.
+	 */
+	
 	public static void reset(){
 		reset(0, 0, 0);
 	}
+	
+	/**
+	 * Setzt Jacks Ausrüstung auf  Anfangszustand
+	 * @param a Anfangswaffe ID
+	 * @param b Anfangsrüstung ID
+	 * @param geldbeginn Anfangsgeld
+	 */
 	
 	public static void reset(int a, int b, int geldbeginn)
 	{
@@ -34,6 +49,13 @@ public class Ausruestung
 		geld = geldbeginn;
 		geldanzeige = ""+geld;
 	}
+	
+	/**
+	 * Funktion zum kaufen im Shop
+	 * @param a neu gekaufte Waffe
+	 * @param b neu gekaufte Rüstung
+	 * @param geldabzug Preis
+	 */
 	
 	public static void gekauft(int a, int b, int geldabzug)
 	{
@@ -44,6 +66,10 @@ public class Ausruestung
 	}
 	
 
+	/**
+	 * die Items werden gemalt am Rand
+	 *
+	 */
 	
 	
 	public static void draw(Graphics g) throws SlickException

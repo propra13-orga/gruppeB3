@@ -1,5 +1,9 @@
 package transevolution.game;
 
+/**
+ * Klasse des Gegners: Bosses
+ */
+
 import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
@@ -30,6 +34,13 @@ public class Boss1 extends Checkkoll {
 	 */
 	private int bewegungRichtung = 3;
 
+	/**
+	 * Zeichnen des Bosses und seiner Attacken
+	 * @param x x korrdinate des bosses
+	 * @param y y koordinate des bosses
+	 * @param mapID auf welcher map der boss gezeichnet wird
+	 */
+	
 	public Boss1(int x, int y, int mapID) throws SlickException {
 		super(x, y, mapID);
 		angriffSpriteSheet = new SpriteSheet(
@@ -41,15 +52,13 @@ public class Boss1 extends Checkkoll {
 		flaecheKampf = new Polygon(new float[] { x - 1, y - 1, x + 32, y - 1,
 				x + 32, y + 32, x - 1, y + 32 });
 
-		// attacke = new Feuer_Attacke();
 	}
 
-	// // Attacke erzeugen
-	// public Feuer_attacke generateAttacke() {
-	// Feuer_attacke attacke = new Feuer_attacke(x,y);
-	// return attacke;
-	// }
-	//
+	/**
+	 * Aktualisierung des Bosses ja nachdem welche Aktion dieses durchführt
+	 *
+	 */
+
 	public void update(GameContainer container, int delta,
 			ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
 		if (leben <= 0)
@@ -96,6 +105,10 @@ public class Boss1 extends Checkkoll {
 		flaecheKampf.setY(this.y - 1);
 	}
 
+	/**
+	 * Animation des Bosses, Bewegung und Lebensanzeige
+	 */
+	
 	@Override
 	public void draw(Graphics g) throws SlickException {
 		if (leben > 0) {
@@ -137,6 +150,10 @@ public class Boss1 extends Checkkoll {
 		this.leben = leben;
 	}
 
+	/**
+	 * Kollisionsüberprüfung zwischen Jack und dem Boss, gegebenfalls Lebensabzug bei Jack
+	 */
+	
 	private boolean isKollision(Checkkoll spObj, Jack objJack) {
 		if (spObj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
 			objJack.setHp(objJack.getHp() - abzug);
@@ -153,15 +170,7 @@ public class Boss1 extends Checkkoll {
 		this.leben--;
 	}
 
-	@SuppressWarnings("unused")
-	// hat Milo genervt, gez: smaycan
-	private boolean isKampf(ArrayList<Checkkoll> spObj) {
-		for (Checkkoll obj : spObj)
-			if (obj.kollisionsFlaeche.intersects(this.flaecheKampf) == true) {
-				return true;
-			}
-		return false;
-	}
+
 	
 	public void setabzug()
 	{

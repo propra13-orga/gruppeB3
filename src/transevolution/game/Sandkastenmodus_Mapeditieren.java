@@ -1,5 +1,8 @@
 package transevolution.game;
 
+/**
+ * Menü für den Mapeditor
+ */
 
 import java.awt.Font;
 
@@ -56,7 +59,9 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 		
 	}
 
-	// zeichnen
+	/**
+	 *  zeichnen
+	 */
 	public void render(GameContainer container, StateBasedGame sbg, Graphics g) throws SlickException {
 		hintergrund.draw(0, 0);
 
@@ -65,7 +70,9 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 		
 
 
-		// auswaelen der States
+		/**
+		 *  auswaelen der States
+		 */
 		for (int a = 0; a < 6; a++) {
 			g.setColor(Color.white);
 
@@ -80,7 +87,10 @@ public class Sandkastenmodus_Mapeditieren extends BasicGameState {
 
 	}
 
-	// Bewegen im Menue mit Pfeiltasten
+	/**
+	 *  Bewegen im Menue mit Pfeiltasten
+	 *  @param taste gedrückte taste
+	 */
 	public void keyReleased(int taste, char c) {
 		if (taste == Input.KEY_DOWN) {
 			wahl++;

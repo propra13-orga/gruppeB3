@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
+/**
+ * 
+ * Die Bewegungsanimation, die Kollisionsfläche während eines Kampfes mit Jack
+ * und die Angriffsanimation von Gegner wird erstellt
+ * 
+ */
 public class Wachmann extends Checkkoll {
 
 	private Animation wachmannAnimation;
@@ -14,7 +20,7 @@ public class Wachmann extends Checkkoll {
 	private Animation angriffAnimation;
 
 	private int leben = 50;
-	
+
 	float abzug = (float) 0.2;
 
 	/*
@@ -38,8 +44,7 @@ public class Wachmann extends Checkkoll {
 
 	public void update(GameContainer container, int delta,
 			ArrayList<Checkkoll> spObj, Jack objJack) throws SlickException {
-		if (leben <= 0)
-		{
+		if (leben <= 0) {
 			StartGame.seterfahrung(20);
 			return;
 		}
@@ -137,9 +142,8 @@ public class Wachmann extends Checkkoll {
 	public void setLebenMinusEins() {
 		this.leben--;
 	}
-	
-	public void setabzug()
-	{
+
+	public void setabzug() {
 		abzug -= 0.01;
 	}
 

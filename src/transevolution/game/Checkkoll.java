@@ -7,7 +7,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.*;
 
-//Hier werden Kollisionen überprüft, indem alle Objekte in Arrays gespeichert werden
+/**
+ * Hier werden Kollisionen überprüft, indem alle Objekte in Arrays gespeichert werden
+ * 
+ *
+ */
 
 public abstract class Checkkoll {
 	
@@ -35,7 +39,12 @@ public abstract class Checkkoll {
 	public void update(GameContainer container, int delta) throws SlickException {
 	};
 
-	// x und y-koordinate der Spielobjekte
+	/**
+	 *  x und y-koordinate der Spielobjekte
+	 * @param x der spielobjekte
+	 * @param y der spielobjekte
+	 * @param mapID ID der map
+	 */
 	public Checkkoll(int x, int y, int mapID) throws SlickException {
 		this.x = x;
 		this.y = y;
@@ -56,12 +65,17 @@ public abstract class Checkkoll {
 		return kollisionsFlaeche;
 	}
 
-	// tatsächliche Kollisionsüberprüfung
+	/**
+	 * tatsächliche Kollisionsüberprüfung
+	 * @param spielObjekt
+	 */
 	public boolean pruefeKollsion(Checkkoll spielObjekt) {
 		return kollisionsFlaeche.intersects(spielObjekt.getkollFlaeche());
 	}
 
-	// neue Arraylisten
+	/**
+	 *  neue Arraylisten
+	 */
 	public ArrayList<Checkkoll> pruefeKollsion(ArrayList<Checkkoll> spObj, int mapID) {
 		ArrayList<Checkkoll> objKoll = new ArrayList<Checkkoll>();
 
@@ -79,7 +93,9 @@ public abstract class Checkkoll {
 		return pruefeKollsion(spObj, this.mapID);
 	}
 	
-	// Anzahl der Kollisionen
+	/**
+	 *  Anzahl der Kollisionen
+	 */
 	public boolean pruefePolyKollision(Polygon flaeche) {
 		return kollisionsFlaeche.intersects(flaeche);
 	}

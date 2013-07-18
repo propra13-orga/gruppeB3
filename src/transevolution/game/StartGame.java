@@ -23,6 +23,12 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
+/**
+ * Das wichtigeste Klasse des gesamten Spiels, hier wird hauptsächlich die
+ * vorgeschriebene .java Klassen zusammengefügt und ausgeführt. Es gibt den
+ * Startschuss für das Spiel "TRANS EVOLUTION"
+ * 
+ */
 public class StartGame extends BasicGameState {
 	// stateID für das StartGame gleich 1
 	public static final int stateID = 1;
@@ -60,8 +66,8 @@ public class StartGame extends BasicGameState {
 	public int mapcounter;
 
 	public static int erfahrung = 0;
-	static String erfahrunganzeige = ""+erfahrung;
-	
+	static String erfahrunganzeige = "" + erfahrung;
+
 	boolean gewonnen;
 
 	public int sprechen;
@@ -109,7 +115,7 @@ public class StartGame extends BasicGameState {
 		game = null;
 		quest = 0;
 		erfahrung = 0;
-		erfahrunganzeige = ""+erfahrung;
+		erfahrunganzeige = "" + erfahrung;
 
 		gewonnen = false;
 
@@ -136,7 +142,6 @@ public class StartGame extends BasicGameState {
 		kasino_y = -50;
 		kasinozwi_x = -50;
 		kasinozwi_y = -50;
-		
 
 		Ausruestung.reset();
 
@@ -157,7 +162,8 @@ public class StartGame extends BasicGameState {
 		kasinozwi_y = -50;
 	}
 
-	public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
+	public void init(GameContainer container, StateBasedGame sbg)
+			throws SlickException {
 		if (iMapWechsel == 4) {
 			iMapWechsel = 0;
 			return;
@@ -169,7 +175,8 @@ public class StartGame extends BasicGameState {
 
 		// eigenes Font laden
 		try {
-			InputStream inputStream = ResourceLoader.getResourceAsStream("res/fonts/Volter__28Goldfish_29.ttf");
+			InputStream inputStream = ResourceLoader
+					.getResourceAsStream("res/fonts/Volter__28Goldfish_29.ttf");
 
 			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			// Font Größe
@@ -185,7 +192,8 @@ public class StartGame extends BasicGameState {
 		 */
 		objJack = new Jack(start_x * 32, start_y * 32, 1);
 		// Steuerkeys definieren
-		objJack.tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP, Input.KEY_DOWN);
+		objJack.tasteneinstellen(Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_UP,
+				Input.KEY_DOWN);
 
 		table_x = -50;
 		table_y = -50;
@@ -289,12 +297,12 @@ public class StartGame extends BasicGameState {
 		objGegner.add(new Wachmann(8 * 32, 12 * 32, 6));
 		objGegner.add(new Wachmann(23 * 32, 8 * 32, 6));
 		objGegner.add(new Wachmann(23 * 32, 14 * 32, 6));
-		objKevin.add(new Boss1(15 * 32, 8* 32, 6));
+		objKevin.add(new Boss1(15 * 32, 8 * 32, 6));
 
 		/*
 		 * Map7
 		 */
-		
+
 		/*
 		 * Map8
 		 */
@@ -307,7 +315,6 @@ public class StartGame extends BasicGameState {
 		objGegner.add(new Wachmann(9 * 32, 6 * 32, 8));
 		objGegner.add(new Wachmann(13 * 32, 5 * 32, 8));
 
-		
 		/*
 		 * Map9
 		 */
@@ -319,15 +326,15 @@ public class StartGame extends BasicGameState {
 		objGegner.add(new Wachmann(17 * 32, 9 * 32, 9));
 		objGegner.add(new Wachmann(9 * 32, 7 * 32, 9));
 		objGegner.add(new Wachmann(13 * 32, 8 * 32, 9));
-		objKevin.add(new Boss1(15 * 32, 8* 32, 9));
-		
-		
+		objKevin.add(new Boss1(15 * 32, 8 * 32, 9));
+
 		iMapWechsel++;
 
 	}
 
 	// zeichnen
-	public void render(GameContainer container, StateBasedGame sbg, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame sbg, Graphics g)
+			throws SlickException {
 		container.setVSync(true);
 
 		if (mapcounter == 0)
@@ -369,10 +376,12 @@ public class StartGame extends BasicGameState {
 			}
 		}
 
-		lebensherzensheet = new SpriteSheet("res/pictures/lebensherzen.png", 32, 32);
+		lebensherzensheet = new SpriteSheet("res/pictures/lebensherzen.png",
+				32, 32);
 		// lebensanzeige
 		if (0 <= objJack.getLeben() && objJack.getLeben() <= 5) {
-			g.drawImage(lebensherzensheet.getSprite(objJack.getLeben(), 0), 25 * 32, 0);
+			g.drawImage(lebensherzensheet.getSprite(objJack.getLeben(), 0),
+					25 * 32, 0);
 		}
 
 		Lebenspunkteanzeige.Lebenspunkte(objJack.getHp());
@@ -382,16 +391,18 @@ public class StartGame extends BasicGameState {
 		Manaanzeige.draw(g);
 
 		Ausruestung.draw(g);
-		
+
 		g.setColor(Color.white);
-		String xptext ="XP:";
+		String xptext = "XP:";
 		g.drawString(xptext, 802, 352);
 		g.drawString(erfahrunganzeige, 802, 368);
 
 		if (mapcounter != 1) {
 			// Spielfeldgröße definieren
-			float xwert = (float) (float) container.getWidth() / (float) (map.getWidth() * map.getTileWidth() + 32);
-			float ywert = (float) (float) container.getHeight() / (float) (map.getHeight() * map.getTileHeight());
+			float xwert = (float) (float) container.getWidth()
+					/ (float) (map.getWidth() * map.getTileWidth() + 32);
+			float ywert = (float) (float) container.getHeight()
+					/ (float) (map.getHeight() * map.getTileHeight());
 
 			g.scale(xwert, ywert);
 			// Map zeichnen
@@ -432,7 +443,7 @@ public class StartGame extends BasicGameState {
 			g.drawImage(kasinokerl, kasino_x * 32, kasino_y * 32);
 		}
 		// Boss1 zeichnen
-		for (Checkkoll ge: objKevin) {
+		for (Checkkoll ge : objKevin) {
 			ge.draw(g, mapcounter);
 		}
 
@@ -454,13 +465,15 @@ public class StartGame extends BasicGameState {
 
 		// Jack zeichnen
 		objJack.draw(g, mapcounter);
-		
+
 		if (sprechen == 1) {
-			Sprechblase.Sprechblasezeigen(hausmeister_x * 32, hausmeister_y * 32, 1);
+			Sprechblase.Sprechblasezeigen(hausmeister_x * 32,
+					hausmeister_y * 32, 1);
 			Sprechblase.draw(g);
 		}
 		if (sprechen == 2) {
-			Sprechblase.Sprechblasezeigen(shophaendler_x * 32, shophaendler_y * 32, 2);
+			Sprechblase.Sprechblasezeigen(shophaendler_x * 32,
+					shophaendler_y * 32, 2);
 			Sprechblase.draw(g);
 		}
 		if (sprechen == 3) {
@@ -468,18 +481,21 @@ public class StartGame extends BasicGameState {
 			Sprechblase.draw(g);
 		}
 		if (sprechen == 4) {
-			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 4);
+			Sprechblase
+					.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 4);
 			Sprechblase.draw(g);
 		}
 		if (sprechen == 5) {
-			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 5);
+			Sprechblase
+					.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 5);
 			Sprechblase.draw(g);
 		}
 		if (sprechen == 6) {
-			Sprechblase.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 6);
+			Sprechblase
+					.Sprechblasezeigen(kasinozwi_x * 32, kasinozwi_y * 32, 6);
 			Sprechblase.draw(g);
 		}
-		
+
 		if (gewonnen) {
 			g.setFont(font);
 			g.setColor(Color.orange);
@@ -493,9 +509,8 @@ public class StartGame extends BasicGameState {
 			g.drawString(sPrintGameOver, 240, 200);
 			g.drawString(sPrintZurMenu, 20, 325);
 		}
-		
-		if (wrongweapon ==1)
-		{
+
+		if (wrongweapon == 1) {
 			g.setColor(Color.white);
 			g.fillRect(140, 500, 465, 20);
 			g.setColor(Color.red);
@@ -530,7 +545,8 @@ public class StartGame extends BasicGameState {
 		}
 	}
 
-	public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame sbg, int delta)
+			throws SlickException {
 
 		if (iMapWechsel == 1 && mapcounter < 9) {
 			mapcounter++;
@@ -569,8 +585,6 @@ public class StartGame extends BasicGameState {
 		objCks.clear();
 		objCks.addAll(objFeuer);
 		objCks.addAll(objWalls);
-		
-		
 
 		for (int i = 0; i < objGegner.size(); i++) {
 			Wachmann ge = (Wachmann) objGegner.get(i);
@@ -584,18 +598,18 @@ public class StartGame extends BasicGameState {
 				objGegner.remove(ge);
 			}
 		}
-			// Update Boss mit Kollisionsueberpreufung
-			for(int i=0; i < objKevin.size(); i++) {
-				Boss1 ge = (Boss1) objKevin.get(i);
-				if(ge.getMapID()==mapcounter) {
-					ge.update(container, delta, objCks, objJack);				}
-				if(ge.getLeben()<=0) {
-					Sound kevin_defeated = new Sound("res/sounds/WilhelmScream.wav");
-					kevin_defeated.play();
-				objKevin.remove(ge);
-				}
+		// Update Boss mit Kollisionsueberpreufung
+		for (int i = 0; i < objKevin.size(); i++) {
+			Boss1 ge = (Boss1) objKevin.get(i);
+			if (ge.getMapID() == mapcounter) {
+				ge.update(container, delta, objCks, objJack);
 			}
-
+			if (ge.getLeben() <= 0) {
+				Sound kevin_defeated = new Sound("res/sounds/WilhelmScream.wav");
+				kevin_defeated.play();
+				objKevin.remove(ge);
+			}
+		}
 
 		objCks.clear();
 		objCks.addAll(objWalls);
@@ -604,34 +618,55 @@ public class StartGame extends BasicGameState {
 		objJack.update(container, delta, container.getInput(), objCks);
 
 		// Sprechblase verlassen durch Bewegung
-		if (((hausmeister_x * 32 < objJack.getX() - 32 || hausmeister_x * 32 > objJack.getX() + 32) || (hausmeister_y * 32 > objJack.getY() + 32 || hausmeister_y * 32 < objJack.getY() - 32)) && sprechen == 1) {
+		if (((hausmeister_x * 32 < objJack.getX() - 32 || hausmeister_x * 32 > objJack
+				.getX() + 32) || (hausmeister_y * 32 > objJack.getY() + 32 || hausmeister_y * 32 < objJack
+				.getY() - 32))
+				&& sprechen == 1) {
 			sprechen = 0;
 		}
-		if (((shophaendler_x * 32 < objJack.getX() - 32 || shophaendler_x * 32 > objJack.getX() + 32) || (shophaendler_y * 32 > objJack.getY() + 32 || shophaendler_y * 32 < objJack.getY() - 32)) && sprechen == 2) {
+		if (((shophaendler_x * 32 < objJack.getX() - 32 || shophaendler_x * 32 > objJack
+				.getX() + 32) || (shophaendler_y * 32 > objJack.getY() + 32 || shophaendler_y * 32 < objJack
+				.getY() - 32))
+				&& sprechen == 2) {
 			sprechen = 0;
 		}
-		if (((kasino_x * 32 < objJack.getX() - 32 || kasino_x * 32 > objJack.getX() + 32) || (kasino_y * 32 > objJack.getY() + 32 || kasino_y * 32 < objJack.getY() - 32)) && sprechen == 3) {
+		if (((kasino_x * 32 < objJack.getX() - 32 || kasino_x * 32 > objJack
+				.getX() + 32) || (kasino_y * 32 > objJack.getY() + 32 || kasino_y * 32 < objJack
+				.getY() - 32))
+				&& sprechen == 3) {
 			sprechen = 0;
 		}
-		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack.getY() - 32)) && sprechen == 4) {
+		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack
+				.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack
+				.getY() - 32))
+				&& sprechen == 4) {
 			sprechen = 0;
 		}
-		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack.getY() - 32)) && sprechen == 5) {
+		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack
+				.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack
+				.getY() - 32))
+				&& sprechen == 5) {
 			sprechen = 0;
 		}
-		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack.getY() - 32)) && sprechen == 6) {
+		if (((kasinozwi_x * 32 < objJack.getX() - 32 || kasinozwi_x * 32 > objJack
+				.getX() + 32) || (kasinozwi_y * 32 > objJack.getY() + 32 || kasinozwi_y * 32 < objJack
+				.getY() - 32))
+				&& sprechen == 6) {
 			sprechen = 0;
 		}
 		// gucken ob jack nicht im start oder exit feld steht
-		if (((objJack.getX() / 32) != start_x || (objJack.getY() / 32) != start_y) && ((objJack.getX() / 32) != exit_x || (objJack.getY() / 32) != exit_y)) {
+		if (((objJack.getX() / 32) != start_x || (objJack.getY() / 32) != start_y)
+				&& ((objJack.getX() / 32) != exit_x || (objJack.getY() / 32) != exit_y)) {
 			bewegt = 1;
 		}
 		// map vor gehen
-		if ((((objJack.getX()) == exit_x * 32) && ((objJack.getY()) == exit_y * 32)) && bewegt == 1) {
+		if ((((objJack.getX()) == exit_x * 32) && ((objJack.getY()) == exit_y * 32))
+				&& bewegt == 1) {
 			iMapWechsel = 1;
 		}
 		// map zurück gehen
-		if ((((objJack.getX()) == start_x * 32) && ((objJack.getY()) == start_y * 32)) && bewegt == 1) {
+		if ((((objJack.getX()) == start_x * 32) && ((objJack.getY()) == start_y * 32))
+				&& bewegt == 1) {
 			iMapWechsel = -1;
 		}
 
@@ -641,28 +676,29 @@ public class StartGame extends BasicGameState {
 			brennen.play();
 
 		}
-		
 
-		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) 
-		{
-			System.out.println(Ausruestung.getWaffe()+" "+mapcounter);
-			if(Ausruestung.getWaffe() == 0 && mapcounter == 3)
-			{
-				wrongweapon =1;
-			}else{
-				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL1));
-				wrongweapon =0;
+		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
+			System.out.println(Ausruestung.getWaffe() + " " + mapcounter);
+			if (Ausruestung.getWaffe() == 0 && mapcounter == 3) {
+				wrongweapon = 1;
+			} else {
+				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(),
+						objJack.getBewegungKeyInput(), mapcounter,
+						Schaden.SCHADEN_NAH_EXPL1));
+				wrongweapon = 0;
 			}
 		}
-		 
 
-		if (container.getInput().isKeyPressed(Input.KEY_3)&& Erfahrung.NOVA == true) {
-			if (objJack.getMana() >= 20)
-			{
-				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(), objJack.getBewegungKeyInput(), mapcounter, Schaden.SCHADEN_NAH_EXPL2));
-				objJack.setMana(objJack.getMana() -20);
+		if (container.getInput().isKeyPressed(Input.KEY_3)
+				&& Erfahrung.NOVA == true) {
+			if (objJack.getMana() >= 20) {
+				objSchaden.add(getSchadenObjekt(objJack.getX(), objJack.getY(),
+						objJack.getBewegungKeyInput(), mapcounter,
+						Schaden.SCHADEN_NAH_EXPL2));
+				objJack.setMana(objJack.getMana() - 20);
 			}
 		}
+
 		ArrayList<Checkkoll> objItemsKoll = objJack.pruefeKollsion(objItems);
 		if (!objItemsKoll.isEmpty()) {
 			for (int i = objItemsKoll.size() - 1; i >= 0; i--) {
@@ -690,7 +726,6 @@ public class StartGame extends BasicGameState {
 			}
 		}
 
-
 		// sterben
 		if (objJack.getHp() < 1) {
 			Sound dying = new Sound("res/sounds/9scream.wav");
@@ -710,16 +745,16 @@ public class StartGame extends BasicGameState {
 		 */
 		for (int i = objSchaden.size() - 1; i >= 0; i--) {
 			Schaden sh = (Schaden) objSchaden.get(i);
-			
+
 			objCks.clear();
 			objCks.addAll(sh.pruefeKollsion(objGegner));
-			for(Checkkoll ge : objCks){
-				((Wachmann)ge).setLebenMinusEins();
+			for (Checkkoll ge : objCks) {
+				((Wachmann) ge).setLebenMinusEins();
 			}
 			objCks.clear();
 			objCks.addAll(sh.pruefeKollsion(objKevin));
-			for(Checkkoll ge: objCks) {
-				((Boss1)ge).setLebenMinusEins();
+			for (Checkkoll ge : objCks) {
+				((Boss1) ge).setLebenMinusEins();
 			}
 
 			if (sh.isDead()) {
@@ -742,14 +777,17 @@ public class StartGame extends BasicGameState {
 		if (taste == Input.KEY_N) {
 			iMapWechsel = -1;
 		}
-		//erfahrungsstate
+		// erfahrungsstate
 		if (taste == Input.KEY_X) {
 			iMapWechsel = 4;
-			
+
 			enterStateAndreinit(Erfahrung.stateID);
 		}
 		// Shop betreten
-		if (taste == Input.KEY_J && shophaendler_x * 32 >= objJack.getX() - 32 && shophaendler_x * 32 <= objJack.getX() + 32 && shophaendler_y * 32 <= objJack.getY() + 32 && shophaendler_y * 32 >= objJack.getY() - 32) {
+		if (taste == Input.KEY_J && shophaendler_x * 32 >= objJack.getX() - 32
+				&& shophaendler_x * 32 <= objJack.getX() + 32
+				&& shophaendler_y * 32 <= objJack.getY() + 32
+				&& shophaendler_y * 32 >= objJack.getY() - 32) {
 			System.out.println("Shop betreten");
 			sprechen = 0;
 
@@ -757,7 +795,10 @@ public class StartGame extends BasicGameState {
 
 			enterStateAndreinit(Shop.stateID);
 		}
-		if (taste == Input.KEY_J && kasino_x * 32 >= objJack.getX() - 32 && kasino_x * 32 <= objJack.getX() + 32 && kasino_y * 32 <= objJack.getY() + 32 && kasino_y * 32 >= objJack.getY() - 32) {
+		if (taste == Input.KEY_J && kasino_x * 32 >= objJack.getX() - 32
+				&& kasino_x * 32 <= objJack.getX() + 32
+				&& kasino_y * 32 <= objJack.getY() + 32
+				&& kasino_y * 32 >= objJack.getY() - 32) {
 			System.out.println("Kasino betreten");
 			sprechen = 0;
 
@@ -765,59 +806,85 @@ public class StartGame extends BasicGameState {
 
 			enterStateAndreinit(Kasino.stateID);
 		}
-		if ((taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 0) {
+		if ((taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32
+				&& kasinozwi_x * 32 <= objJack.getX() + 32
+				&& kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack
+				.getY() - 32) && quest == 0) {
 			System.out.println("Quest angenommen");
-			quest =1;
-			
-			sprechen =0;
+			quest = 1;
+
+			sprechen = 0;
 		}
-		if ((taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest ==1 && sprechen != 0) {
+		if ((taste == Input.KEY_J && kasinozwi_x * 32 >= objJack.getX() - 32
+				&& kasinozwi_x * 32 <= objJack.getX() + 32
+				&& kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack
+				.getY() - 32) && quest == 1 && sprechen != 0) {
 			if (Ausruestung.getgeld() < 100)
 				return;
 			System.out.println("Quest abgeschlossen");
-			quest =2;
+			quest = 2;
 			Ausruestung.setgeld(-100);
 			erfahrung += 500;
-			erfahrunganzeige = ""+erfahrung;
-			
-			sprechen =0;
-		}
+			erfahrunganzeige = "" + erfahrung;
 
+			sprechen = 0;
+		}
 
 		// Checkpointabfrage
 		if (taste == Input.KEY_E) {
-			if (table_x * 32 >= objJack.getX() - 32 && table_x * 32 <= objJack.getX() + 32 && table_y * 32 <= objJack.getY() + 32 && table_y * 32 >= objJack.getY() - 32) {
+			if (table_x * 32 >= objJack.getX() - 32
+					&& table_x * 32 <= objJack.getX() + 32
+					&& table_y * 32 <= objJack.getY() + 32
+					&& table_y * 32 >= objJack.getY() - 32) {
 				System.out.println("Checkpoint 1 setzen");
 				speicherpunktgesetzt = 1;
 			}
-			if (table2_x * 32 >= objJack.getX() - 32 && table2_x * 32 <= objJack.getX() + 32 && table2_y * 32 <= objJack.getY() + 32 && table2_y * 32 >= objJack.getY() - 32) {
+			if (table2_x * 32 >= objJack.getX() - 32
+					&& table2_x * 32 <= objJack.getX() + 32
+					&& table2_y * 32 <= objJack.getY() + 32
+					&& table2_y * 32 >= objJack.getY() - 32) {
 				System.out.println("Checkpoint 2 setzen");
 				speicherpunktgesetzt = 2;
 			}
 			if (sprechen != 0) {
 				sprechen = 0;
-			} else if (shophaendler_x * 32 >= objJack.getX() - 32 && shophaendler_x * 32 <= objJack.getX() + 32 && shophaendler_y * 32 <= objJack.getY() + 32 && shophaendler_y * 32 >= objJack.getY() - 32) {
+			} else if (shophaendler_x * 32 >= objJack.getX() - 32
+					&& shophaendler_x * 32 <= objJack.getX() + 32
+					&& shophaendler_y * 32 <= objJack.getY() + 32
+					&& shophaendler_y * 32 >= objJack.getY() - 32) {
 				sprechen = 2;
 				System.out.println("Shophaendler");
-			} else if (hausmeister_x * 32 >= objJack.getX() - 32 && hausmeister_x * 32 <= objJack.getX() + 32 && hausmeister_y * 32 <= objJack.getY() + 32 && hausmeister_y * 32 >= objJack.getY() - 32) {
+			} else if (hausmeister_x * 32 >= objJack.getX() - 32
+					&& hausmeister_x * 32 <= objJack.getX() + 32
+					&& hausmeister_y * 32 <= objJack.getY() + 32
+					&& hausmeister_y * 32 >= objJack.getY() - 32) {
 				sprechen = 1;
-			} else if (kasino_x * 32 >= objJack.getX() - 32 && kasino_x * 32 <= objJack.getX() + 32 && kasino_y * 32 <= objJack.getY() + 32 && kasino_y * 32 >= objJack.getY() - 32) {
+			} else if (kasino_x * 32 >= objJack.getX() - 32
+					&& kasino_x * 32 <= objJack.getX() + 32
+					&& kasino_y * 32 <= objJack.getY() + 32
+					&& kasino_y * 32 >= objJack.getY() - 32) {
 				sprechen = 3;
 				System.out.println("Kasinokerl");
-			} else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 0) {
+			} else if ((kasinozwi_x * 32 >= objJack.getX() - 32
+					&& kasinozwi_x * 32 <= objJack.getX() + 32
+					&& kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack
+					.getY() - 32) && quest == 0) {
 				sprechen = 4;
 				System.out.println("Kasinozwilling ohne quest");
-			}else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 1) {
+			} else if ((kasinozwi_x * 32 >= objJack.getX() - 32
+					&& kasinozwi_x * 32 <= objJack.getX() + 32
+					&& kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack
+					.getY() - 32) && quest == 1) {
 				sprechen = 5;
 				System.out.println("Kasinozwilling mit quest");
-			}else if ((kasinozwi_x * 32 >= objJack.getX() - 32 && kasinozwi_x * 32 <= objJack.getX() + 32 && kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack.getY() - 32) && quest == 2) {
+			} else if ((kasinozwi_x * 32 >= objJack.getX() - 32
+					&& kasinozwi_x * 32 <= objJack.getX() + 32
+					&& kasinozwi_y * 32 <= objJack.getY() + 32 && kasinozwi_y * 32 >= objJack
+					.getY() - 32) && quest == 2) {
 				sprechen = 6;
 				System.out.println("Kasinozwilling mit quest");
 			}
 		}
-
-		
-
 
 	}
 
@@ -829,7 +896,8 @@ public class StartGame extends BasicGameState {
 
 			e.printStackTrace();
 		}
-		game.enterState(stateID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+		game.enterState(stateID, new FadeOutTransition(Color.black),
+				new FadeInTransition(Color.black));
 	}
 
 	public int getID() {
@@ -1001,11 +1069,19 @@ public class StartGame extends BasicGameState {
 			map = new TiledMap(sMapFullName, "res/maps/tmxmaps");
 		}
 	}
-	
-	public Schaden getSchadenObjekt(int x, int y, int jackRichtung, int mapID, int schadenID) throws SlickException {
-		
+/**
+ * Jack fügt hier die Gegner Schaden zu
+ * @param x Jacks Position Koordinate x 
+ * @param y Jacks Position Koordinate y
+ * @param jackRichtung Jacks Gesichtposition damit der Angriff immer vor Ihm stattfindet 
+ * @param mapID ID der Map
+ * @param schadenID ID der unterschiedliche Schadensarten
+ */
+	public Schaden getSchadenObjekt(int x, int y, int jackRichtung, int mapID,
+			int schadenID) throws SlickException {
+
 		Schaden sh;
-		
+
 		switch (jackRichtung) {
 		case Jack.BEW_OBEN:
 			sh = new Schaden(x, y - 32, mapcounter, schadenID);
@@ -1022,17 +1098,16 @@ public class StartGame extends BasicGameState {
 		default:
 			sh = new Schaden(x, y, mapcounter, schadenID);
 		}
-		
+
 		return sh;
 	}
-	
-	public static void seterfahrung(int plusexp) 
-	{
+
+	public static void seterfahrung(int plusexp) {
 		erfahrung += plusexp;
-		erfahrunganzeige = ""+erfahrung;
+		erfahrunganzeige = "" + erfahrung;
 	}
-	public static int geterfahrung() 
-	{
+
+	public static int geterfahrung() {
 		return erfahrung;
 	}
 }

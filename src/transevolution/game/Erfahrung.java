@@ -1,6 +1,10 @@
 package transevolution.game;
 
-
+/**
+ * 
+ * Erfahrungsklasse
+ * hier kann der spieler seine spielfigur verbessern
+ */
 import java.awt.Font;
 import java.io.InputStream;
 

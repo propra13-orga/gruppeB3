@@ -1,5 +1,8 @@
 package transevolution.game;
 
+/**
+ * Spielobjekt Feuer wird animiert
+ */
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;

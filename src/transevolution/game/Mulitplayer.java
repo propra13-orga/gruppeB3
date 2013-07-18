@@ -1,5 +1,7 @@
 package transevolution.game;
-
+/**
+ * Multiplayerklasse
+ */
 import java.awt.Font;
 import java.io.InputStream;
 

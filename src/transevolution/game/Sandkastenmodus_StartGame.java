@@ -1,5 +1,10 @@
 package transevolution.game;
 
+/**
+ * StartGame welches für txtmaps angepasst wurde
+ * weiteres siehe StartGame
+ */
+
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;

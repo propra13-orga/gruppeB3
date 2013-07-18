@@ -1,6 +1,10 @@
 package transevolution.game;
 
 
+/**
+ * Auswahl zum Maps löschen
+ */
+
 import java.awt.Font;
 
 import java.io.File;
@@ -83,6 +87,9 @@ public class Sandkastenmodus_Maploeschen extends BasicGameState {
 
 	}
 	
+	/**
+	 * funktion zum maplöschen 
+	 */
 	public void maploeschen()
 	{
         File file = new File("res/maps/usermaps/umap"+(wahl+1)+".txt");

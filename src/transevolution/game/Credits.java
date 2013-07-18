@@ -1,5 +1,8 @@
 package transevolution.game;
 
+/**
+ * Credits: Vorstellen der Entwickler
+ */
 import java.awt.Font;
 import java.io.InputStream;
 
@@ -38,12 +41,9 @@ public class Credits extends BasicGameState
 	
 	private String back= "Zurueck"; 
 
+	
 	public void init(GameContainer container, StateBasedGame sbg)throws SlickException 
 	{
-		//Hintergrundmusik
-//		Sound credits = new Sound("res/sounds/credits.wav");
-//		credits.play();
-//		credits.loop();
 		
 		//Hintergrund laden
 		hintergrund = new Image("res/pictures/background.png");

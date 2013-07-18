@@ -19,10 +19,10 @@ public class Sprechblase {
 	private static String q1 = "Tagchen!";
 	private static String q2 = "Willst du etwas kaufen? Ich hab";
 	private static String q3 = "einiges, was sich für dich";
-	private static String q4 = "nützlich erweisen könnte.";
-	private static String r1 = "Hallöchen!";
+	private static String q4 = "nuetzlich erweisen koennte.";
+	private static String r1 = "Halloechen!";
 	private static String r2 = "Willst du dir was dazuverdienen?";
-	private static String r3 = "Wie wärs mit ner Runde Schnick-";
+	private static String r3 = "Wie waers mit ner Runde Schnick-";
 	private static String r4 = "Schack-Schnuck um 50 Dollar?";
 	private static String jn = "             [J]Ja [E]Ignorieren";
 	private static String s1 = "Hey du, du musst mir helfen,";

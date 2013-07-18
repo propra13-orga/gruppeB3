@@ -1,5 +1,11 @@
-  package transevolution.game;
-
+ package transevolution.game;
+/**
+ * Die Klasse stellt das Hauptmenue des Spiels auf.
+ * In dieser Klasse werden die Menuepunkte geschrieben und ins Fenster gezeichnet.
+ * Musik und das Hintergrundbild werden geladen und es wird eine neue StateID zugeteilt.
+ * Die Farbe der Menupunkte wird hier eingestellt.
+ * Außerdem steht hier die Erkennung des Druecken der Tasten durch den Spieler.
+ */
 import java.awt.Font;
 import java.io.InputStream;
 
@@ -114,7 +120,10 @@ public class Menu extends BasicGameState {
 			}
 		}
 	}
-
+/**
+ * Es wird per Pfeiltaste gesteuert damit man zwischen den Items in der Hauptmenü wechseln und bestätigen kann
+ * @param stateID die Identifizierung der veschiedene States
+ */
 	private void enterStateAndreinit(int stateID) {
 		try {
 			game.getState(stateID).init(game.getContainer(), game);

@@ -17,6 +17,9 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
+/**Kasinoklasse 
+ * 
+ */
 public class Kasino extends BasicGameState
 {
 	// stateID für den Kasino gleich 5

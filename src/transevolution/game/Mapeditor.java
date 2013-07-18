@@ -11,7 +11,11 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
-
+/**
+ * 
+ * Mapeditor zum Editieren der .txt Datein in Spiel
+ *
+ */
 @SuppressWarnings("serial")
 public class Mapeditor extends JFrame {
 

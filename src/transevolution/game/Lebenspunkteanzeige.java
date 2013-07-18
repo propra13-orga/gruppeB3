@@ -1,5 +1,7 @@
 package transevolution.game;
-
+/**
+ * Lebenspunkteanzeige wird erstellt und gezeichnet
+ */
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -17,7 +19,10 @@ public class Lebenspunkteanzeige
 		
 	}
 	
-	
+	/**
+	 * Lebenspunkteanzeige bekommt Farbe und Größe
+	 * 
+	 */
 	public static void draw(Graphics g) throws SlickException
 	{
 		g.setColor(Color.red);

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.*;
 
-// Jack ist die Spielfigur
-// diese Klasse regelt die Bewegung
+/**
+ *  Jack ist die Spielfigur
+ *  diese Klasse regelt die Bewegung
+ *
+ */
 
 public class Jack extends Checkkoll {
 
@@ -32,7 +35,12 @@ public class Jack extends Checkkoll {
 	private int drawAnimation = 2;
 	private boolean isPosXrechts, isPosYunten;
 
-	// Koordinaten von Jack und Bild laden
+	/**
+	 *  Koordinaten von Jack und Bild laden
+	 * @param x x koordinate
+	 * @param y y koordinate
+	 * @param mapID Spielkarte Nummerierung
+	 */
 	public Jack(int x, int y, int mapID) throws SlickException {
 		super(x, y, mapID);
 		jackSpriteSheet = new SpriteSheet("res/pictures/jack.png", 32, 32);

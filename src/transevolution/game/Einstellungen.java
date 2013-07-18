@@ -1,5 +1,11 @@
 package transevolution.game;
 
+/**
+ * Einstellungsklasse
+ * FPS
+ * und
+ * Musik
+ */
 import java.awt.Font;
 import java.io.InputStream;
 
@@ -96,7 +102,9 @@ public class Einstellungen extends BasicGameState
 
 		
 	}
-	//Bewegen im Menü mit Pfeiltasten
+	/**
+	 * Bewegen im Menü mit Pfeiltasten
+	 */
 	public void keyReleased(int taste, char c)
 	{
 		if(taste == Input.KEY_DOWN)

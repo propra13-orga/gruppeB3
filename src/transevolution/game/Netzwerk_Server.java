@@ -23,7 +23,9 @@ public class Netzwerk_Server {
 	public static ServerSocket serverSocket;
 	public static String ip = "";
 	public static int port = 2406;
+	@SuppressWarnings("rawtypes")
 	public static JList liste_clients;
+	@SuppressWarnings("rawtypes")
 	public static DefaultListModel liste_clients_model;
 	public static ArrayList<Socket> liste_sockets = new ArrayList<Socket>();
 	public static ArrayList<Integer> liste_client_zustand = new ArrayList<Integer>();
@@ -50,6 +52,7 @@ public class Netzwerk_Server {
 	
 	private static Runnable akzeptieren = new Runnable() {
 		
+		@SuppressWarnings("unchecked")
 		public void run() {		// Dieser Thread startet die beiden folgenden Threads "senden" & "empfangen" direkt mit
 			new Thread(senden).start();
 			new Thread(empfangen).start();
@@ -160,6 +163,7 @@ public class Netzwerk_Server {
 		}
 	};
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) {
 		button_trennen = new JButton();
 		button_trennen.setText("Verbindung Trennen");
